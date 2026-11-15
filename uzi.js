@@ -19,6 +19,16 @@ var U=[['Quân Đoàn','Free Fire','#FFB300','Đã từng tạo lần 1 vào ng�
 fill('cards',U,function(u,i){return '<article class="hc" style="--c:'+u[2]+'"><span class="no">0'+(i+1)+'</span><img class="hl-img" src="'+KIDS[i][1]+'" alt="Logo '+u[0]+' UZI" draggable="false" onerror="this.remove()"><small>'+u[1].toUpperCase()+'</small><h4>'+u[0]+' UZI</h4><p>'+u[3]+'</p><span class="d">THÀNH LẬP // '+u[4]+'</span></article>'});
 [].forEach.call(document.querySelectorAll('.hc'),function(c){c.onmousemove=function(e){var r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;c.style.transform='rotateX('+((.5-y)*16)+'deg) rotateY('+((x-.5)*16)+'deg) translateZ(12px)';c.style.setProperty('--bx',x*100+'%');c.style.setProperty('--by',y*100+'%')};c.onmouseleave=function(){c.style.transform=''}});
 [].forEach.call(document.querySelectorAll('.bc'),function(c){c.onmousemove=function(e){var r=c.getBoundingClientRect();c.style.setProperty('--x',e.clientX-r.left+'px');c.style.setProperty('--y',e.clientY-r.top+'px')}});
+/* Gia Đình UZI: nghiêng 3D nhẹ + hiện lần lượt khi cuộn */
+(function(){
+var bs=[].slice.call(document.querySelectorAll('.bento .bc')),bt=document.querySelector('.bento');
+if(!bt)return;
+if(!RM){bs.forEach(function(c){
+ c.addEventListener('mousemove',function(e){var r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform='perspective(900px) rotateX('+(-y*5)+'deg) rotateY('+(x*5)+'deg)'});
+ c.addEventListener('mouseleave',function(){c.style.transform=''})});
+ if('IntersectionObserver' in window){bs.forEach(function(c,i){c.style.setProperty('--k',i);c.classList.add('pre')});
+  var io=new IntersectionObserver(function(es){if(es[0].isIntersecting){io.disconnect();bs.forEach(function(c){c.classList.add('go')})}},{threshold:.15});io.observe(bt)}}
+})();
 /* Timeline */
 fill('tl',[['00.2026','Lễ ra mắt Quân Đoàn UZI','Khởi đầu của cả gia đình.'],['00.2026','Giao lưu giữa các quân đoàn','Online, chơi chung nhiều game.'],['00.2026','Gặp mặt offline','Anh em gặp nhau, check-in trên địa cầu.'],['00.2026','Mini game nội bộ','Chơi vui, có quà.']],function(e){return '<div class="ev"><time>'+e[0]+'</time><b>'+e[1]+'</b><span>'+e[2]+'</span></div>'});
 /* Coverflow: [tiêu đề, nền tảng, link giả] */
