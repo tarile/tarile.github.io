@@ -21,7 +21,7 @@ fill('cards',U,function(u,i){return '<article class="hc" style="--c:'+u[2]+'"><s
 [].forEach.call(document.querySelectorAll('.bc'),function(c){c.onmousemove=function(e){var r=c.getBoundingClientRect();c.style.setProperty('--x',e.clientX-r.left+'px');c.style.setProperty('--y',e.clientY-r.top+'px')}});
 /* Tự động đổi chỗ 5 thẻ: chỉ dùng translate nên rất nhẹ. Rê chuột / chạm vào thì tạm dừng */
 (function(){
-var box=$('cards'),hold=0,vis=false,last=[-1,-1],EV=4000;
+var box=$('cards'),hold=0,vis=false,last=[-1,-1],EV=1000;
 if(RM||!box.animate)return;
 function swap(){
  var cs=[].slice.call(box.children),n=cs.length,a,b,k=0;
@@ -32,8 +32,8 @@ function swap(){
  cs.forEach(function(c,i){
   var r=c.getBoundingClientRect(),dx=f[i].left-r.left,dy=f[i].top-r.top;
   if(!dx&&!dy)return;
-  c.animate([{translate:dx+'px '+dy+'px'},{translate:'0px 0px'}],{duration:900,easing:'cubic-bezier(.22,.9,.2,1)'});
-  c.classList.add('swp');setTimeout(function(){c.classList.remove('swp')},1000)});
+  c.animate([{translate:dx+'px '+dy+'px'},{translate:'0px 0px'}],{duration:700,easing:'cubic-bezier(.22,.9,.2,1)'});
+  c.classList.add('swp');setTimeout(function(){c.classList.remove('swp')},800)});
 }
 new IntersectionObserver(function(es){vis=es[0].isIntersecting}).observe(box);
 box.addEventListener('mouseenter',function(){hold=1});box.addEventListener('mouseleave',function(){hold=0});
