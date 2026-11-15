@@ -214,3 +214,6 @@ body.uz::after{content:"";position:fixed;inset:-50%;z-index:60;pointer-events:no
 /* Nền section: xanh đen sâu, hơi trong để vẫn thấy sao phía sau */
 #doi{background:radial-gradient(circle at 50% 0%,rgba(19,28,49,.75) 0%,rgba(6,9,17,.35) 100%)}
 
+
+/* Thẻ vừa đổi chỗ: viền sáng theo màu riêng */
+#cards .hc.swp{box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--c) 70%,transparent),inset 0 0 40px -10px color-mix(in srgb,var(--c) 50%,transparent)}

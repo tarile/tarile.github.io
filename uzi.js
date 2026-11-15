@@ -19,6 +19,28 @@ var U=[['Quân Đoàn','Free Fire','#FFB300'],['Clan','Liên Quân Mobile','#00E
 fill('cards',U,function(u,i){return '<article class="hc" style="--c:'+u[2]+'"><span class="no">0'+(i+1)+'</span><img class="hl-img" src="'+KIDS[i][1]+'" alt="Logo '+u[0]+' UZI" draggable="false" onerror="this.remove()"><small>'+u[1].toUpperCase()+'</small><h4>'+u[0]+' UZI</h4><p>'+u[0]+' UZI bên '+u[1]+'</p><span class="d">THÀNH LẬP // 00/00/2026</span></article>'});
 [].forEach.call(document.querySelectorAll('.hc'),function(c){c.onmousemove=function(e){var r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;c.style.transform='rotateX('+((.5-y)*16)+'deg) rotateY('+((x-.5)*16)+'deg) translateZ(12px)';c.style.setProperty('--bx',x*100+'%');c.style.setProperty('--by',y*100+'%')};c.onmouseleave=function(){c.style.transform=''}});
 [].forEach.call(document.querySelectorAll('.bc'),function(c){c.onmousemove=function(e){var r=c.getBoundingClientRect();c.style.setProperty('--x',e.clientX-r.left+'px');c.style.setProperty('--y',e.clientY-r.top+'px')}});
+/* Tự động đổi chỗ 5 thẻ: chỉ dùng translate nên rất nhẹ. Rê chuột / chạm vào thì tạm dừng */
+(function(){
+var box=$('cards'),hold=0,vis=false,last=[-1,-1],EV=4000;
+if(RM||!box.animate)return;
+function swap(){
+ var cs=[].slice.call(box.children),n=cs.length,a,b,k=0;
+ do{a=Math.random()*n|0;b=Math.random()*n|0;k++}while((a===b||(a===last[0]&&b===last[1])||(a===last[1]&&b===last[0]))&&k<30);
+ last=[a,b];
+ var A=cs[a],B=cs[b],f=cs.map(function(c){return c.getBoundingClientRect()}),ph=document.createComment('');
+ box.insertBefore(ph,A);box.insertBefore(A,B);box.insertBefore(B,ph);box.removeChild(ph);
+ cs.forEach(function(c,i){
+  var r=c.getBoundingClientRect(),dx=f[i].left-r.left,dy=f[i].top-r.top;
+  if(!dx&&!dy)return;
+  c.animate([{translate:dx+'px '+dy+'px'},{translate:'0px 0px'}],{duration:900,easing:'cubic-bezier(.22,.9,.2,1)'});
+  c.classList.add('swp');setTimeout(function(){c.classList.remove('swp')},1000)});
+}
+new IntersectionObserver(function(es){vis=es[0].isIntersecting}).observe(box);
+box.addEventListener('mouseenter',function(){hold=1});box.addEventListener('mouseleave',function(){hold=0});
+box.addEventListener('focusin',function(){hold=1});box.addEventListener('focusout',function(){hold=0});
+box.addEventListener('touchstart',function(){hold=1;clearTimeout(box._t);box._t=setTimeout(function(){hold=0},8000)},{passive:true});
+setInterval(function(){if(!hold&&vis&&!document.hidden)swap()},EV);
+})();
 /* Timeline */
 fill('tl',[['00.2026','Lễ ra mắt Quân Đoàn UZI','Khởi đầu của cả gia đình.'],['00.2026','Giao lưu giữa các quân đoàn','Online, chơi chung nhiều game.'],['00.2026','Gặp mặt offline','Anh em gặp nhau, check-in trên địa cầu.'],['00.2026','Mini game nội bộ','Chơi vui, có quà.']],function(e){return '<div class="ev"><time>'+e[0]+'</time><b>'+e[1]+'</b><span>'+e[2]+'</span></div>'});
 /* Coverflow: [tiêu đề, nền tảng, link giả] */
