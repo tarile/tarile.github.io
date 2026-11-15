@@ -3,7 +3,7 @@
 (function(){
 var P=[
  {n:'01',t:'Giới Thiệu',h:'index.html#gioi-thieu',f:'index.html'},
- {n:'02',t:'Quân Đoàn UZI',h:'quan-doan-uzi.html',f:'quan-doan-uzi.html',s:[['5 Quân Đoàn Anh Em','#doi'],['Sự Kiện & Video','#su-kien'],['Giải Đấu & Thành Tích','#giai-dau'],['Luật & Địa Cầu Check-in','#luat'],['Bảng Xếp Hạng','#vinh'],['Gia Nhập','#join']]},
+ {n:'02',t:'Quân Đoàn UZI',h:'quan-doan-uzi.html',f:'quan-doan-uzi.html',s:[['5 Quân Đoàn Gia Đình UZI','#doi'],['Sự Kiện & Video','#su-kien'],['Giải Đấu & Thành Tích','#giai-dau'],['Luật & Địa Cầu Check-in','#luat'],['Bảng Xếp Hạng','#vinh'],['Gia Nhập','#join']]},
  {n:'03',t:'Âm Nhạc',h:'',f:'am-nhac.html'},
  {n:'04',t:'Games',h:'',f:'games.html'},
  {n:'05',t:'Học Tập',h:'',f:'hoc-tap.html'},

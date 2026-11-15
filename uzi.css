@@ -189,3 +189,6 @@ body.uz::after{content:"";position:fixed;inset:-50%;z-index:60;pointer-events:no
 .cube>div::after{content:"";position:absolute;top:-50%;left:-120%;right:auto;width:70%;height:200%;background:linear-gradient(to right,rgba(255,255,255,0) 0%,rgba(255,255,255,.55) 50%,rgba(0,229,255,.25) 80%,rgba(255,255,255,0) 100%);transform:rotate(25deg);animation:crystalShine 3.5s infinite ease-in-out;pointer-events:none;z-index:2}
 @keyframes crystalShine{0%{left:-120%}45%,100%{left:160%}}
 @media(prefers-reduced-motion:reduce){.cube>div::after{animation:none;opacity:0}}
+
+/* Logo trong 5 thẻ quân đoàn */
+.hc .hl-img{display:block;width:112px;height:112px;margin:0 0 auto;object-fit:cover;border:1px solid var(--c);box-shadow:0 0 18px color-mix(in srgb,var(--c) 45%,transparent);clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px));position:relative;z-index:1}
