@@ -192,3 +192,24 @@ body.uz::after{content:"";position:fixed;inset:-50%;z-index:60;pointer-events:no
 
 /* Logo trong 5 thẻ quân đoàn */
 .hc .hl-img{display:block;width:112px;height:112px;margin:0 0 auto;object-fit:cover;border:1px solid var(--c);box-shadow:0 0 18px color-mix(in srgb,var(--c) 45%,transparent);clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px));position:relative;z-index:1}
+
+/* ===== 5 thẻ quân đoàn: kính mờ xanh đêm + đổ màu theo từng quân đoàn ===== */
+#cards .hc{
+  background:
+    radial-gradient(120% 70% at 50% 0%,color-mix(in srgb,var(--c) 22%,transparent) 0%,transparent 65%),
+    linear-gradient(160deg,color-mix(in srgb,var(--c) 15%,rgba(26,35,58,.65)) 0%,rgba(13,18,30,.85) 62%);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  /* clip-path cắt mất border/box-shadow ngoài, nên dùng inset để viền vẫn hiện */
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.08),inset 0 -60px 80px -50px rgba(0,0,0,.55);
+  transition:transform .15s,background .35s,box-shadow .35s;
+}
+#cards .hc:hover{
+  background:
+    radial-gradient(120% 70% at 50% 0%,color-mix(in srgb,var(--c) 34%,transparent) 0%,transparent 70%),
+    linear-gradient(160deg,color-mix(in srgb,var(--c) 22%,rgba(35,48,80,.8)) 0%,rgba(16,22,38,.95) 62%);
+  box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--c) 60%,transparent),inset 0 0 40px -12px color-mix(in srgb,var(--c) 45%,transparent);
+}
+#cards .hc .no{color:rgba(255,255,255,.04)}
+#cards .hc p{color:#b4bccb}
+/* Nền section: xanh đen sâu, hơi trong để vẫn thấy sao phía sau */
+#doi{background:radial-gradient(circle at 50% 0%,rgba(19,28,49,.75) 0%,rgba(6,9,17,.35) 100%)}
