@@ -16,7 +16,7 @@ new IntersectionObserver(function(es,o){es.forEach(function(e){if(!e.isIntersect
 ['c1','c2','c3'].forEach(function(i){var o=new IntersectionObserver(function(es){if(es[0].isIntersecting){o.disconnect();var b=$(i),n=+b.dataset.n,s=null;(function st(t){s=s||t;var p=Math.min((t-s)/1400,1);b.textContent=Math.round(n*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(st)})(performance.now())}});o.observe($(i))});
 /* 5 thẻ hologram */
 var U=[['Quân Đoàn','Free Fire','#FFB300'],['Clan','Liên Quân Mobile','#00E5FF'],['Hội','PUBG','#E2E8F0'],['Hội Nhóm','Play Together','#3D8BFF'],['Liên Đoàn','FC Mobile VN','#C084FC']];
-fill('cards',U,function(u,i){return '<article class="hc" style="--c:'+u[2]+'"><span class="no">0'+(i+1)+'</span><img class="hl-img" src="'+KIDS[i][1]+'" alt="Logo '+u[0]+' UZI" draggable="false" onerror="this.remove()"><small>'+u[1].toUpperCase()+'</small><h4>'+u[0]+' UZI</h4><p>'+u[0]+' UZI bên '+u[1]+'</p><span class="d">THÀNH LẬP // 00/00/2026</span></article>'});
+fill('cards',U,function(u,i){return '<article class="hc" style="--c:'+u[2]+'"><span class="no">0'+(i+1)+'</span><img class="hl-img" src="'+KIDS[i][1]+'" alt="Logo '+u[0]+' UZI" draggable="false" onerror="this.remove()"><small>'+u[1].toUpperCase()+'</small><h4>'+u[0]+' UZI</h4><p>'+u[0]+' UZI bên '+u[1]+'</p><span class="d">THÀNH LẬP // <b>00/00/2026</b></span></article>'});
 [].forEach.call(document.querySelectorAll('.hc'),function(c){c.onmousemove=function(e){var r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;c.style.transform='rotateX('+((.5-y)*16)+'deg) rotateY('+((x-.5)*16)+'deg) translateZ(12px)';c.style.setProperty('--bx',x*100+'%');c.style.setProperty('--by',y*100+'%')};c.onmouseleave=function(){c.style.transform=''}});
 [].forEach.call(document.querySelectorAll('.bc'),function(c){c.onmousemove=function(e){var r=c.getBoundingClientRect();c.style.setProperty('--x',e.clientX-r.left+'px');c.style.setProperty('--y',e.clientY-r.top+'px')}});
 /* Timeline */
@@ -65,4 +65,25 @@ var ws=[],tk=0;'Quân Đoàn mạnh không phải vì thắng nhiều trận, m�
 var evs=[].slice.call(document.querySelectorAll('.ev'));
 function onS(){var vh=innerHeight,r=$('tl').getBoundingClientRect();$('fill').style.height=Math.min(1,Math.max(0,(vh*.6-r.top)/r.height))*100+'%';evs.forEach(function(e){e.classList.toggle('lit',e.getBoundingClientRect().top<vh*.6)});var k=$('kin').getBoundingClientRect(),p=Math.min(1,Math.max(0,(vh*.9-k.top)/(k.height*.8)));ws.forEach(function(w,i){w.style.opacity=.12+.88*Math.min(1,Math.max(0,p*ws.length-i))})}
 addEventListener('scroll',function(){if(!tk){tk=1;requestAnimationFrame(function(){tk=0;onS()})}},{passive:true});onS();
+
+/* ===== NÂNG CẤP #doi: trượt lần lượt, giải mã chữ, bụi sáng ===== */
+(function(){
+var sec=$('doi'),box=$('cards'),cs=[].slice.call(document.querySelectorAll('#cards .hc')),ds=[].slice.call(document.querySelectorAll('#cards .hc .d')),SC='ABCDEFGHJKLMNPQRSTUVWXYZ0123456789/#@$%&*';
+ds.forEach(function(el){el._h=el.innerHTML;el._t=el.textContent});
+function scrd(el){if(RM||el._s)return;var n=0,t=el._t;el._s=setInterval(function(){n++;if(n>=14){clearInterval(el._s);el._s=0;el.innerHTML=el._h;return}var k=Math.floor(t.length*n/14);el.textContent=t.split('').map(function(c,j){return j<k||/[\s\/]/.test(c)?c:SC.charAt(Math.random()*SC.length|0)}).join('')},40)}
+cs.forEach(function(c,i){c.addEventListener('mouseenter',function(){scrd(ds[i])})});
+if(!RM&&'IntersectionObserver' in window){
+ cs.forEach(function(c,i){c.style.setProperty('--k',i);c.classList.add('pre')});
+ var io=new IntersectionObserver(function(es){if(es[0].isIntersecting){io.disconnect();cs.forEach(function(c,i){c.classList.add('go');setTimeout(function(){scrd(ds[i])},i*100+300)})}},{threshold:.15});
+ io.observe(box);
+}
+/* Bụi sáng bay lơ lửng */
+var cv=$('pt');if(!cv||RM)return;
+var x=cv.getContext('2d'),P=[],W=0,H=0,vis=false,i,CL=['56,189,248','124,58,237','255,255,255','192,132,252'];
+function rs(){W=cv.width=sec.offsetWidth;H=cv.height=sec.offsetHeight}
+rs();addEventListener('resize',rs);setTimeout(rs,1200);
+for(i=0;i<70;i++)P.push([Math.random(),Math.random(),Math.random()*1.5+.6,Math.random()*.08+.04,Math.random()*6.3,CL[i%4]]);
+new IntersectionObserver(function(es){vis=es[0].isIntersecting}).observe(sec);
+(function f(t){requestAnimationFrame(f);if(!vis)return;x.clearRect(0,0,W,H);P.forEach(function(p){p[1]-=p[3]/60;if(p[1]<-.02){p[1]=1.02;p[0]=Math.random()}var a=.25+.55*Math.abs(Math.sin(t/900+p[4]));x.fillStyle='rgba('+p[5]+','+a+')';x.beginPath();x.arc(p[0]*W,p[1]*H,p[2],0,6.3);x.fill();x.fillStyle='rgba('+p[5]+','+a*.15+')';x.beginPath();x.arc(p[0]*W,p[1]*H,p[2]*4,0,6.3);x.fill()})})(0);
+})();
 })();
