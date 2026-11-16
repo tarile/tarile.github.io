@@ -218,7 +218,7 @@ function hl(s){return esc(s.normalize('NFC')).replace(RE,function(m,a,p){
  return a+'<span class="cap'+c+'">'+p+'</span>'})}
 function show(k,b){
  [].forEach.call($('tt').children,function(x){x.classList.toggle('on',x===b)});
- var a=T[k],h='<div class="rc" style="--i:0">$ cat '+a[1]+'<i class="cu"></i></div>',n=1;
+ var a=T[k],h='<div class="rc" style="--i:0">'+k+'<i class="cu"></i></div>',n=1;
  a.slice(2).forEach(function(l){var hd=typeof l!=='string',t=hd?l[1]:l,m=!hd&&t.match(/^(\[\d+\])\s?([\s\S]*)$/);
   h+='<div class="rl'+(hd?' rg':'')+'" style="--i:'+(n++)+'">'+(m?'<b class="ix">'+m[1]+'</b> '+hl(m[2]):hl(t))+'</div>'});
  tp.className=a[0];tp.innerHTML=h;rs.classList.remove('go');void rs.offsetWidth;if(!RM)rs.classList.add('go')}
