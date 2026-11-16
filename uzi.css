@@ -449,3 +449,50 @@ body.uz::after{content:"";position:fixed;inset:-50%;z-index:60;pointer-events:no
 @keyframes capig{from{filter:brightness(3.2) drop-shadow(0 0 16px #fff)}to{filter:brightness(1) drop-shadow(0 0 6px var(--g))}}
 @keyframes capsh{from{background-position:150% 0}to{background-position:-50% 0}}
 @media(prefers-reduced-motion:reduce){.term::before,.term::after,.rs,.rl,.rl::before,.cap,.cu{animation:none}.rl::before{display:none}}
+
+/* ===== GIẢI ĐẤU KHÁC: KHO DỮ LIỆU "ĐANG CẬP NHẬT" ===== */
+.vl{--a:#00E5FF;--b:#8A2BE2;position:relative;overflow:hidden;padding:30px 18px 22px;text-align:center;isolation:isolate;
+ background:radial-gradient(circle at 50% 28%,rgba(0,229,255,.10),rgba(10,13,20,.96) 68%);
+ box-shadow:inset 0 0 0 1px rgba(255,255,255,.07);
+ clip-path:polygon(16px 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%,0 16px);
+ transition:transform .4s cubic-bezier(.23,1,.32,1),box-shadow .4s,background .4s}
+.vl::before,.vl::after{content:"";position:absolute;width:22px;height:1px;background:var(--a);opacity:.75;transition:background .3s}
+.vl::before{top:7px;left:-4px;transform:rotate(-45deg)}.vl::after{bottom:7px;right:-4px;transform:rotate(-45deg)}
+.vl:hover{--a:#FFC400;--b:#FF9E00;transform:translateY(-6px);box-shadow:inset 0 0 0 1px rgba(255,196,0,.5),inset 0 0 30px rgba(138,43,226,.14),0 18px 40px -14px rgba(255,196,0,.28)}
+/* tia quét ngang định kỳ */
+.vl-bm{position:absolute;top:0;bottom:0;left:0;width:45%;z-index:-1;pointer-events:none;background:linear-gradient(100deg,transparent,rgba(0,229,255,.10) 55%,rgba(255,255,255,.18) 50%,transparent);transform:translateX(-120%) skewX(-18deg);animation:vlbm 6s ease-in-out infinite;animation-delay:calc(var(--n)*1.6s)}
+@keyframes vlbm{0%,55%{transform:translateX(-120%) skewX(-18deg)}100%{transform:translateX(320%) skewX(-18deg)}}
+/* mặt đồng hồ radar + ổ khoá */
+.vl-dial{position:relative;width:104px;height:104px;margin:0 auto 18px;display:grid;place-items:center}
+.vl-dial>i{position:absolute;border-radius:50%}
+.vl-r1{inset:0;border:1px dashed color-mix(in srgb,var(--a) 55%,transparent);animation:vlsp 16s linear infinite}
+.vl-r2{inset:11px;border:1.5px solid transparent;border-top-color:var(--a);border-bottom-color:var(--b);animation:vlsp 6s linear infinite reverse;transition:border-color .3s}
+.vl:hover .vl-r2{animation-duration:1.8s}
+.vl-sw{inset:20px;background:conic-gradient(from 0deg,color-mix(in srgb,var(--a) 50%,transparent),transparent 30%);-webkit-mask:radial-gradient(circle,#000 62%,transparent 63%);mask:radial-gradient(circle,#000 62%,transparent 63%);animation:vlsp 3.4s linear infinite}
+.vl-dial::before{content:"";position:absolute;inset:20px;border-radius:50%;background:radial-gradient(circle,rgba(8,12,20,.9) 55%,transparent 56%);box-shadow:0 0 22px color-mix(in srgb,var(--a) 35%,transparent);animation:vlpl 2.6s ease-in-out infinite}
+.vl-b{width:5px;height:5px;background:#fff;box-shadow:0 0 8px var(--a);opacity:0;animation:vlpg 3.4s ease-out infinite}
+.vl-b.b1{top:22px;right:24px}.vl-b.b2{bottom:26px;left:22px;animation-delay:1.7s}
+.vl-dial svg{position:relative;width:34px;height:34px;stroke:var(--a);filter:drop-shadow(0 0 6px color-mix(in srgb,var(--a) 70%,transparent));transition:stroke .3s}
+.vl-sh{transition:transform .35s cubic-bezier(.3,1.6,.5,1)}
+.vl:hover .vl-sh{transform:translateY(-3px) rotate(-14deg);transform-origin:16px 11px}
+@keyframes vlsp{to{transform:rotate(360deg)}}
+@keyframes vlpl{50%{transform:scale(.93);opacity:.8}}
+@keyframes vlpg{0%{transform:scale(.4);opacity:0}8%{opacity:1}40%{transform:scale(2.4);opacity:0}100%{opacity:0}}
+/* chữ */
+.vl-tag{display:inline-block;margin-bottom:10px;padding:3px 10px;font:600 .68rem var(--m);letter-spacing:.14em;color:var(--a);background:color-mix(in srgb,var(--a) 10%,transparent);border:1px solid color-mix(in srgb,var(--a) 30%,transparent);transition:all .3s}
+.vl-t{margin:0 0 6px;font:800 1.02rem var(--f);letter-spacing:.06em;text-transform:uppercase;
+ background:linear-gradient(100deg,#fff 0 40%,var(--a) 50%,#fff 60% 100%) 0 0/260% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:vlsh 4s linear infinite;animation-delay:calc(var(--n)*-1.3s)}
+@keyframes vlsh{from{background-position:150% 0}to{background-position:-50% 0}}
+.vl-s{margin:0 0 16px;font-size:.82rem;color:var(--mut)}
+/* sóng tín hiệu + thanh tiến trình bất định */
+.vl-bars{display:flex;justify-content:center;align-items:flex-end;gap:4px;height:14px;margin-bottom:12px}
+.vl-bars span{width:3px;height:100%;background:var(--a);border-radius:1px;transform-origin:bottom;animation:vlwv 1.2s ease-in-out infinite}
+.vl-bars span:nth-child(2){animation-delay:.2s}.vl-bars span:nth-child(3){animation-delay:.4s}.vl-bars span:nth-child(4){animation-delay:.1s}.vl-bars span:nth-child(5){animation-delay:.3s}
+@keyframes vlwv{0%,100%{transform:scaleY(.3);opacity:.45}50%{transform:scaleY(1);opacity:1}}
+.vl-pg{position:relative;height:2px;margin:0 auto 12px;max-width:150px;overflow:hidden;background:rgba(255,255,255,.08)}
+.vl-pg i{position:absolute;top:0;bottom:0;width:38%;background:linear-gradient(90deg,transparent,var(--a),var(--b));animation:vlpg2 2.2s ease-in-out infinite}
+@keyframes vlpg2{from{left:-40%}to{left:102%}}
+.vl-st{display:inline-flex;align-items:center;gap:7px;font:600 .66rem var(--m);letter-spacing:.16em;color:#7d8798}
+.vl-st i{width:6px;height:6px;border-radius:50%;background:var(--a);box-shadow:0 0 8px var(--a);animation:vlbl 1.4s ease-in-out infinite}
+@keyframes vlbl{50%{opacity:.25}}
+@media(prefers-reduced-motion:reduce){.vl-bm,.vl-r1,.vl-r2,.vl-sw,.vl-dial::before,.vl-b,.vl-t,.vl-bars span,.vl-pg i,.vl-st i{animation:none}.vl-b{display:none}}

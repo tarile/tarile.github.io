@@ -59,7 +59,9 @@ if(!RM&&'IntersectionObserver' in window){t.classList.add('arm');
 else t.classList.add('tk-on','open')})();
 /* Huy hiệu */
 function bd(id,a,ic){fill(id,a,function(t){return '<article class="bd"><div class="hex">'+ic+'</div><h4>'+t[0]+'</h4><p>'+t[1]+'</p></article>'})}
-bd('bo',[['Giải đấu khác #1','Tên giải · Kết quả · Năm'],['Giải đấu khác #2','Tên giải · Kết quả · Năm'],['Giải đấu khác #3','Tên giải · Kết quả · Năm']],'⚔');
+/* Giải đấu khác: thẻ "Đang Cập Nhật" kiểu kho dữ liệu niêm phong (radar + ổ khoá). Khi có dữ liệu thật: thay mảng VL bên dưới bằng [slot, tên giải, kết quả · năm] */
+var VL=[['ARCHIVE // SLOT 01','Dữ liệu đang cập nhật','Hồ sơ giải đấu đang được đồng bộ...'],['ARCHIVE // SLOT 02','Dữ liệu đang cập nhật','Sắp công bố thành tích tiếp theo...'],['ARCHIVE // SLOT 03','Dữ liệu đang cập nhật','Đang chờ xác thực từ Ban Quản Trị...']];
+fill('bo',VL,function(v,i){return '<article class="vl" style="--n:'+i+'"><i class="vl-bm"></i><div class="vl-dial" aria-hidden="true"><i class="vl-r1"></i><i class="vl-r2"></i><i class="vl-sw"></i><i class="vl-b b1"></i><i class="vl-b b2"></i><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path class="vl-sh" d="M8 11V7.5a4 4 0 0 1 8 0V11"/><circle cx="12" cy="16" r="1.2"/></svg></div><span class="vl-tag">'+v[0]+'</span><h4 class="vl-t">'+v[1]+'</h4><p class="vl-s">'+v[2]+'</p><div class="vl-bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div><div class="vl-pg" aria-hidden="true"><i></i></div><span class="vl-st"><i></i>STATUS: STANDBY</span></article>'});
 /* Thành tích: huy hiệu lục giác 2 tầng + ngàm góc + đếm số */
 var ACH=[
  ['#E5B85C','LEGACY // 01','<path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"/>','Thuộc Top Quân Đoàn Lâu Đời Nhất','Sau bao nhiêu năm kể từ <strong>2020</strong>, trải qua nhiều lần đổi tên quân đoàn, tuyển và chọn lọc thành viên <strong>Quân Đoàn UZI</strong> vẫn duy trì vững mạnh đến ngày hôm nay','<span>EST.</span><b class="ach-n" data-s="2000" data-t="2020">2020</b><span>— BỀN VỮNG</span>'],
