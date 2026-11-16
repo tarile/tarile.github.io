@@ -402,3 +402,50 @@ body.uz::after{content:"";position:fixed;inset:-50%;z-index:60;pointer-events:no
 @media(max-width:960px){#ba .ach-net{display:none}}
 @media(prefers-reduced-motion:reduce){#ba .ach-ring.go,#ba .ach-card.pop{animation:none}#ba .ach-emb,#ba .ach-net{display:none}}
 
+
+/* ===== TERMINAL LUẬT & QUYỀN LỢI ===== */
+@property --ta{syntax:"<angle>";inherits:false;initial-value:0deg}
+.term{position:relative;isolation:isolate;overflow:hidden;background:rgba(7,10,16,.88)}
+/* nền: lưới chấm + hai vầng cực quang trôi chậm */
+.term::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+ background:radial-gradient(55% 90% at 20% 0,rgba(0,229,255,.12),transparent 70%) 0 0/200% 200%,radial-gradient(50% 80% at 80% 100%,rgba(255,196,0,.09),transparent 70%) 0 0/200% 200%,radial-gradient(rgba(0,229,255,.17) 1px,transparent 1.3px) 0 0/18px 18px;
+ animation:taur 16s ease-in-out infinite alternate}
+@keyframes taur{to{background-position:100% 100%,0 0,9px 9px}}
+/* viền sáng xoay quanh bảng */
+.term::before{content:"";position:absolute;inset:0;z-index:4;pointer-events:none;padding:1px;
+ background:conic-gradient(from var(--ta),transparent 0 62%,rgba(0,229,255,.9) 76%,rgba(255,255,255,.95) 82%,rgba(255,196,0,.9) 88%,transparent 96%);
+ -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);
+ animation:tspin 6s linear infinite}
+@keyframes tspin{to{--ta:360deg}}
+/* radar quét dọc mỗi lần đổi tab */
+.rs{position:absolute;left:0;right:0;top:-80px;height:80px;z-index:3;pointer-events:none;opacity:0;mix-blend-mode:screen;background:linear-gradient(180deg,transparent,rgba(0,229,255,.14) 70%,rgba(255,255,255,.4) 98%,transparent)}
+.rs.go{animation:rsd .95s cubic-bezier(.45,0,.25,1)}
+@keyframes rsd{0%{top:-80px;opacity:1}85%{opacity:1}100%{top:100%;opacity:0}}
+.term .bar,.term pre{position:relative;z-index:1}
+.term pre{white-space:normal}
+/* dòng chữ: quét laser từ trái sang phải để lộ chữ, theo nhịp thác đổ */
+.rl,.rc{position:relative;padding:3px 10px;margin:0 0 4px;border-left:2px solid transparent;color:#d7e8a0;
+ animation:rlin .6s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i)*70ms);transition:transform .25s,background .25s,border-color .25s}
+.rc{color:#fff;margin-bottom:12px}
+.rl::before{content:"";position:absolute;top:0;bottom:0;left:0;width:2px;background:#9ff6ff;box-shadow:0 0 10px 2px #00E5FF;pointer-events:none;animation:rlsc .6s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i)*70ms)}
+@keyframes rlin{from{clip-path:inset(0 100% 0 0);filter:brightness(2.4)}to{clip-path:inset(0);filter:none}}
+@keyframes rlsc{0%{left:0;opacity:1}80%{opacity:1}100%{left:100%;opacity:0}}
+.rl:hover{transform:translateX(8px);background:linear-gradient(90deg,rgba(0,229,255,.09),transparent);border-left-color:#00E5FF}
+.cu{display:inline-block;width:.55em;height:1.05em;margin-left:6px;vertical-align:-.15em;background:#00E5FF;animation:cub .9s steps(2) infinite}
+@keyframes cub{50%{opacity:0}}
+.ix{color:#00E5FF;font-weight:700}
+.rg{margin-top:14px;padding:6px 12px;color:#fff;font-weight:700;background:linear-gradient(90deg,rgba(0,229,255,.16),transparent);border-left-color:#00E5FF}
+.rg:first-of-type{margin-top:0}
+/* CHỮ IN HOA: nền gradient quét bóng liên tục + bốc sáng khi dòng hiện ra */
+.cap{--c1:#FFC400;--c2:#FFF3B0;--g:rgba(255,196,0,.55);font-weight:800;letter-spacing:.3px;
+ background:linear-gradient(100deg,var(--c1) 0 38%,var(--c2) 50%,var(--c1) 62% 100%) 0 0/260% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;
+ filter:drop-shadow(0 0 6px var(--g));
+ animation:capig .8s ease-out both,capsh 3.6s linear infinite;animation-delay:calc(var(--i,0)*70ms + 380ms),calc(var(--i,0)*-.45s)}
+.warn{--c1:#FF4D6D;--c2:#FFE0E6;--g:rgba(255,77,109,.65)}
+.t3 .cap{--c1:#00E5FF;--c2:#E3FDFF;--g:rgba(0,229,255,.55)}
+.t3 .cap.vip{--c1:#FFC400;--c2:#FFF3B0;--g:rgba(255,196,0,.55)}
+.t3 .cap.prem{--c1:#C084FC;--c2:#F5E9FF;--g:rgba(192,132,252,.7)}
+.rl:hover .cap{filter:drop-shadow(0 0 11px var(--g))}
+@keyframes capig{from{filter:brightness(3.2) drop-shadow(0 0 16px #fff)}to{filter:brightness(1) drop-shadow(0 0 6px var(--g))}}
+@keyframes capsh{from{background-position:150% 0}to{background-position:-50% 0}}
+@media(prefers-reduced-motion:reduce){.term::before,.term::after,.rs,.rl,.rl::before,.cap,.cu{animation:none}.rl::before{display:none}}

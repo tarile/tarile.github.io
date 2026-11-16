@@ -169,10 +169,60 @@ if(can){cards.forEach(function(c){c.classList.add('pre')});
  cards.forEach(function(c){so.observe(c)})}
 else cards.forEach(function(c){c._on=true});
 })();
-/* Terminal giải mã chữ */
-var CH='ABCDEFGHJKLMNPQRSTUVWXYZ0123456789/#@$%&*',R={'Luật Quân Đoàn':['luat-quan-doan.txt','Tôn trọng mọi thành viên, không chửi bậy, không công kích cá nhân.','Đổi tên theo quy định của quân đoàn khi vào nhóm.','Không dùng phần mềm gian lận, không phá hoại giải đấu.','Hoạt động đều đặn, báo trước khi vắng lâu.','Nghe theo điều hành của quản trị viên.'],'Luật Luyện Phòng':['luat-luyen-phong.txt','Vào phòng đúng giờ hẹn, đủ người mới bắt đầu.','Giữ liên lạc trong trận, không troll đồng đội.','Không rời phòng giữa chừng khi chưa báo.','Thua thì rút kinh nghiệm, không đổ lỗi.'],'Quyền Lợi':['quyen-loi.txt','Tham gia mọi sự kiện, giải đấu nội bộ.','Tích Danh Dự theo hoạt động và thành tích.','Giao lưu, luyện tập cùng các quân đoàn anh em.','Góp ý, đề xuất ý tưởng cho cộng đồng.']},tp=$('tp');
-function scr(t){clearInterval(tp._t);if(RM){tp.textContent=t;return}var k=0;tp._t=setInterval(function(){tp.textContent=t.slice(0,k)+t.slice(k,k+14).replace(/[^\n ]/g,function(){return CH[Math.random()*CH.length|0]});k+=4;if(k>t.length+14){clearInterval(tp._t);tp.textContent=t}},24)}
-Object.keys(R).forEach(function(k,i){var b=document.createElement('button');b.type='button';b.textContent=k;b.onclick=function(){[].forEach.call($('tt').children,function(x){x.classList.toggle('on',x===b)});var a=R[k];scr('$ cat '+a[0]+'\n\n'+a.slice(1).map(function(l,j){return '['+pad(j+1).slice(1)+'] '+l}).join('\n')+'\n\n# Bản nháp, thay bằng luật chính thức.')};$('tt').appendChild(b);if(!i)b.onclick()});
+/* Terminal luật: tự nhận diện cụm IN HOA để tô màu + chữ "lock-on" (quét laser rồi bốc sáng); bảng nền có viền sáng xoay + cực quang + radar quét khi đổi tab */
+var T={'Luật Quân Đoàn':['t1','luat-quan-doan.txt',
+'[1] KHÔNG PHÂN BIỆT vùng miền, giới tính, giàu nghèo, tuổi tác',
+'[2] KHÔNG TAG @mọi người => chỉ tag người rủ chơi cùng, ví dụ: @Tari Le',
+'[3] THÀNH VIÊN VIP thì đổi tên theo cú pháp: UZI + Kí Tự Khoảng Cách + TÊN FULL IN HOA',
+'[4] XIN OFF QUÁ LÂU khoảng hơn 10 ngày thì nhớ báo trước cho Chủ QĐ',
+'[5] Nên tương tác trong box nhiều để anh em còn biết mình là ai',
+'[6] TUYỆT ĐỐI KHÔNG CHAT TRONG BOX THÔNG BÁO',
+'[7] LUYỆN PHÒNG FF sẽ có khi Chủ QĐ THÔNG BÁO, anh em bình chọn trước sẽ ưu tiên slot để luyện, lâu lâu có Giao Lưu Quân Đoàn thì chỉ tham gia khi có Chủ QĐ duyệt',
+'[8] Chơi Luyện Phòng FF thì áp dụng theo LUẬT LUYỆN PHÒNG FF GIÁP / HS'],
+'Luật Luyện Phòng':['t2','luat-luyen-phong.txt',
+'[1] CẤM HACK, CHEAT, TOOLS',
+'[2] KO CỨU, KO NHẢY VÀO KEO TRÒN, CẤM ĐỤC KEO [trừ trường hợp kẹt keo để đi lại], CẤM LEO NÓC',
+'[3] CẤM SPAM KEO LÀM KẸT GÓC KHÔNG ĐI ĐƯỢC, KỂ CẢ CHẶN BO CUỐI',
+'[4] CẤM XÀI KỸ NĂNG CHỦ ĐỘNG [TRỪ ALOK]',
+'[5] CẤM GÂY WAR, CẤM XÀI HÀNH ĐỘNG KHI TEAM ĐỊCH [được xài với đồng đội và người xem]',
+'[6] SAI LUẬT THÌ CẤM PHÒNG 1 NGÀY, QUA 24H MỚI ĐƯỢC CHƠI TIẾP',
+'[7] BẤT KỲ AI XÀI HACK, CHEAT, TOOLS => BỊ KICK VĨNH VIỄN'],
+'Quyền Lợi Thành Viên':['t3','quyen-loi.txt',
+['h','Thành Viên Bình Thường: [Điều kiện: áp dụng ở Quân Đoàn FreeFire]'],
+'[1] Vào QĐ FF chưa đổi tên theo QĐ UZI hoặc Đổi Sai Mẫu QĐ UZI',
+'[2] Chỉ được vào box chat + box thông báo UZI + gắn biệt danh là No Name + Kí Tự đầu tiên Tên Game Hiện Tại',
+['h','Thành Viên VIP: [Điều kiện: áp dụng mọi game thuộc QĐ UZI]'],
+'[1] Đổi tên theo QĐ UZI [áp dụng game FF] [Game Khác thuộc QĐ UZI thì không cần đổi tên, đổi thì thuộc thành viên PREMIUM]',
+'[2] Được vào box chat + box thông báo UZI + gắn biệt danh đẹp',
+'[3] Được tham gia đú trend cùng anh em QĐ UZI',
+'[4] Được thiết kế tên lên web',
+'[5] Được tham gia sự kiện của Quân Đoàn',
+'[6] Được tham gia đại diện QĐ UZI bắn giải cộng đồng đa thể loại game',
+['h','Thành Viên PREMIUM:'],
+'{Điều Kiện được xét theo 1 trong 2:',
+'[1] Vào QĐ FF đã đổi tên đúng mẫu + Vào QĐ game khác của QĐ UZI đã đổi tên đúng mẫu',
+'[2] Vào QĐ UZI ở 2 game khác Free Fire + Đổi tên đúng mẫu}',
+['h','Được Quyền Lợi:'],
+'[1] Quyền hạn như VIP',
+'[2] Được thiết kế riêng bản thân lên web của QĐ',
+'[3] Được xem xét điều kiện làm Kì Cựu QĐ UZI [nếu đủ bản lĩnh]',
+'[4] Được ưu tiên slot đầu về đú trend, đấu giải, custom',
+'[5] Được Chủ QĐ để ý, nâng đỡ nhiều hơn và chơi cùng nhiều hơn']},
+tp=$('tp'),rs=document.createElement('i'),
+TK='(?=[\\p{Lu}\\p{N}]*\\p{Lu})[\\p{Lu}\\p{N}]{2,}',
+RE=new RegExp('(^|[^\\p{L}\\p{N}])('+TK+'(?:(?:[ ]+(?:[/+][ ]+)?|,[ ]+)'+TK+')*)(?![\\p{L}\\p{N}])','gu');
+rs.className='rs';rs.setAttribute('aria-hidden','true');tp.parentNode.appendChild(rs);
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function hl(s){return esc(s.normalize('NFC')).replace(RE,function(m,a,p){
+ var c=/CẤM|(^| )KO( |$)|KICK|TUYỆT ĐỐI|SAI LUẬT/.test(p)?' warn':/PREMIUM/.test(p)?' prem':/VIP/.test(p)?' vip':'';
+ return a+'<span class="cap'+c+'">'+p+'</span>'})}
+function show(k,b){
+ [].forEach.call($('tt').children,function(x){x.classList.toggle('on',x===b)});
+ var a=T[k],h='<div class="rc" style="--i:0">$ cat '+a[1]+'<i class="cu"></i></div>',n=1;
+ a.slice(2).forEach(function(l){var hd=typeof l!=='string',t=hd?l[1]:l,m=!hd&&t.match(/^(\[\d+\])\s?([\s\S]*)$/);
+  h+='<div class="rl'+(hd?' rg':'')+'" style="--i:'+(n++)+'">'+(m?'<b class="ix">'+m[1]+'</b> '+hl(m[2]):hl(t))+'</div>'});
+ tp.className=a[0];tp.innerHTML=h;rs.classList.remove('go');void rs.offsetWidth;if(!RM)rs.classList.add('go')}
+Object.keys(T).forEach(function(k,i){var b=document.createElement('button');b.type='button';b.textContent=k;b.onclick=function(){show(k,b)};$('tt').appendChild(b);if(!i)b.onclick()});
 /* Địa cầu 3D check-in */
 (function(){var cv=$('gl'),c=cv.getContext('2d'),R=210,C=280,D=[],T=.4,ph=-106*Math.PI/180,hov=0,t=0,K='uziGlobe',mine=[],i,y,r,a;cv.width=cv.height=1120;c.scale(2,2);
 for(i=0;i<900;i++){y=1-2*(i+.5)/900;r=Math.sqrt(1-y*y);a=i*2.39996;D.push([Math.cos(a)*r,y,Math.sin(a)*r])}
