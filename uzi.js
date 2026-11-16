@@ -225,36 +225,73 @@ function show(k,b){
   h+='<div class="rl'+(hd?' rg':'')+'" style="--i:'+(n++)+'">'+(m?'<b class="ix">'+m[1]+'</b> '+hl(m[2]):hl(t))+'</div>'});
  tp.className=a[0];tp.innerHTML=h;rs.classList.remove('go');void rs.offsetWidth;if(!RM)rs.classList.add('go')}
 Object.keys(T).forEach(function(k,i){var b=document.createElement('button');b.type='button';b.textContent=k;b.onclick=function(){show(k,b)};$('tt').appendChild(b);if(!i)b.onclick()});
-/* Chòm sao Thần Long: 63 vì sao = 63 tỉnh thành. Chỉ dùng canvas + Web Audio tự tổng hợp, không ảnh, không mp3, không thư viện ngoài nên không dính bản quyền. */
+/* Chòm sao Thần Long 16:9: UZI – THE DRAGON CONSTELLATION (63 tỉnh thành trước 2025 + Hoàng Sa & Trường Sa) */
 (function(){
 var cv=$('dr');if(!cv)return;
-var c=cv.getContext('2d'),sky=$('dgSky'),hud=$('dgHud'),W=600,H=760,K='uziHome';
-/* ===== SỬA SỐ ANH EM Ở ĐÂY (hiện là số mẫu, tên tỉnh phải viết đúng như trong NAMES) ===== */
+var c=cv.getContext('2d'),sky=$('dgSky'),hud=$('dgHud'),W=1280,H=720,K='uziHome';
+
+/* ===== DỮ LIỆU SỐ ANH EM MỖI TỈNH (Sửa trực tiếp tại đây) ===== */
 var MB={'TP.HCM':32,'Hà Nội':27,'Cần Thơ':18,'Đà Nẵng':15,'Đồng Nai':11,'Bình Dương':10,'Hải Phòng':9,'An Giang':9,'Khánh Hòa':9,'Nghệ An':8,'Tiền Giang':8,'Thanh Hóa':7,'Đồng Tháp':7,'Đắk Lắk':7,'Kiên Giang':6,'Vĩnh Long':6,'Lâm Đồng':6,'Quảng Ninh':6,'Quảng Nam':6,'Sóc Trăng':5,'Long An':5,'Cà Mau':5,'Bến Tre':5,'Thừa Thiên Huế':5,'Gia Lai':4,'Thái Nguyên':4,'Trà Vinh':4,'Bình Định':4,'Bạc Liêu':3,'Hậu Giang':3};
-/* 63 tên, xếp từ Bắc xuống Nam; mỗi vì sao nhận tên theo độ cao của nó trên thân rồng */
-var NAMES=['Hà Giang','Cao Bằng','Lào Cai','Lai Châu','Điện Biên','Sơn La','Yên Bái','Bắc Kạn','Tuyên Quang','Lạng Sơn','Phú Thọ','Thái Nguyên','Bắc Giang','Quảng Ninh','Vĩnh Phúc','Hòa Bình','Hà Nội','Bắc Ninh','Hải Dương','Hải Phòng','Hưng Yên','Hà Nam','Thái Bình','Nam Định','Ninh Bình','Thanh Hóa','Nghệ An','Hà Tĩnh','Quảng Bình','Quảng Trị','Thừa Thiên Huế','Đà Nẵng','Quảng Nam','Kon Tum','Quảng Ngãi','Gia Lai','Bình Định','Đắk Lắk','Phú Yên','Đắk Nông','Khánh Hòa','Lâm Đồng','Ninh Thuận','Bình Phước','Bình Thuận','Tây Ninh','Bình Dương','Đồng Nai','TP.HCM','Long An','Bà Rịa - Vũng Tàu','Tiền Giang','Đồng Tháp','Bến Tre','An Giang','Vĩnh Long','Cần Thơ','Trà Vinh','Hậu Giang','Sóc Trăng','Kiên Giang','Bạc Liêu','Cà Mau'];
-var AMP=1.4,T=0,last=0,raf=0,vis=false,lastPh=-1,roarT=-1,breathT=-1,qB=-1,rw=[],P=[],HV=-1,SEL=-1,HOME='',i,j,sc=1,snd=false;
+
+/* Danh sách 63 tỉnh, thành trước năm 2025 */
+var NAMES=['Hà Nội','TP.HCM','Cần Thơ','Đà Nẵng','Hải Phòng','An Giang','Bà Rịa - Vũng Tàu','Bắc Giang','Bắc Kạn','Bạc Liêu','Bắc Ninh','Bến Tre','Bình Định','Bình Dương','Bình Phước','Bình Thuận','Cà Mau','Cao Bằng','Đắk Lắk','Đắk Nông','Điện Biên','Đồng Nai','Đồng Tháp','Gia Lai','Hà Giang','Hà Nam','Hà Tĩnh','Hải Dương','Hậu Giang','Hòa Bình','Hưng Yên','Khánh Hòa','Kiên Giang','Kon Tum','Lai Châu','Lâm Đồng','Lạng Sơn','Lào Cai','Long An','Nam Định','Nghệ An','Ninh Bình','Ninh Thuận','Phú Thọ','Phú Yên','Quảng Bình','Quảng Nam','Quảng Ngãi','Quảng Ninh','Quảng Trị','Sóc Trăng','Sơn La','Tây Ninh','Thái Bình','Thái Nguyên','Thanh Hóa','Thừa Thiên Huế','Tiền Giang','Trà Vinh','Tuyên Quang','Vĩnh Long','Vĩnh Phúc','Yên Bái'];
+
+var T=0,last=0,raf=0,vis=false,lastPh=-1,roarT=-1,breathT=-1,qB=-1,rw=[],P=[],SH=[],HV=-1,SEL=-1,HOME='',i,sc=1,snd=false;
 try{HOME=localStorage.getItem(K)||''}catch(e){}
-/* Thân rồng: đường cong chữ S, đầu ở phía Bắc, đuôi ở phía Nam */
-function spine(t,w){var e=Math.min(1,t*5),x=300+128*Math.sin(6.28318*t*1.18+.5)*(1-.4*t)*e+t*18*AMP*Math.sin(w*2.2-t*8),y=125+585*t+t*5*AMP*Math.cos(w*1.7-t*6);return[x,y]}
-var HEAD=[[95,-28],[60,-42],[32,-26],[8,-70],[-30,-84],[62,2],[28,14],[128,-4],[112,40]]; /* mõm, mũi, mắt, sừng 1, sừng 2, hàm, cằm, râu 1, râu 2 */
-var LEG=[[14,-36,22],[14,-62,56],[14,32,20],[14,56,54],[28,-34,22],[28,-60,54],[28,34,20],[28,58,52]];
-var ST=[],E=[],mq={};
-for(i=0;i<46;i++)ST.push({t:i/45,ox:0,oy:0});
-HEAD.forEach(function(h){ST.push({t:0,ox:h[0],oy:h[1]})});
-LEG.forEach(function(l){ST.push({t:l[0]/45,ox:l[1],oy:l[2]})});
-for(i=0;i<45;i++)E.push([i,i+1,1]);
-[[0,52],[52,51],[51,46],[46,47],[47,48],[48,49],[49,50],[48,0],[46,53],[51,54],[14,55],[55,56],[14,57],[57,58],[28,59],[59,60],[28,61],[61,62]].forEach(function(e){E.push([e[0],e[1],1])});
-for(i=2;i<42;i+=2)E.push([i,i+3,0]); /* nét vảy mờ dọc thân */
-/* gán tên: vì sao càng ở phía Bắc càng nhận tên tỉnh phía Bắc */
-(function(){var o=ST.map(function(s,k){return[k,spine(s.t,0)[1]+s.oy]}).sort(function(a,b){return a[1]-b[1]});o.forEach(function(a,k){ST[a[0]].n=NAMES[k]})})();
-ST.forEach(function(s){s.m=MB[s.n]||0;s.x=0;s.y=0;s.tw=Math.random()*6.3});
-var ISL=[{n:'Quần đảo Hoàng Sa',x:538,y:292,s:'Quần đảo thiêng liêng của Tổ quốc'},{n:'Quần đảo Trường Sa',x:514,y:524,s:'Quần đảo thiêng liêng của Tổ quốc'}];
-var DUST=[];for(i=0;i<110;i++)DUST.push([Math.random()*W,Math.random()*H,Math.random()*1.2+.3,Math.random()*6.3]);
+
+/* ===== TẠO HÌNH 63 CHÒM SAO RỒNG BAY NGANG CÁCH ĐIỆU (TRÁI -> PHẢI) ===== */
+var ST=[],E=[];
+/* 1. Trục xương sống 41 sao: từ đuôi trái (0.09) uốn lượn lên đầu phải (0.72) */
+for(i=0;i<41;i++){
+  var t=i/40;
+  var nx=0.09+t*0.63;
+  var ny=0.53+Math.sin(t*Math.PI*2.5-0.45)*0.16-(t*0.07);
+  ST.push({nx:nx,ny:ny,t:t,part:i>35?'head':(i<6?'tail':'spine'),sz:i>35?3.6:(i<5?2.0:2.7),ph:i*0.24});
+}
+/* 2. Sừng rồng & Bờm lửa (8 sao: index 41..48) */
+[[0.67,0.24,'horn',2.6],[0.62,0.17,'horn',2.3],[0.56,0.13,'horn',2.1],
+ [0.70,0.26,'horn',2.5],[0.66,0.19,'horn',2.1],
+ [0.63,0.31,'mane',2.3],[0.58,0.29,'mane',2.2],[0.53,0.33,'mane',2.0]
+].forEach(function(d,k){ST.push({nx:d[0],ny:d[1],t:0.9,part:d[2],sz:d[3],ph:(41+k)*0.24})});
+
+/* 3. Mũi, Hàm & Râu rồng (6 sao: index 49..54) -> node 49 là mõm/miệng */
+[[0.76,0.37,'head',3.2],[0.75,0.45,'jaw',2.7],[0.70,0.46,'jaw',2.4],
+ [0.79,0.31,'whisker',2.1],[0.84,0.26,'whisker',1.9],[0.80,0.50,'whisker',2.1]
+].forEach(function(d,k){ST.push({nx:d[0],ny:d[1],t:1,part:d[2],sz:d[3],ph:(49+k)*0.24})});
+
+/* 4. Hai cụm Móng Vuốt Rồng vươn mạnh mẽ (8 sao: index 55..62) */
+[[0.58,0.54,'claw',2.6],[0.62,0.62,'claw',2.5],[0.67,0.61,'claw',2.3],[0.65,0.67,'claw',2.3],
+ [0.33,0.66,'claw',2.6],[0.30,0.75,'claw',2.5],[0.35,0.79,'claw',2.3],[0.27,0.78,'claw',2.3]
+].forEach(function(d,k){ST.push({nx:d[0],ny:d[1],t:k<4?0.7:0.35,part:d[2],sz:d[3],ph:(55+k)*0.24})});
+
+/* Gán tên 63 tỉnh thành & số anh em */
+ST.forEach(function(s,idx){
+  s.n=NAMES[idx];
+  s.m=MB[s.n]||0;
+  s.x=s.nx*W;s.y=s.ny*H;
+  s.tw=Math.random()*6.3;
+});
+
+/* Đường nối chòm sao Rồng */
+for(i=0;i<40;i++)E.push([i,i+1,1]);
+[[37,41],[41,42],[42,43],[38,44],[44,45],[36,46],[46,47],[47,48],
+ [40,49],[39,50],[50,51],[49,52],[52,53],[50,54],[49,50],
+ [27,55],[55,56],[56,57],[56,58],
+ [13,59],[59,60],[60,61],[60,62]
+].forEach(function(e){E.push([e[0],e[1],1])});
+for(i=3;i<37;i+=3)E.push([i,i+2,0]); /* nét vảy tinh vân phụ */
+
+/* 2 Chòm sao Hoàng Sa & Trường Sa màu vàng nổi bật (vị trí trang trí nghệ thuật góc Đông Nam) */
+var ISL=[
+  {n:'Quần đảo Hoàng Sa',nx:0.86,ny:0.63,s:'Quần đảo thiêng liêng của Tổ quốc',pts:[[0,0],[14,-8],[22,5],[8,14]]},
+  {n:'Quần đảo Trường Sa',nx:0.90,ny:0.81,s:'Quần đảo thiêng liêng của Tổ quốc',pts:[[0,0],[-14,9],[12,15],[19,-4],[3,-13]]}
+];
+
+var DUST=[];for(i=0;i<150;i++)DUST.push([Math.random()*W,Math.random()*H,Math.random()*1.4+0.3,Math.random()*6.3]);
 var TOT=0,NP=0;ST.forEach(function(s){TOT+=s.m;if(s.m)NP++});
 function R(a,b){return a+Math.random()*(b-a)}
-function hue(t,a,l){return'hsla('+(185-140*t)+',100%,'+(l||60)+'%,'+a+')'}
-/* ====== ÂM THANH TỔNG HỢP (Web Audio) ====== */
+
+/* ===== ÂM THANH TỔNG HỢP WEB AUDIO API (100% CODE THUẦN) ===== */
 var AC=null,mst,rev,nb;
 function audio(){if(AC)return AC;var C=window.AudioContext||window.webkitAudioContext;if(!C)return null;AC=new C();var cp=AC.createDynamicsCompressor(),n=AC.sampleRate*2.8|0,b=AC.createBuffer(2,n,AC.sampleRate),ch,d,k,rg;
  mst=AC.createGain();mst.gain.value=.9;mst.connect(cp);cp.connect(AC.destination);
@@ -277,70 +314,267 @@ function sBreath(){if(!ok())return;var t=AC.currentTime,D=2.8,n=noise(),bp=AC.cr
  bp.type='bandpass';bp.Q.value=1.1;bp.frequency.setValueAtTime(1100,t);bp.frequency.exponentialRampToValueAtTime(260,t+D);hp.type='highpass';hp.frequency.value=160;
  env(g,t,.5,.3,D);n.connect(bp);bp.connect(hp);hp.connect(g);out(g,.6);n.start(t);n.stop(t+D);
  for(k=0;k<16;k++){c2=noise();cb=AC.createBiquadFilter();cb.type='highpass';cb.frequency.value=2200;cg=AC.createGain();var at=t+R(.1,2.4);cg.gain.setValueAtTime(.0001,at);cg.gain.linearRampToValueAtTime(R(.05,.14),at+.004);cg.gain.exponentialRampToValueAtTime(.0001,at+R(.03,.08));c2.connect(cb);cb.connect(cg);out(cg,.3);c2.start(at);c2.stop(at+.1)}}
-function sFly(){if(!ok())return;var t=AC.currentTime,D=3.6,n=noise(),bp=AC.createBiquadFilter(),g=AC.createGain(),pn=AC.createStereoPanner?AC.createStereoPanner():null,k;
+function sFly(){if(!ok())return;var t=AC.currentTime,D=3.6,n=noise(),bp=AC.createBiquadFilter(),g=AC.createGain(),pn=AC.createStereoPanner?AC.createStereoPanner():null;
  bp.type='bandpass';bp.Q.value=2;bp.frequency.setValueAtTime(220,t);bp.frequency.exponentialRampToValueAtTime(1500,t+D*.5);bp.frequency.exponentialRampToValueAtTime(260,t+D);
  env(g,t,1.4,.12,D);n.connect(bp);bp.connect(g);if(pn){pn.pan.setValueAtTime(-.8,t);pn.pan.linearRampToValueAtTime(.8,t+D);g.connect(pn);out(pn,.5)}else out(g,.5);n.start(t);n.stop(t+D);
  [55,82.4,110].forEach(function(f,q){var o=AC.createOscillator(),og=AC.createGain();o.type='triangle';o.frequency.value=f;env(og,t,1.6,.07/(q+1),D+.4);o.connect(og);out(og,.6);o.start(t);o.stop(t+D+.5)})}
-/* ====== HIỆU ỨNG ====== */
-var HT=[['RỒNG BAY LƯỢN','#00E5FF'],['RỒNG GÀO LÊN','#FFD700'],['HƠI THỞ CỦA RỒNG','#FF9D00']];
+
+/* ===== TRẠNG THÁI CHUYỂN ĐỘNG ===== */
+var HT=[['CHẾ ĐỘ 1/3: THẦN LONG BAY LƯỢN (LONG MẠCH)','#00F5D4'],['CHẾ ĐỘ 2/3: SÓNG XUNG KÍCH THIÊN HÀ','#FFD700'],['CHẾ ĐỘ 3/3: HƠI THỞ LỬA THIÊN HÀ','#FF4D00']];
 function setHud(k){hud.textContent=HT[k][0];hud.style.color=HT[k][1];hud.style.borderColor=HT[k][1]}
 function doFly(){setHud(0);sFly()}
-function doRoar(){setHud(1);roarT=0;rw=[0,.22,.44];sRoar()}
+function doRoar(){setHud(1);roarT=0;rw=[[0,'255,215,0'],[0.2,'0,245,212'],[0.4,'157,78,221']];sRoar()}
 function doBreath(){setHud(2);breathT=0;sBreath()}
-/* ====== VẼ ====== */
-function step(dt){var q,p,ph,cyc,tg;T+=dt;
- if(!RM){cyc=T%12;ph=cyc<4.5?0:cyc<8?1:2;if(ph!==lastPh){lastPh=ph;[doFly,doRoar,doBreath][ph]()}}
- tg=RM?0:(lastPh===0?1.5:.8);AMP+=(tg-AMP)*Math.min(1,dt*2);
- if(qB>=0){qB-=dt;if(qB<0)doBreath()}
- ST.forEach(function(s){p=spine(s.t,T);s.x=p[0]+s.ox;s.y=p[1]+s.oy});
- if(roarT>=0){roarT+=dt;while(rw.length&&roarT>=rw[0]){rw.shift();P.push({w:1,x:ST[48].x,y:ST[48].y,r:6,a:1,c:rw.length%2?'0,229,255':'255,215,0'})}if(roarT>4)roarT=-1}
- if(breathT>=0){breathT+=dt;q=Math.ceil(dt*95);while(q--&&P.length<520){var an=R(-.55,.3),sp=R(170,360);P.push({x:ST[46].x+10,y:ST[46].y,vx:Math.cos(an)*sp,vy:Math.sin(an)*sp,l:0,m:R(.7,1.5),r:R(1.2,3),c:Math.random()<.5?'255,215,0':(Math.random()<.5?'0,229,255':'255,130,0')})}if(breathT>2.8)breathT=-1}
- if(!RM&&P.length<300){q=lastPh===0?2:1;while(q--){p=spine(R(.06,1),T);P.push({x:p[0],y:p[1],vx:R(-14,14),vy:R(-12,18),l:0,m:R(.7,1.4),r:R(.6,1.4),c:'180,235,255'})}}
- for(q=P.length-1;q>=0;q--){p=P[q];if(p.w){p.r+=300*dt;p.a=1-p.r/540;if(p.a<=0)P.splice(q,1);continue}p.l+=dt;if(p.l>=p.m){P.splice(q,1);continue}p.x+=p.vx*dt;p.y+=p.vy*dt;p.vx*=1-1.1*dt;p.vy*=1-1.1*dt}}
+
+function step(dt){
+  var q,ph,cyc;T+=dt;
+  if(!RM){cyc=T%12;ph=cyc<4.5?0:cyc<8?1:2;if(ph!==lastPh){lastPh=ph;[doFly,doRoar,doBreath][ph]()}}
+  if(qB>=0){qB-=dt;if(qB<0)doBreath()}
+
+  /* Cập nhật tọa độ uốn lượn ngang của 63 ngôi sao */
+  var amp=RM?0:(lastPh===0?14:8);
+  ST.forEach(function(s){
+    var wy=Math.sin(T*2.3-s.ph)*amp*(0.4+s.t*0.7);
+    var wx=Math.cos(T*1.7-s.ph)*(amp*0.35);
+    s.x=s.nx*W+wx;
+    s.y=s.ny*H+wy;
+  });
+
+  /* 3 vòng sóng xung kích lệch pha (Vàng - Xanh Ngọc - Tím) */
+  if(roarT>=0){
+    roarT+=dt;
+    while(rw.length&&roarT>=rw[0][0]){
+      var item=rw.shift();
+      P.push({w:1,x:ST[49].x,y:ST[49].y,r:10,a:1,c:item[1]});
+    }
+    if(roarT>4)roarT=-1;
+  }
+
+  /* Hơi thở lửa thiên hà phun ngang từ miệng rồng (node 49) sang phải */
+  if(breathT>=0){
+    breathT+=dt;
+    q=Math.ceil(dt*115);
+    while(q--&&P.length<550){
+      var an=R(-0.24,0.24),sp=R(240,460);
+      var pal=['255,215,0','0,245,212','255,77,0','255,255,255'];
+      P.push({x:ST[49].x+8,y:ST[49].y+4,vx:Math.cos(an)*sp,vy:Math.sin(an)*sp,l:0,m:R(0.75,1.45),r:R(1.5,3.5),c:pal[Math.random()*pal.length|0],br:1});
+    }
+    if(breathT>2.8)breathT=-1;
+  }
+
+  /* Sao băng ngẫu nhiên cắt ngang bầu trời 16:9 */
+  if(!RM&&Math.random()<dt*0.45&&SH.length<3){
+    SH.push({x:R(W*0.05,W*0.75),y:R(H*0.04,H*0.35),vx:R(480,720),vy:R(160,260),l:0,m:R(0.6,1.0)});
+  }
+  for(q=SH.length-1;q>=0;q--){
+    var ss=SH[q];ss.l+=dt;if(ss.l>=ss.m){SH.splice(q,1);continue}
+    ss.x+=ss.vx*dt;ss.y+=ss.vy*dt;
+  }
+
+  /* Bụi tinh vân tỏa quanh thân rồng */
+  if(!RM&&P.length<320){
+    var idx=Math.random()*41|0,spNode=ST[idx];
+    P.push({x:spNode.x+R(-12,12),y:spNode.y+R(-12,12),vx:R(-18,18),vy:R(-16,16),l:0,m:R(0.8,1.5),r:R(0.7,1.6),c:Math.random()<0.5?'0,245,212':'157,78,221'});
+  }
+
+  for(q=P.length-1;q>=0;q--){
+    var p=P[q];
+    if(p.w){p.r+=380*dt;p.a=1-p.r/680;if(p.a<=0)P.splice(q,1);continue}
+    p.l+=dt;if(p.l>=p.m){P.splice(q,1);continue}
+    p.x+=p.vx*dt;p.y+=p.vy*dt;
+    if(p.br)p.y+=Math.sin(p.x*0.035)*35*dt;
+    p.vx*=1-0.9*dt;p.vy*=1-0.9*dt;
+  }
+}
+
 function mine(s){return HOME&&s.n===HOME}
-function render(){var k,s,a,b,f,r,x,y,lit,sh=0,al;
- c.setTransform(sc,0,0,sc,0,0);c.clearRect(0,0,W,H);
- if(roarT>=0&&roarT<1.4)sh=(1-roarT/1.4)*5;if(sh)c.translate(R(-sh,sh),R(-sh,sh));
- DUST.forEach(function(d){c.fillStyle='rgba(255,255,255,'+(.15+.35*Math.abs(Math.sin(T*.8+d[3])))+')';c.beginPath();c.arc(d[0],d[1],d[2],0,6.3);c.fill()});
- /* quầng sáng mờ dọc thân */
- c.lineCap='round';c.lineJoin='round';c.lineWidth=14;for(k=0;k<45;k++){c.strokeStyle=hue(k/45,.05);c.beginPath();c.moveTo(ST[k].x,ST[k].y);c.lineTo(ST[k+1].x,ST[k+1].y);c.stroke()}
- for(k=0;k<E.length;k++){a=ST[E[k][0]];b=ST[E[k][1]];c.lineWidth=E[k][2]?1.3:.7;c.strokeStyle=hue(a.t,E[k][2]?.55:.16);c.beginPath();c.moveTo(a.x,a.y);c.lineTo(b.x,b.y);c.stroke()}
- /* Hoàng Sa & Trường Sa */
- ISL.forEach(function(o,q){var yy=o.y+Math.sin(T*1.4+q*2)*3,pu=1+Math.sin(T*3+q)*.2,g=c.createRadialGradient(o.x,yy,1,o.x,yy,26*pu);g.addColorStop(0,'rgba(255,215,0,.9)');g.addColorStop(.45,'rgba(255,200,60,.28)');g.addColorStop(1,'rgba(255,215,0,0)');c.fillStyle=g;c.beginPath();c.arc(o.x,yy,26*pu,0,6.3);c.fill();
-  c.fillStyle='#FFD700';c.beginPath();c.arc(o.x,yy,4.2,0,6.3);c.fill();c.strokeStyle='rgba(255,215,0,.5)';c.lineWidth=1;c.setLineDash([3,4]);c.beginPath();c.arc(o.x,yy,11,0,6.3);c.stroke();c.setLineDash([]);
-  if(HV===63+q||SEL===63+q){c.strokeStyle='#fff';c.beginPath();c.arc(o.x,yy,16,0,6.3);c.stroke()}
-  c.fillStyle='rgba(255,215,0,.92)';c.font='600 12px "Space Grotesk",sans-serif';c.textAlign='right';c.fillText(o.n.replace('Quần đảo ',''),o.x-16,yy+4);c.textAlign='left';o.yy=yy});
- /* hạt: bụi sao, hơi thở */
- c.globalCompositeOperation='lighter';
- P.forEach(function(p){if(p.w){c.strokeStyle='rgba('+p.c+','+(p.a*.8)+')';c.lineWidth=3*p.a+.5;c.beginPath();c.arc(p.x,p.y,p.r,0,6.3);c.stroke();return}f=1-p.l/p.m;c.fillStyle='rgba('+p.c+','+(.85*f)+')';c.beginPath();c.arc(p.x,p.y,p.r*(.5+f),0,6.3);c.fill();c.fillStyle='rgba('+p.c+','+(.14*f)+')';c.beginPath();c.arc(p.x,p.y,p.r*3.4,0,6.3);c.fill()});
- /* các vì sao tỉnh thành */
- var top=ST.slice().sort(function(a,b){return b.m-a.m}).slice(0,3);
- ST.forEach(function(s,q){var hv=HV===q,se=SEL===q,m=s.m,rad=2.1+Math.sqrt(m)*.62+(q===48?.8:0),tw=.7+.3*Math.sin(T*2+s.tw),col=m?'255,211,77':'255,255,255';
-  lit=0;if(breathT>=0&&q<46){lit=Math.max(0,1-Math.abs(q/45*1.25-breathT/2.8*1.25)*7)}
-  if(q===48&&roarT>=0&&roarT<1.2)lit=Math.max(lit,1-roarT/1.2);
-  rad+=lit*2.5+(hv?2:0);
-  if(m||hv||se||lit){c.fillStyle='rgba('+(lit?'0,229,255':col)+','+(.16+lit*.3)+')';c.beginPath();c.arc(s.x,s.y,rad*3,0,6.3);c.fill()}
-  c.fillStyle='rgba('+col+','+(m?1:tw*.85)+')';c.beginPath();c.arc(s.x,s.y,rad,0,6.3);c.fill();
-  if(m>0){c.strokeStyle='rgba(255,255,255,'+tw*.5+')';c.lineWidth=.8;c.beginPath();c.moveTo(s.x-rad*2.2,s.y);c.lineTo(s.x+rad*2.2,s.y);c.moveTo(s.x,s.y-rad*2.2);c.lineTo(s.x,s.y+rad*2.2);c.stroke()}
-  if(se||mine(s)){c.strokeStyle=mine(s)?'#00E5FF':'#fff';c.lineWidth=1.4;c.beginPath();c.arc(s.x,s.y,rad+6,0,6.3);c.stroke()}
-  if(hv||se||mine(s)||top.indexOf(s)>=0){c.font='600 12px "Space Grotesk",sans-serif';var tx=(hv||se?s.n:s.n+' · '+m)+(mine(s)?' ★ quê tôi':'');c.fillStyle=hv||se?'#fff':'rgba(255,215,0,.9)';if(s.x>W*.62){c.textAlign='right';c.fillText(tx,s.x-rad-6,s.y-6)}else{c.textAlign='left';c.fillText(tx,s.x+rad+6,s.y-6)}c.textAlign='left'}});
- /* mắt rồng */
- c.globalCompositeOperation='source-over';
- /* sóng gầm vẽ trên cùng */
- c.globalCompositeOperation='lighter';P.forEach(function(p){if(p.w){c.strokeStyle='rgba('+p.c+','+(p.a*.35)+')';c.lineWidth=9*p.a;c.beginPath();c.arc(p.x,p.y,p.r,0,6.3);c.stroke()}});c.globalCompositeOperation='source-over'}
+
+function render(){
+  var k,s,a,b,f,sh=0;
+  c.setTransform(sc,0,0,sc,0,0);
+  c.clearRect(0,0,W,H);
+
+  /* 1. Tinh vân hô hấp (Nebula Breathing) */
+  var pulseA=0.11+Math.sin(T*1.4)*0.04;
+  var nb1=c.createRadialGradient(W*0.44,H*0.46,30,W*0.44,H*0.46,W*0.46);
+  nb1.addColorStop(0,'rgba(0,245,212,'+pulseA+')');
+  nb1.addColorStop(0.5,'rgba(123,44,191,'+(pulseA*0.95)+')');
+  nb1.addColorStop(1,'transparent');
+  c.fillStyle=nb1;c.fillRect(0,0,W,H);
+
+  /* Hào quang đỏ cam plasma ở vùng họng/đầu rồng */
+  var nb2=c.createRadialGradient(ST[49].x,ST[49].y,10,ST[49].x,ST[49].y,170);
+  nb2.addColorStop(0,'rgba(255,77,0,'+(0.14+Math.sin(T*2.5)*0.05)+')');
+  nb2.addColorStop(1,'transparent');
+  c.fillStyle=nb2;c.fillRect(0,0,W,H);
+
+  /* 2. Bụi sao nền & Sao băng */
+  DUST.forEach(function(d){
+    c.fillStyle='rgba(255,255,255,'+(.2+.35*Math.abs(Math.sin(T*1.1+d[3])))+')';
+    c.beginPath();c.arc(d[0],d[1],d[2],0,6.3);c.fill();
+  });
+  SH.forEach(function(ss){
+    var al=1-ss.l/ss.m,tx=ss.x-ss.vx*0.16,ty=ss.y-ss.vy*0.16;
+    var g=c.createLinearGradient(ss.x,ss.y,tx,ty);
+    g.addColorStop(0,'rgba(255,255,255,'+al+')');
+    g.addColorStop(0.4,'rgba(0,245,212,'+(al*0.6)+')');
+    g.addColorStop(1,'transparent');
+    c.strokeStyle=g;c.lineWidth=2;c.beginPath();c.moveTo(ss.x,ss.y);c.lineTo(tx,ty);c.stroke();
+  });
+
+  if(roarT>=0&&roarT<1.3)sh=(1-roarT/1.3)*5.5;
+  if(sh)c.translate(R(-sh,sh),R(-sh,sh));
+
+  /* 3. Quầng sáng xương sống & Đường nối chòm sao Rồng */
+  c.lineCap='round';c.lineJoin='round';c.lineWidth=18;
+  for(k=0;k<40;k++){
+    c.strokeStyle='rgba(0,245,212,0.045)';
+    c.beginPath();c.moveTo(ST[k].x,ST[k].y);c.lineTo(ST[k+1].x,ST[k+1].y);c.stroke();
+  }
+  for(k=0;k<E.length;k++){
+    a=ST[E[k][0]];b=ST[E[k][1]];
+    var lg=c.createLinearGradient(a.x,a.y,b.x,b.y);
+    var op=E[k][2]?0.62:0.2;
+    lg.addColorStop(0,'rgba(0,245,212,'+op+')');
+    lg.addColorStop(0.5,'rgba(157,78,221,'+(op*0.85)+')');
+    lg.addColorStop(1,'rgba(255,215,0,'+(op*1.1)+')');
+    c.lineWidth=E[k][2]?1.6:0.85;
+    c.strokeStyle=lg;
+    c.beginPath();c.moveTo(a.x,a.y);c.lineTo(b.x,b.y);c.stroke();
+  }
+
+  /* 4. Hai chòm sao Hoàng Sa & Trường Sa màu vàng nổi bật */
+  ISL.forEach(function(o,q){
+    var bx=o.nx*W,by=o.ny*H+Math.sin(T*1.6+q*2)*4.5,pu=1+Math.sin(T*2.8+q)*0.18;
+    o.x=bx;o.y=by;
+    var g=c.createRadialGradient(bx,by,2,bx,by,38*pu);
+    g.addColorStop(0,'rgba(255,215,0,.78)');
+    g.addColorStop(0.5,'rgba(255,170,0,.22)');
+    g.addColorStop(1,'rgba(255,215,0,0)');
+    c.fillStyle=g;c.beginPath();c.arc(bx,by,38*pu,0,6.3);c.fill();
+
+    /* Nối các ngôi sao trong cụm chòm sao quần đảo */
+    c.strokeStyle='rgba(255,215,0,.8)';c.lineWidth=1.3;
+    c.beginPath();
+    o.pts.forEach(function(pt,idx){
+      if(idx===0)c.moveTo(bx+pt[0],by+pt[1]);
+      else c.lineTo(bx+pt[0],by+pt[1]);
+    });
+    c.closePath();c.stroke();
+
+    o.pts.forEach(function(pt){
+      c.fillStyle='#FFD700';c.beginPath();c.arc(bx+pt[0],by+pt[1],3,0,6.3);c.fill();
+    });
+
+    if(HV===63+q||SEL===63+q){
+      c.strokeStyle='#fff';c.lineWidth=1.5;c.beginPath();c.arc(bx,by,26,0,6.3);c.stroke();
+    }
+    c.fillStyle='#FFD700';c.font='700 13px "Space Grotesk",sans-serif';c.textAlign='center';
+    c.fillText(o.n.replace('Quần đảo ','').toUpperCase(),bx,by+34);
+    c.textAlign='left';
+  });
+
+  /* 5. Hạt năng lượng & Hơi thở rồng */
+  c.globalCompositeOperation='lighter';
+  P.forEach(function(p){
+    if(p.w)return;
+    f=1-p.l/p.m;
+    c.fillStyle='rgba('+p.c+','+(.88*f)+')';
+    c.beginPath();c.arc(p.x,p.y,p.r*(.5+f),0,6.3);c.fill();
+    c.fillStyle='rgba('+p.c+','+(.16*f)+')';
+    c.beginPath();c.arc(p.x,p.y,p.r*3.5,0,6.3);c.fill();
+  });
+
+  /* 6. Vẽ 63 vì sao tỉnh, thành + Hiệu ứng Long Mạch (Dragon Pulse Vein) */
+  var pulseIdx=Math.floor((T*16)%41);
+  var top=ST.slice().sort(function(a,b){return b.m-a.m}).slice(0,3);
+
+  ST.forEach(function(s,q){
+    var hv=HV===q,se=SEL===q,m=s.m;
+    var isVein=(q<41&&Math.abs(q-pulseIdx)<=1);
+    var rad=2.4+Math.sqrt(m)*0.68+(s.part==='head'?1.1:0)+(isVein?1.8:0)+(hv?2.4:0);
+    var tw=0.72+0.28*Math.sin(T*2.2+s.tw);
+    var col=isVein?'255,215,0':(m?'255,215,0':(s.part==='head'?'255,158,0':'255,255,255'));
+
+    if(m||hv||se||isVein||s.part==='head'){
+      var gl=c.createRadialGradient(s.x,s.y,0,s.x,s.y,rad*3.6);
+      gl.addColorStop(0,'rgba('+(isVein?'255,215,0':(hv?'0,245,212':col))+','+(isVein?0.65:0.32)+')');
+      gl.addColorStop(1,'transparent');
+      c.fillStyle=gl;c.beginPath();c.arc(s.x,s.y,rad*3.6,0,6.3);c.fill();
+    }
+
+    c.fillStyle='rgba('+col+','+(m||isVein?1:tw*0.9)+')';
+    c.beginPath();c.arc(s.x,s.y,rad,0,6.3);c.fill();
+
+    /* Tia sao 4 cánh cho các tỉnh có thành viên UZI */
+    if(m>0||isVein){
+      c.strokeStyle='rgba(255,255,255,'+(isVein?0.85:tw*0.55)+')';c.lineWidth=0.9;
+      c.beginPath();
+      c.moveTo(s.x-rad*2.3,s.y);c.lineTo(s.x+rad*2.3,s.y);
+      c.moveTo(s.x,s.y-rad*2.3);c.lineTo(s.x,s.y+rad*2.3);
+      c.stroke();
+    }
+
+    if(se||mine(s)){
+      c.strokeStyle=mine(s)?'#00F5D4':'#fff';c.lineWidth=1.6;
+      c.beginPath();c.arc(s.x,s.y,rad+6,0,6.3);c.stroke();
+    }
+
+    if(hv||se||mine(s)||top.indexOf(s)>=0){
+      c.font='600 13px "Space Grotesk",sans-serif';
+      var tx=(hv||se?s.n:s.n+' · '+m)+(mine(s)?' ★ quê tôi':'');
+      c.fillStyle=hv||se?'#fff':'rgba(255,215,0,.95)';
+      if(s.x>W*0.74){c.textAlign='right';c.fillText(tx,s.x-rad-8,s.y-7)}
+      else{c.textAlign='left';c.fillText(tx,s.x+rad+8,s.y-7)}
+      c.textAlign='left';
+    }
+  });
+
+  /* 7. Vẽ sóng xung kích khúc xạ 3 tầng trên cùng */
+  P.forEach(function(p){
+    if(!p.w)return;
+    c.strokeStyle='rgba('+p.c+','+(p.a*0.85)+')';
+    c.lineWidth=3.2*p.a+0.6;
+    c.beginPath();c.arc(p.x,p.y,p.r,0,6.3);c.stroke();
+  });
+  c.globalCompositeOperation='source-over';
+}
+
 function frame(n){raf=requestAnimationFrame(frame);var dt=Math.min((n-last)/1000,.05);last=n;step(dt);render()}
 function run(){if(!raf&&vis){last=performance.now();raf=requestAnimationFrame(frame)}}
 function halt(){if(raf){cancelAnimationFrame(raf);raf=0}}
-function size(){var w=sky.clientWidth||600,d=Math.min(window.devicePixelRatio||1,2);cv.width=Math.round(w*d);cv.height=Math.round(w*H/W*d);sc=cv.width/W;if(!raf){step(0);render()}}
-/* ====== TƯƠNG TÁC ====== */
-function pick(e){var q=cv.getBoundingClientRect(),x=(e.clientX-q.left)/q.width*W,y=(e.clientY-q.top)/q.height*H,rr=e.pointerType==='touch'?26:15,best=-1,bd=rr,d;
- ST.forEach(function(s,k){d=Math.hypot(x-s.x,y-s.y);if(d<bd){bd=d;best=k}});ISL.forEach(function(o,k){d=Math.hypot(x-o.x,y-(o.yy||o.y));if(d<bd){bd=d;best=63+k}});return best}
+function size(){var w=sky.clientWidth||1280,d=Math.min(window.devicePixelRatio||1,2);cv.width=Math.round(w*d);cv.height=Math.round(w*H/W*d);sc=cv.width/W;if(!raf){step(0);render()}}
+
+/* ===== TƯƠNG TÁC & ĐỒNG BỘ CỘT THÔNG TIN BÊN DƯỚI ===== */
+function pick(e){
+  var q=cv.getBoundingClientRect(),x=(e.clientX-q.left)/q.width*W,y=(e.clientY-q.top)/q.height*H,rr=e.pointerType==='touch'?28:18,best=-1,bd=rr,d;
+  ST.forEach(function(s,k){d=Math.hypot(x-s.x,y-s.y);if(d<bd){bd=d;best=k}});
+  ISL.forEach(function(o,k){d=Math.hypot(x-o.x,y-o.y);if(d<bd+10){bd=d;best=63+k}});
+  return best;
+}
 function info(k){if(k<0)return null;if(k>=63)return{n:ISL[k-63].n,t:ISL[k-63].s};var s=ST[k];return{n:s.n,t:s.m?s.m+' anh em UZI':'Chưa có anh em nào ở đây'}}
-function show(){var k=HV>=0?HV:SEL,o=info(k);$('dgName').textContent=o?o.n:'Chưa chọn';$('dgNum').textContent=o?o.t:'Chạm vào một vì sao bất kỳ'}
-cv.addEventListener('pointermove',function(e){if(e.pointerType==='touch')return;var k=pick(e);if(k!==HV){HV=k;cv.style.cursor=k>=0?'pointer':'default';show();if(!raf)render()}});
+function show(){var k=HV>=0?HV:SEL,o=info(k);$('dgName').textContent=o?o.n:'Chưa chọn';$('dgNum').textContent=o?o.t:'Chạm hoặc rê chuột vào một vì sao bất kỳ'}
+
+cv.addEventListener('pointermove',function(e){if(e.pointerType==='touch')return;var k=pick(e);if(k!==HV){HV=k;cv.style.cursor=k>=0?'pointer':'crosshair';show();if(!raf)render()}});
 cv.addEventListener('pointerleave',function(){HV=-1;show();if(!raf)render()});
 cv.addEventListener('pointerdown',function(e){var k=pick(e);if(k>=0){SEL=k;HV=e.pointerType==='touch'?k:HV;show();syncHome();if(!raf)render()}});
+
 function select(k){SEL=k;show();syncHome();if(!raf)render()}
+var tops=ST.map(function(s,k){return[k,s]}).filter(function(a){return a[1].m}).sort(function(a,b){return b[1].m-a[1].m}).slice(0,5),mx=tops.length?tops[0][1].m:1;
+$('dgTop').innerHTML=tops.map(function(a){return'<button type="button" data-k="'+a[0]+'"><span>'+a[1].n+'</span><i style="--w:'+Math.round(a[1].m/mx*100)+'%"></i><b>'+a[1].m+'</b></button>'}).join('');
+$('dgTop').addEventListener('click',function(e){var b=e.target.closest('button');if(b)select(+b.dataset.k)});
+$('dgTot').textContent='Tổng '+TOT+' anh em · '+NP+'/63 tỉnh, thành trước năm 2025 (số mẫu)';
+
+function syncHome(){$('dgHome').textContent=(SEL>=0&&SEL<63&&ST[SEL].n===HOME)?'Bỏ đánh dấu quê tôi':'Đánh dấu quê tôi'}
+$('dgHome').onclick=function(){if(SEL<0||SEL>=63){$('dgNum').textContent='Hãy chọn một vì sao tỉnh thành trước';return}HOME=ST[SEL].n===HOME?'':ST[SEL].n;try{localStorage.setItem(K,HOME)}catch(e){}syncHome();if(!raf)render()};
+$('dgRoar').onclick=function(){doRoar();qB=1.2};
+$('dgSnd').onclick=function(){if(!audio())return;if(AC.state==='suspended')AC.resume();snd=!snd;this.textContent=snd?'Tắt âm thanh':'Bật âm thanh';this.setAttribute('aria-pressed',snd);if(snd){setTimeout(function(){if(AC.state==='running')sRoar()},60)}};
+
+syncHome();
+if(window.ResizeObserver)new ResizeObserver(size).observe(sky);else addEventListener('resize',size);
+if('IntersectionObserver' in window)new IntersectionObserver(function(es){vis=es[0].isIntersecting;if(vis)run();else halt()},{threshold:.15}).observe(sky);else{vis=true;run()}
+size();
+})();
 /* bảng top tỉnh có nhiều anh em nhất */
 var tops=ST.map(function(s,k){return[k,s]}).filter(function(a){return a[1].m}).sort(function(a,b){return b[1].m-a[1].m}).slice(0,5),mx=tops.length?tops[0][1].m:1;
 $('dgTop').innerHTML=tops.map(function(a){return'<button type="button" data-k="'+a[0]+'"><span>'+a[1].n+'</span><i style="--w:'+Math.round(a[1].m/mx*100)+'%"></i><b>'+a[1].m+'</b></button>'}).join('');
@@ -367,5 +601,3 @@ var ws=[],tk=0;'Quân Đoàn mạnh không phải vì thắng nhiều trận, m�
 var evs=[].slice.call(document.querySelectorAll('.ev'));
 function onS(){var vh=innerHeight,r=$('tl').getBoundingClientRect();$('fill').style.height=Math.min(1,Math.max(0,(vh*.6-r.top)/r.height))*100+'%';evs.forEach(function(e){e.classList.toggle('lit',e.getBoundingClientRect().top<vh*.6)});var k=$('kin').getBoundingClientRect(),p=Math.min(1,Math.max(0,(vh*.9-k.top)/(k.height*.8)));ws.forEach(function(w,i){w.style.opacity=.12+.88*Math.min(1,Math.max(0,p*ws.length-i))})}
 addEventListener('scroll',function(){if(!tk){tk=1;requestAnimationFrame(function(){tk=0;onS()})}},{passive:true});onS();
-
-})();

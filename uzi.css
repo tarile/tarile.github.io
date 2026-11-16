@@ -42,7 +42,7 @@ body.uz::after{content:"";position:fixed;inset:-50%;z-index:60;pointer-events:no
 .bento{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
 .bc{position:relative;padding:30px;overflow:hidden;background:#0e1016;border:1px solid rgba(255,255,255,.07)}
 .bc:nth-child(1){grid-column:span 3;grid-row:span 2}.bc:nth-child(2),.bc:nth-child(3){grid-column:span 3}
-.bc::before{content:"";position:absolute;inset:0;padding:2px;opacity:0;transition:opacity .3s;background:radial-gradient(320px circle at var(--x,50%) var(--y,50%),var(--acid),transparent 60%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.bc::before{content:"";position:absolute;inset:0;padding:2px;opacity:0;transition:opacity .3s;background:radial-gradient(320px circle at var(--x,50%) var(--y,50%),var(--acid),transparent 60%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
 .bc:hover::before{opacity:1}
 .bc i{font:600 .75rem var(--m);font-style:normal;letter-spacing:.2em;color:var(--acid)}
 .bc h4{margin:10px 0;font:800 clamp(1.4rem,3vw,2.2rem)/1.05 var(--f);text-transform:uppercase}.bc p{margin:0;color:#aab2c0;line-height:1.7}
@@ -415,6 +415,7 @@ body.uz::after{content:"";position:fixed;inset:-50%;z-index:60;pointer-events:no
 .term::before{content:"";position:absolute;inset:0;z-index:4;pointer-events:none;padding:1px;
  background:conic-gradient(from var(--ta),transparent 0 62%,rgba(0,229,255,.9) 76%,rgba(255,255,255,.95) 82%,rgba(255,196,0,.9) 88%,transparent 96%);
  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);
+ mask-composite: exclude;
  animation:tspin 6s linear infinite}
 @keyframes tspin{to{--ta:360deg}}
 /* radar quét dọc mỗi lần đổi tab */
@@ -497,23 +498,60 @@ body.uz::after{content:"";position:fixed;inset:-50%;z-index:60;pointer-events:no
 @keyframes vlbl{50%{opacity:.25}}
 @media(prefers-reduced-motion:reduce){.vl-bm,.vl-r1,.vl-r2,.vl-sw,.vl-dial::before,.vl-b,.vl-t,.vl-bars span,.vl-pg i,.vl-st i{animation:none}.vl-b{display:none}}
 
-/* Chòm sao Thần Long */
-.dg{display:grid;grid-template-columns:minmax(300px,520px) 1fr;gap:34px;align-items:center}
-.dg-sky{position:relative;border:1px solid rgba(0,229,255,.25);background:radial-gradient(circle at 45% 40%,rgba(0,229,255,.07),rgba(4,7,13,.92));box-shadow:inset 0 0 40px rgba(0,229,255,.05),0 0 40px rgba(0,0,0,.6);clip-path:polygon(0 0,calc(100% - 22px) 0,100% 22px,100% 100%,22px 100%,0 calc(100% - 22px))}
-#dr{display:block;width:100%;aspect-ratio:600/760;touch-action:pan-y}
-.dg-hud{position:absolute;top:12px;left:14px;z-index:1;padding:5px 12px;font:600 .72rem var(--m);letter-spacing:.14em;color:#00E5FF;background:rgba(5,10,18,.8);border:1px solid #00E5FF;pointer-events:none;transition:color .3s,border-color .3s}
-.dg-info{display:flex;flex-direction:column;gap:18px}
-.dg-desc{margin:0;color:#b4bccb;line-height:1.7}
+/* ===== CHÒM SAO THẦN LONG: UZI – THE DRAGON CONSTELLATION (16:9) ===== */
+.dg{display:grid;grid-template-columns:1fr;gap:28px}
+.dg-sky{
+  position:relative;
+  width:100%;
+  aspect-ratio:16 / 9;
+  border:1px solid rgba(0,245,212,.32);
+  border-radius:6px;
+  background:radial-gradient(ellipse at 48% 45%,#1a0b2e 0%,#080d1d 58%,#03050a 100%);
+  box-shadow:0 22px 55px rgba(0,0,0,.85),inset 0 0 45px rgba(157,78,221,.16);
+  overflow:hidden;
+}
+#dr{display:block;width:100%;height:100%;touch-action:pan-y;cursor:crosshair}
+.dg-hud{
+  position:absolute;top:16px;left:18px;z-index:2;
+  padding:6px 14px;
+  font:700 .74rem var(--m);letter-spacing:.14em;
+  color:#00F5D4;background:rgba(6,11,22,.82);
+  border:1px solid rgba(0,245,212,.45);border-radius:3px;
+  backdrop-filter:blur(6px);pointer-events:none;
+  transition:color .3s,border-color .3s;
+}
+.dg-sky::after{
+  content:"* Biểu tượng nghệ thuật 63 tỉnh, thành (trước 2025) & 2 quần đảo Hoàng Sa, Trường Sa";
+  position:absolute;bottom:14px;left:18px;z-index:2;
+  font:500 .7rem var(--m);color:rgba(148,163,184,.78);
+  pointer-events:none;
+}
+.dg-info{
+  display:grid;
+  grid-template-columns:1.1fr 1fr;
+  gap:24px 36px;
+  align-items:start;
+  padding:24px 28px;
+  background:linear-gradient(145deg,rgba(16,22,40,.78),rgba(8,11,20,.92));
+  border:1px solid rgba(0,245,212,.18);
+  border-top:2px solid #00F5D4;
+}
+.dg-desc{grid-column:1 / -1;margin:0;color:#cbd5e1;line-height:1.7;font-size:.96rem}
 .dg-desc b{color:#fff}
-.dg-read{display:flex;flex-direction:column;gap:2px;padding:12px 16px;background:rgba(0,229,255,.06);border-left:3px solid #FFD700}
-.dg-read small{font:600 .68rem var(--m);letter-spacing:.18em;color:var(--mut)}
-.dg-read b{font:800 1.35rem var(--f);color:#fff}
-.dg-read span{font:500 .9rem var(--m);color:#FFD700}
-.dg-top{display:flex;flex-direction:column;gap:6px}
-.dg-top button{display:grid;grid-template-columns:130px 1fr 36px;gap:12px;align-items:center;padding:6px 0;border:0;background:none;color:#cbd5e1;font:500 .85rem var(--f);text-align:left;cursor:pointer}
-.dg-top button i{display:block;height:4px;background:linear-gradient(90deg,#00E5FF,#FFD700);width:var(--w);box-shadow:0 0 8px rgba(255,215,0,.4)}
-.dg-top button b{font:700 .85rem var(--m);color:#FFD700;text-align:right}
+.dg-read{display:flex;flex-direction:column;gap:4px;padding:14px 18px;background:rgba(0,245,212,.06);border-left:3px solid #FFD700}
+.dg-read small{font:700 .7rem var(--m);letter-spacing:.18em;color:var(--mut)}
+.dg-read b{font:800 1.45rem var(--f);color:#fff}
+.dg-read span{font:600 .92rem var(--m);color:#FFD700}
+.dg-top{display:flex;flex-direction:column;gap:8px}
+.dg-top button{display:grid;grid-template-columns:130px 1fr 38px;gap:12px;align-items:center;padding:5px 0;border:0;background:none;color:#cbd5e1;font:600 .86rem var(--f);text-align:left;cursor:pointer;transition:color .2s}
+.dg-top button i{display:block;height:5px;border-radius:2px;background:linear-gradient(90deg,#00F5D4,#9D4EDD,#FFD700);width:var(--w);box-shadow:0 0 10px rgba(255,215,0,.35)}
+.dg-top button b{font:700 .86rem var(--m);color:#FFD700;text-align:right}
 .dg-top button:hover,.dg-top button:focus-visible{color:#fff;outline:none}
 .dg-top button:focus-visible span{text-decoration:underline}
+.dg-info .gb{grid-column:1 / -1;margin-top:4px;padding-top:16px;border-top:1px solid rgba(255,255,255,.08)}
 #dgTot{flex-basis:100%}
-@media(max-width:800px){.dg{grid-template-columns:1fr}.dg-top button{grid-template-columns:110px 1fr 32px}}
+@media(max-width:860px){
+  .dg-info{grid-template-columns:1fr;padding:18px}
+  .dg-sky::after{font-size:.62rem;bottom:10px;left:12px;right:12px}
+  .dg-hud{top:10px;left:12px;font-size:.66rem;padding:4px 10px}
+}
