@@ -384,3 +384,21 @@ body.uz::after{content:"";position:fixed;inset:-50%;z-index:60;pointer-events:no
 
 @media(max-width:960px){#ba{grid-template-columns:1fr}#ba:has(.ach-card:hover) .ach-card:not(:hover){opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){#ba .ach-r1,#ba .ach-r2,#ba .ach-ic,#ba .ach-c{transition:none}}
+
+/* ===== Thành tích: tàn lửa từ tính / nứt vỡ & tái tạo / sóng lỏng / mạng lưới năng lượng ===== */
+#ba{position:relative}
+#ba .ach-card.pre{visibility:hidden}
+#ba .ach-emb{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+#ba .ach-badge,#ba .ach-t,#ba .ach-dv,#ba .ach-d,#ba .ach-ft{position:relative;z-index:1}
+#ba .ach-ring{position:absolute;inset:-6px;width:calc(100% + 12px);height:calc(100% + 12px);color:var(--a);opacity:0;pointer-events:none;z-index:1;overflow:visible}
+#ba .ach-ring polygon{fill:none;stroke:currentColor;stroke-width:2;vector-effect:non-scaling-stroke}
+#ba .ach-ring.go{animation:achring .95s cubic-bezier(.2,.7,.3,1)}
+@keyframes achring{0%{opacity:.95;transform:scale(.55)}100%{opacity:0;transform:scale(3.3)}}
+#ba .ach-net{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:6}
+#ba .shat{position:absolute;pointer-events:none;z-index:5}
+#ba .shat .ach-card{position:absolute!important;left:0;top:0;margin:0;transform:none;opacity:1!important;transition:none!important;will-change:transform,opacity}
+#ba .ach-card.pop{animation:achpop .85s ease-out}
+@keyframes achpop{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--a) 75%,transparent),inset 0 0 40px color-mix(in srgb,var(--a) 30%,transparent)}100%{box-shadow:0 0 0 26px transparent,inset 0 0 0 transparent}}
+@media(max-width:960px){#ba .ach-net{display:none}}
+@media(prefers-reduced-motion:reduce){#ba .ach-ring.go,#ba .ach-card.pop{animation:none}#ba .ach-emb,#ba .ach-net{display:none}}
+
