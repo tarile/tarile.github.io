@@ -35,11 +35,20 @@ if(RM)return;var SC='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&';
 /* Timeline */
 fill('tl',[['10.11.2026','Mừng Kỉ Niệm 1 Năm Phục Hưng Quân Đoàn UZI','Ăn mừng kỉ niệm Quân Đoàn FF phục hưng sau 1 năm qua kèm theo nhiều kỉ niệm đáng nhớ và hành trình tiếp theo hướng tới phát triển tốt hơn'],['12.11.2026','Số Lượng Thành Viên Quân Đoàn UZI Tăng Đáng Kể','Sự thay đổi luật cực kì đáng kể đến từ Chỉ Huy Quân Đoàn UZI, phân cấp thành viên Thường, VIP, PREMIUM hợp lí làm gia tăng đáng kể số lượng thành viên tham gia vào quân đoàn'],['12.12.2026','Tổ Chức Custom Quy Mô Lớn','Sau thời gian chuẩn bị kỹ lưỡng để đảm bảo chất lượng từng trận đấu, sự kiện Custom Kỷ niệm 1 năm Quân Đoàn FF &amp; Mừng Sinh nhật Chỉ Huy UZI chính thức được tái định lịch và sẵn sàng khai hoả vào 12.12.2026'],['15.12.2026-1.1.2027','Hàng Loạt Sự Kiện &amp; Custom QĐ UZI','Quân Đoàn tổ chức phong phú về nhiều sự kiện khác nhau nhằm tạo tính sáng tạo và phát triển kỹ năng của thành viên quân đoàn, ngoài ra làm tăng sức hút và chất riêng của Quân Đoàn UZI']],function(e){return '<div class="ev"><time>'+e[0]+'</time><b>'+e[1]+'</b><span>'+e[2]+'</span></div>'});
 /* Coverflow: [tiêu đề, nền tảng, link giả] */
-var V=[['Video đú trend #1','TikTok'],['Video đú trend #2','TikTok'],['Video đú trend #3','YouTube'],['Video đú trend #4','TikTok'],['Video đú trend #5','Facebook']],cur=2;
-fill('cf',V,function(v,i){return '<a href="https://example.com/video-'+(i+1)+'" target="_blank" rel="noopener" data-p="'+v[1].toUpperCase()+'"><b>'+v[0]+'</b><small>'+v[1]+' // link tạm</small></a>'});
+var V=[['Video đú trend #1','Tiktok','https://www.tiktok.com/@tarile0211/video/7677109795672886549','video-trend-1.jpg'],['Video đú trend #2','Fanpage UZI','https://www.facebook.com/reel/997475752635289?locale=vi_VN','video-trend-2.jpg'],['Video đú trend #3','FB Tari Le','https://www.facebook.com/stories/2081008749308554/?source=profile_highlight&locale=vi_VN','video-trend-3.jpg'],['Video đú trend #4','Fanpage UZI','https://www.facebook.com/reel/2518575201902069?locale=vi_VN','video-trend-4.jpg'],['Video đú trend #5','Tiktok','https://www.tiktok.com/@tarile0211/video/7677103812863118612','video-trend-5.jpg']],cur=2,sw=0;
+fill('cf',V,function(v){return '<a href="'+v[2].replace(/&/g,'&amp;')+'" target="_blank" rel="noopener noreferrer" data-p="'+v[1].toUpperCase()+'" aria-label="'+v[0]+' - Xem Trên '+v[1]+'"><img src="'+v[3]+'" alt="" loading="lazy" decoding="async" draggable="false" onerror="this.remove()"><span class="ov"></span><b>'+v[0]+'</b><small>Xem Trên '+v[1]+' ↗</small></a>'});
 var sl=[].slice.call($('cf').children);
 function cfr(){sl.forEach(function(a,i){var d=i-cur,m=Math.abs(d);a.style.transform='translateX('+d*62+'%) translateZ('+(-m*160)+'px) rotateY('+(-d*38)+'deg)';a.style.opacity=m>2?0:1-m*.3;a.style.zIndex=9-m;a.style.pointerEvents=m>2?'none':''})}
-sl.forEach(function(a,i){a.onclick=function(e){if(i!==cur){e.preventDefault();cur=i;cfr()}}});
+sl.forEach(function(a,i){a.onclick=function(e){if(sw){e.preventDefault();return}if(i!==cur){e.preventDefault();cur=i;cfr()}}});
+function go(n){cur=Math.max(0,Math.min(sl.length-1,n));cfr()}
+/* Cuộn con lăn chuột trên dải video để chuyển video; tới video đầu/cuối thì trả lại cho trang cuộn bình thường */
+(function(){var cf=$('cf'),wl=0;
+cf.addEventListener('wheel',function(e){var d=Math.abs(e.deltaX)>Math.abs(e.deltaY)?e.deltaX:e.deltaY;if(Math.abs(d)<4)return;var n=cur+(d>0?1:-1);if(n<0||n>sl.length-1)return;e.preventDefault();var t=Date.now();if(t-wl<380)return;wl=t;go(n)},{passive:false});
+/* Điện thoại: vuốt trái / phải để chuyển video */
+var tx=0,ty=0;
+cf.addEventListener('touchstart',function(e){var t=e.touches[0];tx=t.clientX;ty=t.clientY},{passive:true});
+cf.addEventListener('touchend',function(e){var t=e.changedTouches[0],dx=t.clientX-tx,dy=t.clientY-ty;if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)*1.3){sw=1;go(cur+(dx<0?1:-1));setTimeout(function(){sw=0},400)}},{passive:true});
+})();
 $('pv').onclick=function(){cur=Math.max(0,cur-1);cfr()};$('nx').onclick=function(){cur=Math.min(sl.length-1,cur+1);cfr()};cfr();
 /* Vé giải đấu: tàn lửa + nút từ tính */
 (function(){var c=$('em'),x=c.getContext('2d'),P=[],i;function rs(){c.width=c.offsetWidth;c.height=c.offsetHeight}rs();addEventListener('resize',rs);for(i=0;i<45;i++)P.push([Math.random(),Math.random(),Math.random()*2+.6,Math.random()*.6+.2]);(function f(){x.clearRect(0,0,c.width,c.height);P.forEach(function(p){p[1]-=p[3]*.002;if(p[1]<0){p[1]=1;p[0]=Math.random()}x.fillStyle='rgba(255,'+(120+p[2]*40|0)+',30,'+p[1]*.8+')';x.beginPath();x.arc(p[0]*c.width,p[1]*c.height,p[2],0,6.3);x.fill()});if(!RM)requestAnimationFrame(f)})()})();

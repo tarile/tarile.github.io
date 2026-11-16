@@ -247,3 +247,15 @@ body.uz::after{content:"";position:fixed;inset:-50%;z-index:60;pointer-events:no
 .bento .bc:hover::after{opacity:1;animation:scan 1.2s ease-out forwards}
 @keyframes scan{from{background-position:0 -82%,0 0,0 0}to{background-position:0 182%,0 0,0 0}}
 @media(prefers-reduced-motion:reduce){.bento .bc::before{display:none}.bento .bc:hover::after{animation:none}}
+
+/* ===== Video đú trend: ảnh bìa, vuốt/cuộn để chuyển ===== */
+.cf{touch-action:pan-y;-webkit-user-select:none;user-select:none}
+.cf a{overflow:hidden;background:#0b0d12}
+.cf a img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;-webkit-user-drag:none}
+.cf a .ov{position:absolute;inset:0;z-index:0;pointer-events:none;background:linear-gradient(to top,rgba(5,7,13,.9) 0%,rgba(5,7,13,.3) 36%,transparent 60%)}
+.cf a::before{z-index:1}
+.cf a::after{z-index:3}
+.cf a b,.cf a small{z-index:2;text-shadow:0 2px 10px rgba(0,0,0,.85)}
+.cf a small{color:#BAE6FD;font-family:var(--m)}
+/* Nút ▶ dời xuống góc phải để không che chữ trên ảnh bìa */
+.cf a::before{place-items:end end;padding:0 16px 14px;font-size:1.7rem}
