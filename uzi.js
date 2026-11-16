@@ -51,8 +51,12 @@ cf.addEventListener('touchend',function(e){var t=e.changedTouches[0],dx=t.client
 })();
 $('pv').onclick=function(){cur=Math.max(0,cur-1);cfr()};$('nx').onclick=function(){cur=Math.min(sl.length-1,cur+1);cfr()};cfr();
 /* Vé giải đấu: tàn lửa + nút từ tính */
-(function(){var c=$('em'),x=c.getContext('2d'),P=[],i;function rs(){c.width=c.offsetWidth;c.height=c.offsetHeight}rs();addEventListener('resize',rs);for(i=0;i<45;i++)P.push([Math.random(),Math.random(),Math.random()*2+.6,Math.random()*.6+.2]);(function f(){x.clearRect(0,0,c.width,c.height);P.forEach(function(p){p[1]-=p[3]*.002;if(p[1]<0){p[1]=1;p[0]=Math.random()}x.fillStyle='rgba(255,'+(120+p[2]*40|0)+',30,'+p[1]*.8+')';x.beginPath();x.arc(p[0]*c.width,p[1]*c.height,p[2],0,6.3);x.fill()});if(!RM)requestAnimationFrame(f)})()})();
-var mg=$('mag'),tkt=$('tkt');tkt.addEventListener('mousemove',function(e){var r=mg.getBoundingClientRect(),dx=e.clientX-r.left-r.width/2,dy=e.clientY-r.top-r.height/2;mg.style.transform=Math.hypot(dx,dy)<150?'translate('+dx*.3+'px,'+dy*.3+'px)':''});tkt.addEventListener('mouseleave',function(){mg.style.transform=''});
+(function(){var c=$('em'),x=c.getContext('2d'),P=[],i;function rs(){c.width=c.offsetWidth;c.height=c.offsetHeight}rs();addEventListener('resize',rs);for(i=0;i<45;i++)P.push([Math.random(),Math.random(),Math.random()*2+.6,Math.random()*.6+.2]);var ev=false;new IntersectionObserver(function(es){ev=es[0].isIntersecting}).observe(c);(function f(){if(!ev&&!RM){requestAnimationFrame(f);return}x.clearRect(0,0,c.width,c.height);P.forEach(function(p){p[1]-=p[3]*.002;if(p[1]<0){p[1]=1;p[0]=Math.random()}x.fillStyle='rgba(255,'+(120+p[2]*40|0)+',30,'+p[1]*.8+')';x.beginPath();x.arc(p[0]*c.width,p[1]*c.height,p[2],0,6.3);x.fill()});if(!RM)requestAnimationFrame(f)})()})();
+/* Vé giải đấu: cửa sập cơ khí mở khi cuộn tới; các hiệu ứng lặp chỉ chạy khi vé đang trong màn hình */
+(function(){var t=$('tkt');if(!t)return;
+if(!RM&&'IntersectionObserver' in window){t.classList.add('arm');
+ new IntersectionObserver(function(es){var v=es[0].isIntersecting;t.classList.toggle('tk-on',v);if(v)setTimeout(function(){t.classList.add('open')},250)},{threshold:.3}).observe(t)}
+else t.classList.add('tk-on','open')})();
 /* Huy hiệu */
 function bd(id,a,ic){fill(id,a,function(t){return '<article class="bd"><div class="hex">'+ic+'</div><h4>'+t[0]+'</h4><p>'+t[1]+'</p></article>'})}
 bd('bo',[['Giải đấu khác #1','Tên giải · Kết quả · Năm'],['Giải đấu khác #2','Tên giải · Kết quả · Năm'],['Giải đấu khác #3','Tên giải · Kết quả · Năm']],'⚔');
