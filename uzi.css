@@ -555,3 +555,5 @@ body.uz::after{content:"";position:fixed;inset:-50%;z-index:60;pointer-events:no
   .dg-sky::after{font-size:.62rem;bottom:10px;left:12px;right:12px}
   .dg-hud{top:10px;left:12px;font-size:.66rem;padding:4px 10px}
 }
+.lb-note{display:inline-block;margin:0 0 18px;padding:6px 14px;font:700 .78rem var(--m);letter-spacing:.14em;text-transform:uppercase;color:var(--acid);border:1px solid rgba(0,229,255,.35);background:rgba(0,229,255,.06)}
+.pd .pd-t{color:var(--acid)}
