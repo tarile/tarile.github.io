@@ -586,7 +586,7 @@ body.uz::after{content:"";position:fixed;inset:-50%;z-index:60;pointer-events:no
 .rw.elite{position:relative;overflow:hidden;border-left-color:#FFD400;background:linear-gradient(90deg,rgba(255,212,0,.11),#0e1016 55%)}
 .rw.elite::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:#FFD400;box-shadow:0 0 14px 2px rgba(255,212,0,.7);animation:lbPulse 2s ease-in-out infinite}
 .rw.elite::after{content:"";position:absolute;top:0;bottom:0;left:-30%;width:22%;background:linear-gradient(100deg,transparent,rgba(255,226,120,.18),transparent);transform:skewX(-20deg);animation:lbSheen 5s ease-in-out infinite;pointer-events:none}
-.rw.elite .nm,.rw.elite .hn{background:linear-gradient(90deg,#FFD400 0%,#FFF8B8 40%,#FFAA00 70%,#FFD400 100%);background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 6px rgba(255,212,0,.35));animation:lbGold 3s linear infinite}
+.rw.elite .nt,.rw.elite .hn{background:linear-gradient(90deg,#FFD400 0%,#FFF8B8 40%,#FFAA00 70%,#FFD400 100%);background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 6px rgba(255,212,0,.35));animation:lbGold 3s linear infinite}
 .rw.elite .hn{font-size:1.12rem;font-weight:900}
 .rw .bdg{display:inline-block;margin-left:10px;padding:1px 7px;font:800 .62rem var(--m);font-style:normal;letter-spacing:.14em;vertical-align:middle;color:#05070D;background:linear-gradient(90deg,#FFD400,#FFAE00);-webkit-text-fill-color:#05070D;box-shadow:0 0 10px rgba(255,212,0,.55)}
 @keyframes lbFloat{0%,100%{transform:perspective(700px) rotateX(8deg) translateY(0)}50%{transform:perspective(700px) rotateX(8deg) translateY(-10px)}}
@@ -595,7 +595,37 @@ body.uz::after{content:"";position:fixed;inset:-50%;z-index:60;pointer-events:no
 @keyframes lbGold{to{background-position:200% center}}
 @keyframes lbPulse{0%,100%{opacity:.65}50%{opacity:1}}
 @keyframes lbSpin{to{transform:rotate(360deg)}}
-@media(prefers-reduced-motion:reduce){.pd,.pd::before,.pd::after,.pd .md::before,.pd .pd-bd,.pd.elite .pd-n,.pd.elite .pd-h i,.rw.elite::before,.rw.elite::after,.rw.elite .nm,.rw.elite .hn{animation:none!important}}
+@media(prefers-reduced-motion:reduce){.pd,.pd::before,.pd::after,.pd .md::before,.pd .pd-bd,.pd.elite .pd-n,.pd.elite .pd-h i,.rw.elite::before,.rw.elite::after,.rw.elite .nt,.rw.elite .hn{animation:none!important}}
 @media(max-width:700px){.pod{grid-template-columns:1fr}.pd.p1{order:-1}.pd{min-height:0!important}}
 /* Fix: hàng elite bị ép thấp lại (overflow:hidden làm flex-item co về 0) */
 .lbd .rw{flex-shrink:0;min-height:52px}
+
+/* ===== Hạng: BOSS / PREMIUM / VIP / ELITE ===== */
+.tg{display:inline-block;position:relative;isolation:isolate;margin:0 0 0 8px;padding:2px 8px;font:800 .62rem var(--m);font-style:normal;letter-spacing:.14em;line-height:1.5;vertical-align:middle;color:#fff;-webkit-text-fill-color:#fff}
+.pd-bds{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:8px}.pd-bds .tg{margin:0}
+.tg.el{color:#05070D;-webkit-text-fill-color:#05070D;background:linear-gradient(90deg,#FFD400,#FFF8B8,#FFAA00,#FFD400);background-size:200% auto;box-shadow:0 0 12px rgba(255,212,0,.6);animation:lbGold 2.5s linear infinite}
+/* VIP: ngọn lửa cam bốc lên */
+.tg.vp{-webkit-text-fill-color:#fff;text-shadow:0 1px 3px #7c2d12;border:1px solid #fdba74;background:linear-gradient(180deg,#9a3412 0,#f97316 35%,#fde047 55%,#f97316 75%,#9a3412 100%) 0 0/100% 40px repeat-y;animation:lbFlame 1.3s linear infinite,lbEmber 1.1s ease-in-out infinite alternate}
+/* PREMIUM: viền lăng kính tím xoay + vệt pha lê */
+.tg.pm{overflow:hidden;padding:3px 10px;color:#f5e8ff;-webkit-text-fill-color:#f5e8ff;text-shadow:0 0 8px #d8b4fe;box-shadow:0 0 14px rgba(168,85,247,.75);animation:lbEmber2 2s ease-in-out infinite alternate}
+.tg.pm::before{content:"";position:absolute;left:50%;top:50%;width:300%;aspect-ratio:1;margin:-150% 0 0 -150%;z-index:-2;background:conic-gradient(#6a0dad,#e9d5ff,#9333ea,#f0abfc,#6a0dad);animation:lbSpin 2.4s linear infinite}
+.tg.pm::after{content:"";position:absolute;inset:1.5px;z-index:-1;background:linear-gradient(110deg,#3b0f78 20%,#7e22ce 42%,#f3e8ff 50%,#7e22ce 58%,#3b0f78 80%) 0 0/250% 100%;animation:lbCrystal 2.6s ease-in-out infinite}
+/* BOSS: lò phản ứng đỏ — sóng xung kích + tia chém + lửa chữ */
+.tg.bs{display:block;width:max-content;margin:12px auto 2px;padding:6px 30px;font:900 1.2rem var(--f);letter-spacing:.42em;text-indent:.42em;border:1px solid #ff6b81;background:linear-gradient(100deg,transparent 38%,rgba(255,255,255,.6) 50%,transparent 62%) -150% 0/250% 100% no-repeat,linear-gradient(135deg,#6b000b,#ff1e42 50%,#6b000b);animation:lbSlash 2.8s ease-in-out infinite,lbBoss 1.2s ease-in-out infinite alternate}
+.tg.bs::before,.tg.bs::after{content:"";position:absolute;inset:-1px;z-index:-1;border:2px solid #ff1e42;animation:lbRing 2s ease-out infinite}
+.tg.bs::after{animation-delay:1s}
+.pd.boss{box-shadow:0 -12px 40px -14px var(--mc),0 0 40px -10px rgba(255,30,66,.55)}
+.pd.pm .pd-n{filter:drop-shadow(0 0 8px rgba(192,132,252,.7))}
+/* hàng PREMIUM (tím) ghi đè hàng ELITE (vàng) */
+.rw.pm{border-left-color:#C084FC;background:linear-gradient(90deg,rgba(168,85,247,.2),#0e1016 55%)}
+.rw.pm::before{background:#C084FC;box-shadow:0 0 14px 2px rgba(192,132,252,.8)}
+.rw.pm .nt{background:linear-gradient(90deg,#c084fc,#f5e8ff 40%,#a855f7 70%,#c084fc);background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 8px rgba(192,132,252,.6));animation:lbGold 3s linear infinite}
+.lf #rk{min-width:150px}
+@keyframes lbFlame{to{background-position:0 40px}}
+@keyframes lbEmber{0%{box-shadow:0 0 5px rgba(249,115,22,.45)}100%{box-shadow:0 0 16px 2px rgba(251,146,60,.95)}}
+@keyframes lbEmber2{0%{box-shadow:0 0 8px rgba(168,85,247,.5)}100%{box-shadow:0 0 20px 3px rgba(216,180,254,.95)}}
+@keyframes lbCrystal{0%,35%{background-position:100% 0}100%{background-position:-60% 0}}
+@keyframes lbSlash{0%,40%{background-position:-150% 0,0 0}100%{background-position:250% 0,0 0}}
+@keyframes lbBoss{0%{box-shadow:0 0 12px rgba(255,30,66,.55);text-shadow:0 0 6px #ff1e42,0 0 14px #ff1e42}100%{box-shadow:0 0 30px 4px rgba(255,30,66,.95);text-shadow:0 0 10px #fff,0 0 24px #ff1e42,0 0 40px #ff0a2b}}
+@keyframes lbRing{0%{transform:scale(1,1);opacity:.9}100%{transform:scale(1.35,2.1);opacity:0}}
+@media(prefers-reduced-motion:reduce){.tg,.tg::before,.tg::after{animation:none!important}}
