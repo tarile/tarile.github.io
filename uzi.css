@@ -634,3 +634,47 @@ body.uz::after{content:"";position:fixed;inset:-50%;z-index:60;pointer-events:no
 @keyframes lbBoss{0%{box-shadow:0 0 12px rgba(255,30,66,.55);text-shadow:0 0 6px #ff1e42,0 0 14px #ff1e42}100%{box-shadow:0 0 30px 4px rgba(255,30,66,.95);text-shadow:0 0 10px #fff,0 0 24px #ff1e42,0 0 40px #ff0a2b}}
 @keyframes lbRing{0%{transform:scale(1,1);opacity:.9}100%{transform:scale(1.35,2.1);opacity:0}}
 @media(prefers-reduced-motion:reduce){.tg,.tg::before,.tg::after{animation:none!important}}
+
+/* ===== Hạng: số thứ tự đồng màu cấp bậc ===== */
+.lbd .rw>span:first-child{font-weight:800;letter-spacing:.04em}
+.lbd .rw.pm>span:first-child{color:#d8b4fe;text-shadow:0 0 10px rgba(168,85,247,.85)}
+.lbd .rw.vip:not(.pm)>span:first-child{color:#fb923c;text-shadow:0 0 10px rgba(249,115,22,.65)}
+.lbd .rw.elite:not(.vip):not(.pm)>span:first-child{color:#ffd700;text-shadow:0 0 10px rgba(255,215,0,.55)}
+/* VIP thuần (chưa ELITE): tên cam rực cháy */
+.rw.vip:not(.pm):not(.elite) .nt{background:linear-gradient(90deg,#F97316 0%,#FDE68A 40%,#EA580C 70%,#F97316 100%);background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 6px rgba(249,115,22,.45));animation:lbGold 3s linear infinite}
+@media(prefers-reduced-motion:reduce){.rw.vip .nt{animation:none!important}}
+
+/* ===== GIA NHẬP: Cổng Triệu Hồi (xoáy hút + nổ xung kích) ===== */
+.jn{position:relative;min-height:92svh;display:grid;place-items:center;text-align:center;overflow:hidden;padding:90px 16px;border-top:1px solid rgba(255,255,255,.08);background:radial-gradient(ellipse 60% 55% at 50% 62%,rgba(0,229,255,.1),transparent 70%),#05070D}
+.jn-cv{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.jn-in{position:relative;z-index:2;width:100%}
+.jn-k{margin:0 0 14px;font:600 .78rem var(--m);letter-spacing:.3em;color:var(--acid)}
+.jn h3{margin:0 0 12px;font:800 clamp(2rem,6vw,4.4rem)/1 var(--f);text-transform:uppercase;text-shadow:0 0 30px rgba(0,229,255,.3)}
+.jn-s{margin:0 auto 22px;max-width:480px;color:#b4bccb}
+.jn-slot{display:inline-flex;align-items:center;gap:12px;margin-bottom:8px;padding:8px 16px;font:600 .72rem var(--m);letter-spacing:.14em;color:#8b93a3;border:1px solid rgba(255,255,255,.1);background:rgba(8,12,22,.6)}
+.jn-bar{width:120px;height:4px;background:rgba(255,255,255,.1);overflow:hidden}
+.jn-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#00E5FF,#FFD400);box-shadow:0 0 10px #00E5FF;transition:width 1.4s cubic-bezier(.2,.8,.2,1)}
+.jn-slot b{color:#fff;min-width:78px;text-align:right}
+.jn-stage{position:relative;display:flex;justify-content:center;align-items:center;width:100%;height:340px}
+.jn-ring,.jn-rays,.jn-shock{position:absolute;left:50%;top:50%;border-radius:50%;pointer-events:none}
+.jn-ring.r1{width:330px;height:330px;margin:-165px 0 0 -165px;border:1px dashed rgba(0,229,255,.35)}
+.jn-ring.r2{width:262px;height:262px;margin:-131px 0 0 -131px;background:conic-gradient(#00E5FF 0 62deg,transparent 62deg 110deg,#FFD400 110deg 190deg,transparent 190deg 240deg,#C084FC 240deg 318deg,transparent 318deg);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2px));mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2px));filter:drop-shadow(0 0 6px rgba(0,229,255,.7))}
+.jn-ring.r3{width:420px;height:420px;margin:-210px 0 0 -210px;background:repeating-conic-gradient(rgba(0,229,255,.5) 0 .8deg,transparent .8deg 6deg);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 9px),#000 calc(100% - 8px));mask:radial-gradient(farthest-side,transparent calc(100% - 9px),#000 calc(100% - 8px))}
+.jn-rays{width:900px;height:900px;margin:-450px 0 0 -450px;background:repeating-conic-gradient(from 0deg,rgba(0,229,255,.1) 0 3deg,transparent 3deg 15deg);-webkit-mask:radial-gradient(circle,#000 0,transparent 62%);mask:radial-gradient(circle,#000 0,transparent 62%);animation:jnRay 70s linear infinite}
+@keyframes jnRay{to{transform:rotate(360deg)}}
+.jn-shock{width:40px;height:40px;margin:-20px 0 0 -20px;border:2px solid #00E5FF;box-shadow:0 0 24px #00E5FF,inset 0 0 18px #00E5FF;opacity:0}
+.jn-shock.s2{border-color:#FFD400;box-shadow:0 0 24px #FFD400,inset 0 0 18px #FFD400}
+.jn.go .jn-shock{animation:jnShock .95s cubic-bezier(.1,.7,.3,1) forwards}.jn.go .jn-shock.s2{animation-delay:.13s}
+@keyframes jnShock{0%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(22)}}
+.jn-btn{position:relative;z-index:3;display:inline-flex;align-items:center;gap:12px;padding:22px 54px;font:800 1.15rem var(--f);letter-spacing:.1em;text-transform:uppercase;color:#05070D;background:linear-gradient(100deg,#00E5FF,#7df3ff 50%,#00E5FF);clip-path:polygon(22px 0,100% 0,calc(100% - 22px) 100%,0 100%);box-shadow:0 0 0 rgba(0,229,255,0);transform:translate(var(--mx,0),var(--my,0));transition:transform .18s ease-out,background .3s,filter .3s;overflow:hidden;filter:drop-shadow(0 0 22px rgba(0,229,255,.65))}
+.jn-btn::after{content:"";position:absolute;top:0;bottom:0;left:-40%;width:30%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.75),transparent);transform:skewX(-20deg);animation:jnSheen 2.8s ease-in-out infinite}
+@keyframes jnSheen{0%,40%{left:-40%}100%{left:130%}}
+.jn-btn:hover,.jn-btn:focus-visible{background:linear-gradient(100deg,#FFD400,#fff3a0 50%,#FFD400);filter:drop-shadow(0 0 30px rgba(255,212,0,.85));outline:none}
+.jn-ar{display:inline-block;transition:transform .25s}.jn-btn:hover .jn-ar{transform:translate(4px,-4px)}
+.jn.go .jn-btn{animation:jnSlam .45s cubic-bezier(.2,1.6,.4,1);background:linear-gradient(100deg,#FFD400,#fff,#FFD400)}
+@keyframes jnSlam{0%{transform:scale(1)}25%{transform:scale(.88)}60%{transform:scale(1.12)}100%{transform:scale(1)}}
+.jn-flash{position:absolute;inset:0;z-index:4;pointer-events:none;opacity:0;background:radial-gradient(circle at 50% 70%,#fff 0,rgba(0,229,255,.55) 30%,transparent 65%)}
+.jn.go .jn-flash{animation:jnFlash .6s ease-out}
+@keyframes jnFlash{0%{opacity:.95}100%{opacity:0}}
+@media(max-width:700px){.jn-ring.r3{width:340px;height:340px;margin:-170px 0 0 -170px}.jn-btn{padding:18px 30px;font-size:1rem}.jn-slot{flex-wrap:wrap;justify-content:center}}
+@media(prefers-reduced-motion:reduce){.jn-rays,.jn-btn::after,.jn.go .jn-btn,.jn.go .jn-shock,.jn.go .jn-flash{animation:none!important}}

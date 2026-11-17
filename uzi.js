@@ -539,7 +539,7 @@ if('IntersectionObserver' in window)new IntersectionObserver(function(es){vis=es
 size();
 })();
 /* Bảng xếp hạng: sửa mảng MEM [tên, danh dự, game, thời gian vào] */
-var MEM=[["UZI　TARI",195220,"BOSS","2020 đến nay"],["UZI　BOUBOR.",153612,"Free Fire, Play Together","2020 đến nay"],["UZI　OMACHI",228847,"Free Fire","2021 đến nay"],["UZI　AMIA",269553,"Free Fire, Play Together","2025"],["UZI　HANA",113862,"Free Fire, Liên Quân","2026"],["UZI　806.!",5085,"Free Fire, Liên Quân","2026"],["UZI　BABY",21128,"Free Fire","2026"],["UZI　BẮP",854,"Free Fire","2026"],["UZI　CANDY",2048,"Free Fire","2026"],["UZI　DEATH",33242,"Free Fire, PUBG Mobile","2026"],["UZI　DVNT",6418,"Free Fire","2026"],["UZI　FORム",277813,"Free Fire","2025"],["UZI　G.HƯNG",26699,"Free Fire","2026"],["UZI　GMINH",6988,"Free Fire","2026"],["UZI　H.NAM",1296,"Free Fire","2026"],["UZI　HANTEX",1040,"Free Fire","2026"],["UZI　HUNTE",1681,"Free Fire","2026"],["UZI　HUỲNH",130,"Free Fire","2026"],["UZI　HYEN",0,"Liên Quân","2026"],["UZI　MHOANG",3302,"Free Fire","2026"],["UZI　NG.HUY",27103,"Free Fire","2026"],["UZI　NHUTBUN",1756,"Free Fire","2026"],["UZI　NINI",8367,"Free Fire","2026"],["UZI　NTRI",22602,"Free Fire","2026"],["UZI　OBITO",4418,"Free Fire","2026"],["UZI　P.AN",17258,"Free Fire, Liên Quân","2026"],["UZI　PAW",1070,"Free Fire","2026"],["UZI　SIXBEO",2790,"Free Fire","2026"],["UZI　TOBIE.",20532,"Free Fire","2026"],["UZI　TPHAT",350,"Free Fire","2026"],["UZI　VLUAT",18304,"Free Fire, Liên Quân","2026"],["UZI　VTUNG",134450,"Free Fire, Liên Quân","2025"],["UZI　XHIEU",40094,"Free Fire","2026"],["UZI　黄文荣",250,"Free Fire","2026"],["No Name - 50MB",40,"Free Fire","2026"],["No Name - Devil",30,"Free Fire","2026"],["No Name - Đức",260,"Free Fire","2026"],["No Name - Ducanh",0,"Free Fire","2026"],["No Name - Emmi",666,"Free Fire","2026"],["No Name - Hong Em",636,"Free Fire","2026"],["No Name - Kim Anh",150,"Free Fire","2026"],["No Name - Như Hạo",30,"Free Fire","2026"],["No Name - Thái An",0,"Free Fire","2026"],["No Name - Thu Thuy",706,"Free Fire","2026"],["No Name - Tít",306,"Free Fire","2026"],["No Name - No VT",952,"Free Fire","2026"]],MC=['#C0C8D4','#FFD400','#CD7F32'],qi=$('q'),sel=$('g');
+var MEM=[["UZI　TARI",195220,"BOSS","2020 đến nay"],["UZI　BOUBOR.",153612,"Free Fire, Play Together","2020 đến nay"],["UZI　OMACHI",228847,"Free Fire","2021 đến nay"],["UZI　AMIA",269553,"Free Fire, Play Together","2025"],["UZI　HANA",113862,"Free Fire, Liên Quân","2026"],["UZI　806.!",5085,"Free Fire, Liên Quân","2026"],["UZI　BABY",21128,"Free Fire","2026"],["UZI　BẮP",854,"Free Fire","2026"],["UZI　CANDY",2048,"Free Fire","2026"],["UZI　DEATH",33242,"Free Fire, PUBG Mobile","2026"],["UZI　DVNT",6418,"Free Fire","2026"],["UZI　FORム",277813,"Free Fire","2025"],["UZI　G.HƯNG",26699,"Free Fire","2026"],["UZI　GMINH",6988,"Free Fire","2026"],["UZI　H.NAM",1296,"Free Fire","2026"],["UZI　HANTEX",1040,"Free Fire","2026"],["UZI　HUNTE",1681,"Free Fire","2026"],["UZI　HUỲNH",130,"Free Fire","2026"],["UZI　MHOANG",3302,"Free Fire","2026"],["UZI　NG.HUY",27103,"Free Fire","2026"],["UZI　NHUTBUN",1756,"Free Fire","2026"],["UZI　NINI",8367,"Free Fire","2026"],["UZI　NTRI",22602,"Free Fire","2026"],["UZI　OBITO",4418,"Free Fire","2026"],["UZI　P.AN",17258,"Free Fire, Liên Quân","2026"],["UZI　PAW",1070,"Free Fire","2026"],["UZI　SIXBEO",2790,"Free Fire","2026"],["UZI　TOBIE.",20532,"Free Fire","2026"],["UZI　TPHAT",350,"Free Fire","2026"],["UZI　VLUAT",18304,"Free Fire, Liên Quân","2026"],["UZI　VTUNG",134450,"Free Fire, Liên Quân","2025"],["UZI　XHIEU",40094,"Free Fire","2026"],["UZI　黄文荣",250,"Free Fire","2026"],["No Name - 50MB",40,"Free Fire","2026"],["No Name - Devil",30,"Free Fire","2026"],["No Name - Đức",260,"Free Fire","2026"],["No Name - Ducanh",0,"Free Fire","2026"],["No Name - Emmi",666,"Free Fire","2026"],["No Name - Hong Em",636,"Free Fire","2026"],["No Name - HaiYen",0,"Liên Quân","2026"],["No Name - Kim Anh",150,"Free Fire","2026"],["No Name - Như Hạo",30,"Free Fire","2026"],["No Name - Thái An",0,"Free Fire","2026"],["No Name - Thu Thuy",706,"Free Fire","2026"],["No Name - Tít",306,"Free Fire","2026"],["No Name - No VT",952,"Free Fire","2026"]],MC=['#C0C8D4','#FFD400','#CD7F32'],qi=$('q'),sel=$('g');
 function rk(m){var t=[];if(m[2]==='BOSS')t.push('BOSS');if(/AMIA/i.test(m[0]))t.push('PREMIUM');if(/^UZI/i.test(m[0]))t.push('VIP');if(m[1]>=10000)t.push('ELITE');return t}
 var TC={BOSS:'bs',PREMIUM:'pm',VIP:'vp',ELITE:'el'},TL={BOSS:'BOSS',PREMIUM:'PREMIUM',VIP:'VIP',ELITE:'★ ELITE'};
 function bd(m,skip){return rk(m).filter(function(t){return t!==skip}).map(function(t){return '<em class="tg '+TC[t]+'">'+TL[t]+'</em>'}).join('')}
@@ -550,8 +550,86 @@ sel.innerHTML='<option value="">Tất cả game</option>'+GAMES.map(function(g){
 function lb(){var q=qi.value.trim().toLowerCase(),g=sel.value,r=rkS.value,h='',i,m,n=0;for(i=3;i<250;i++){m=MEM[i];if((q||g||r)&&(!m||(q&&m[0].toLowerCase().indexOf(q)<0)||(g&&m[2].indexOf(g)<0)||(r&&rk(m).indexOf(r)<0)))continue;n++;h+='<div class="rw'+(m?(m[1]>=10000?' elite':'')+(rk(m).indexOf('PREMIUM')>=0?' pm':'')+(rk(m).indexOf('VIP')>=0?' vip':''):' em')+'"><span>'+pad(i+1)+'</span>'+(m?'<span class="nm"><span class="nt">'+m[0]+'</span>'+bd(m)+'</span><span class="hn">'+m[1].toLocaleString('vi-VN')+'</span><span class="gm">'+m[2]+'</span><span class="tm">'+m[3]+'</span>':'<span>— Trống —</span><span>—</span><span>—</span><span>—</span>')+'</div>'}$('lb').innerHTML=h||'<div class="rw em"><span></span><span>Không tìm thấy.</span></div>';$('mc').textContent=MEM.length+' / 250 đã điền'+((q||g||r)?' · '+n+' kết quả':'')}
 qi.oninput=lb;sel.onchange=lb;lb();
 /* Chữ điện ảnh + thanh laser theo cuộn */
-var ws=[],tk=0;'Quân Đoàn mạnh không phải vì thắng nhiều trận, mà vì có các bạn ở đây'.split(' ').forEach(function(w){var s=document.createElement('span');s.textContent=w+' ';$('kp').appendChild(s);ws.push(s)});
+var ws=[],tk=0;'Quân Đoàn mạnh nhờ có các bạn ở đây, chứ không phải chiến thắng hôm nay'.split(' ').forEach(function(w){var s=document.createElement('span');s.textContent=w+' ';$('kp').appendChild(s);ws.push(s)});
 var evs=[].slice.call(document.querySelectorAll('.ev'));
 function onS(){var vh=innerHeight,r=$('tl').getBoundingClientRect();$('fill').style.height=Math.min(1,Math.max(0,(vh*.6-r.top)/r.height))*100+'%';evs.forEach(function(e){e.classList.toggle('lit',e.getBoundingClientRect().top<vh*.6)});var k=$('kin').getBoundingClientRect(),p=Math.min(1,Math.max(0,(vh*.9-k.top)/(k.height*.8)));ws.forEach(function(w,i){w.style.opacity=.12+.88*Math.min(1,Math.max(0,p*ws.length-i))})}
 addEventListener('scroll',function(){if(!tk){tk=1;requestAnimationFrame(function(){tk=0;onS()})}},{passive:true});onS();
+})();
+/* ===== GIA NHẬP: Cổng Triệu Hồi — xoáy hạt hút vào nút, bấm là nổ xung kích + âm thanh tự tổng hợp (WebAudio, không dùng file ngoài) ===== */
+(function(){
+var sec=document.getElementById('join'),cv=document.getElementById('jnCv'),btn=document.getElementById('jnBtn');
+if(!sec||!cv||!btn)return;
+var cx=cv.getContext('2d'),st=document.getElementById('jnStage'),tx=document.getElementById('jnTx'),
+rings=[].slice.call(sec.querySelectorAll('.jn-ring')),
+still=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches,
+W=0,H=0,dpr=1,CX=0,CY=0,R0=400,ps=[],sparks=[],pull=1,tgt=1,ang=0,spd=1,vis=false,last=0,busy=false,
+COL=['0,229,255','0,229,255','255,212,0','192,132,252','255,255,255'];
+function R(a,b){return a+Math.random()*(b-a)}
+function spawn(p,far){p.r=far?R(.15,1)*R0:R0*R(.7,1);p.a=R(0,6.283);p.w=R(.5,1.3)*(Math.random()<.5?1:1);p.v=R(60,140);p.c=COL[Math.random()*COL.length|0]}
+function size(){
+ dpr=Math.min(devicePixelRatio||1,2);var s=sec.getBoundingClientRect(),b=st.getBoundingClientRect();
+ W=s.width;H=s.height;cv.width=W*dpr;cv.height=H*dpr;CX=b.left+b.width/2-s.left;CY=b.top+b.height/2-s.top;R0=Math.max(W,H)*.6;
+ var n=W<700?70:130;while(ps.length<n){var p={};spawn(p,true);ps.push(p)}ps.length=n}
+function ring(t){rings[0].style.transform='rotate('+ang*.9+'deg)';rings[1].style.transform='rotate('+(-ang*1.9)+'deg)';rings[2].style.transform='rotate('+ang*.35+'deg)'}
+function pos(r,a){return[CX+Math.cos(a)*r,CY+Math.sin(a)*r*.62]}
+function frame(now){
+ requestAnimationFrame(frame);var dt=Math.min((now-last)/1000,.05);last=now;if(!vis||document.hidden)return;
+ pull+=(tgt-pull)*Math.min(1,dt*6);ang+=dt*14*pull;ring();
+ cx.setTransform(dpr,0,0,dpr,0,0);cx.clearRect(0,0,W,H);cx.globalCompositeOperation='lighter';cx.lineCap='round';
+ var i,p,k,al,a,b;
+ for(i=0;i<ps.length;i++){p=ps[i];
+  p.a+=p.w*dt*pull*(1+R0/(p.r+90)*.5);p.r-=p.v*dt*pull*(1+(1-p.r/R0)*1.4);
+  if(p.r<10){spawn(p,false);continue}
+  k=p.r/R0;al=Math.min(1,(1-k)*3,k*7);
+  a=pos(p.r,p.a);b=pos(p.r+p.v*.09*pull,p.a-p.w*.09*pull);
+  cx.strokeStyle='rgba('+p.c+','+(al*.85).toFixed(3)+')';cx.lineWidth=1+(1-k)*1.2;cx.beginPath();cx.moveTo(b[0],b[1]);cx.lineTo(a[0],a[1]);cx.stroke()}
+ for(i=sparks.length-1;i>=0;i--){p=sparks[i];p.t+=dt;if(p.t>=p.l){sparks.splice(i,1);continue}
+  p.vx*=1-dt*2.2;p.vy*=1-dt*2.2;p.x+=p.vx*dt;p.y+=p.vy*dt;al=1-p.t/p.l;
+  cx.strokeStyle='rgba('+p.c+','+al.toFixed(3)+')';cx.lineWidth=2*al+.4;cx.beginPath();cx.moveTo(p.x,p.y);cx.lineTo(p.x-p.vx*.04,p.y-p.vy*.04);cx.stroke()}
+ cx.globalCompositeOperation='source-over'}
+/* ----- Âm thanh: Riser vút lên -> Cú đập sub -> Chốt khóa kim loại -> Hợp âm "power-up" (tổng hợp 100%) ----- */
+var AC=null;
+function sound(){
+ var A=window.AudioContext||window.webkitAudioContext;if(!A)return;
+ try{if(!AC)AC=new A();if(AC.state==='suspended')AC.resume();
+ var c=AC,t=c.currentTime,m=c.createGain(),cp=c.createDynamicsCompressor();m.gain.value=.8;m.connect(cp);cp.connect(c.destination);
+ function env(g,t0,pk,a,d){g.gain.setValueAtTime(.0001,t0);g.gain.exponentialRampToValueAtTime(pk,t0+a);g.gain.exponentialRampToValueAtTime(.0001,t0+a+d)}
+ function osc(type,f0,f1,t0,dur,pk,att,dst){var o=c.createOscillator(),g=c.createGain();o.type=type;o.frequency.setValueAtTime(f0,t0);if(f1)o.frequency.exponentialRampToValueAtTime(f1,t0+dur);env(g,t0,pk,att,dur-att);o.connect(g);g.connect(dst||m);o.start(t0);o.stop(t0+dur+.05)}
+ function noise(t0,dur,type,f0,f1,pk,att){var n=c.sampleRate*dur|0,buf=c.createBuffer(1,n,c.sampleRate),d=buf.getChannelData(0),i;for(i=0;i<n;i++)d[i]=Math.random()*2-1;
+  var s=c.createBufferSource(),f=c.createBiquadFilter(),g=c.createGain();s.buffer=buf;f.type=type;f.Q.value=1.4;f.frequency.setValueAtTime(f0,t0);f.frequency.exponentialRampToValueAtTime(f1,t0+dur);env(g,t0,pk,att,dur-att);s.connect(f);f.connect(g);g.connect(m);s.start(t0)}
+ /* 1. riser răng cưa qua bộ lọc mở dần + gió quét */
+ var rs=c.createOscillator(),rf=c.createBiquadFilter(),rg=c.createGain();rs.type='sawtooth';rs.frequency.setValueAtTime(70,t);rs.frequency.exponentialRampToValueAtTime(1400,t+.34);
+ rf.type='lowpass';rf.frequency.setValueAtTime(250,t);rf.frequency.exponentialRampToValueAtTime(6000,t+.34);env(rg,t,.22,.28,.08);rs.connect(rf);rf.connect(rg);rg.connect(m);rs.start(t);rs.stop(t+.42);
+ noise(t,.36,'bandpass',300,5000,.3,.3);
+ /* 2. cú đập: sub sine rơi tần + xung nhiễu */
+ osc('sine',170,34,t+.34,.6,.95,.005);
+ noise(t+.34,.14,'highpass',1500,6000,.5,.004);
+ /* 3. chốt khóa kim loại: các tần số lệch hài tạo tiếng "keng" */
+ [[1180,.2],[1763,.14],[2610,.1]].forEach(function(q){osc('square',q[0],q[0]*.985,t+.36,.32,q[1]*.35,.003)});
+ /* 4. hợp âm power-up thăng lên (Rê - La - Rê) */
+ [[587.3,0],[880,.06],[1174.7,.12]].forEach(function(q){osc('triangle',q[0],q[0]*1.01,t+.46+q[1],.5,.2,.01)});
+ }catch(e){}}
+function burst(){for(var i=0;i<150;i++){var a=R(0,6.283),v=R(140,720);sparks.push({x:CX,y:CY,vx:Math.cos(a)*v,vy:Math.sin(a)*v*.7,t:0,l:R(.5,1.1),c:COL[Math.random()*COL.length|0]})}}
+/* ----- Tương tác ----- */
+btn.addEventListener('mouseenter',function(){if(!busy)tgt=2.4});
+btn.addEventListener('mouseleave',function(){if(!busy)tgt=1;btn.style.setProperty('--mx','0px');btn.style.setProperty('--my','0px')});
+btn.addEventListener('focus',function(){if(!busy)tgt=2.4});btn.addEventListener('blur',function(){if(!busy)tgt=1});
+sec.addEventListener('pointermove',function(e){if(busy||e.pointerType==='touch')return;var b=btn.getBoundingClientRect(),dx=e.clientX-(b.left+b.width/2),dy=e.clientY-(b.top+b.height/2),d=Math.sqrt(dx*dx+dy*dy);
+ if(d<220){var f=(1-d/220)*.18;btn.style.setProperty('--mx',(dx*f).toFixed(1)+'px');btn.style.setProperty('--my',(dy*f).toFixed(1)+'px')}else{btn.style.setProperty('--mx','0px');btn.style.setProperty('--my','0px')}});
+btn.addEventListener('click',function(e){
+ if(e.button!==0||e.ctrlKey||e.metaKey||e.shiftKey)return;e.preventDefault();if(busy)return;busy=true;
+ var u=btn.href;sound();sec.classList.remove('go');void sec.offsetWidth;sec.classList.add('go');
+ tx.textContent='Đang kết nối…';pull=7;tgt=7;
+ if(!still)setTimeout(burst,340);
+ setTimeout(function(){tgt=1},600);
+ setTimeout(function(){var w=window.open(u,'_blank');if(w){try{w.opener=null}catch(x){}}else{location.href=u}},720);
+ setTimeout(function(){busy=false;sec.classList.remove('go');tx.textContent='Đăng ký làm thành viên'},1900)});
+/* ----- Bộ đếm slot (lấy từ danh sách thành viên) ----- */
+var n=typeof MEM!=='undefined'?MEM.length:0,bar=document.getElementById('jnBar'),nm=document.getElementById('jnNum');
+function count(){bar.style.width=Math.min(100,n/250*100)+'%';var t0=null;function s(t){if(t0===null)t0=t;var p=Math.min((t-t0)/1400,1);nm.textContent=Math.round(n*p)+' / 250';if(p<1)requestAnimationFrame(s)}requestAnimationFrame(s)}
+/* ----- Chỉ chạy khi nhìn thấy ----- */
+size();addEventListener('resize',size);if(window.ResizeObserver)new ResizeObserver(size).observe(sec);setTimeout(size,800);
+var done=false;
+if('IntersectionObserver' in window)new IntersectionObserver(function(es){vis=es[0].isIntersecting;if(vis&&!done){done=true;count()}},{threshold:.2}).observe(sec);else{vis=true;count()}
+if(!still)requestAnimationFrame(function(s){last=s;frame(s)});else{nm.textContent=n+' / 250';bar.style.width=Math.min(100,n/250*100)+'%'}
 })();
