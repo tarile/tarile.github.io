@@ -597,3 +597,5 @@ body.uz::after{content:"";position:fixed;inset:-50%;z-index:60;pointer-events:no
 @keyframes lbSpin{to{transform:rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){.pd,.pd::before,.pd::after,.pd .md::before,.pd .pd-bd,.pd.elite .pd-n,.pd.elite .pd-h i,.rw.elite::before,.rw.elite::after,.rw.elite .nm,.rw.elite .hn{animation:none!important}}
 @media(max-width:700px){.pod{grid-template-columns:1fr}.pd.p1{order:-1}.pd{min-height:0!important}}
+/* Fix: hàng elite bị ép thấp lại (overflow:hidden làm flex-item co về 0) */
+.lbd .rw{flex-shrink:0;min-height:52px}
