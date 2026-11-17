@@ -550,7 +550,32 @@ sel.innerHTML='<option value="">Tất cả game</option>'+GAMES.map(function(g){
 function lb(){var q=qi.value.trim().toLowerCase(),g=sel.value,r=rkS.value,h='',i,m,n=0;for(i=3;i<250;i++){m=MEM[i];if((q||g||r)&&(!m||(q&&m[0].toLowerCase().indexOf(q)<0)||(g&&m[2].indexOf(g)<0)||(r&&rk(m).indexOf(r)<0)))continue;n++;h+='<div class="rw'+(m?(m[1]>=10000?' elite':'')+(rk(m).indexOf('PREMIUM')>=0?' pm':'')+(rk(m).indexOf('VIP')>=0?' vip':''):' em')+'"><span>'+pad(i+1)+'</span>'+(m?'<span class="nm"><span class="nt">'+m[0]+'</span>'+bd(m)+'</span><span class="hn">'+m[1].toLocaleString('vi-VN')+'</span><span class="gm">'+m[2]+'</span><span class="tm">'+m[3]+'</span>':'<span>— Trống —</span><span>—</span><span>—</span><span>—</span>')+'</div>'}$('lb').innerHTML=h||'<div class="rw em"><span></span><span>Không tìm thấy.</span></div>';$('mc').textContent=MEM.length+' / 250 đã điền'+((q||g||r)?' · '+n+' kết quả':'')}
 qi.oninput=lb;sel.onchange=lb;lb();
 /* Chữ điện ảnh + thanh laser theo cuộn */
-var ws=[],tk=0;'Quân Đoàn mạnh nhờ có các bạn ở đây, chứ không phải chiến thắng hôm nay'.split(' ').forEach(function(w){var s=document.createElement('span');s.textContent=w+' ';$('kp').appendChild(s);ws.push(s)});
+var ws=[],tk=0;
+/* ===== SLOGAN: Kinetic Spotlight — đèn pha chạy theo chuột (tự lượn khi không có chuột), chữ gần đèn nhô lên và phát sáng, cụm từ khóa có sóng lụa vàng ngọc ===== */
+(function(){
+var kin=document.getElementById('kin'),kp=document.getElementById('kp');if(!kin||!kp)return;
+var still=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches,
+words='Quân Đoàn mạnh nhờ có các bạn ở đây, chứ không phải chiến thắng hôm nay'.split(' '),kws=[],lv=[],pos=[],
+px=0,py=0,over=false,raf=0,t0=performance.now(),ref=kp.parentNode;
+words.forEach(function(w,i){var s=document.createElement('span');s.className='kw'+((i>=4&&i<=8)||(i>=12)?' kh':'');s.style.setProperty('--i',i);s.textContent=w;kp.appendChild(s);kp.appendChild(document.createTextNode(' '));kws.push(s);lv.push(0)});
+function measure(){pos=kws.map(function(w){return{x:w.offsetLeft+w.offsetWidth/2,y:w.offsetTop+w.offsetHeight/2}})}
+function frame(now){
+ raf=requestAnimationFrame(frame);
+ var rk=kin.getBoundingClientRect(),rd=ref.getBoundingClientRect(),tt=(now-t0)/1000,x,y;
+ if(over){x=px-rk.left;y=py-rk.top}else{x=rk.width*(.5+.42*Math.sin(tt*.55));y=rk.height*(.5+.28*Math.sin(tt*.37+1.2))}
+ kin.style.setProperty('--mx',x+'px');kin.style.setProperty('--my',y+'px');
+ var lx=x-(rd.left-rk.left),ly=y-(rd.top-rk.top),rad=Math.max(rd.width,520)*.2;
+ kws.forEach(function(w,i){var p=pos[i];if(!p)return;var g=Math.max(0,1-Math.hypot(p.x-lx,p.y-ly)/rad);lv[i]+=(g-lv[i])*.12;w.style.setProperty('--l',lv[i].toFixed(3))})}
+function start(){if(!raf&&!still){measure();raf=requestAnimationFrame(frame)}}
+function stop(){if(raf){cancelAnimationFrame(raf);raf=0}}
+kin.addEventListener('pointermove',function(e){over=true;px=e.clientX;py=e.clientY});
+kin.addEventListener('pointerleave',function(){over=false});
+kin.addEventListener('pointercancel',function(){over=false});
+addEventListener('resize',measure);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(measure);
+if(still){kin.classList.add('go','rest')}
+else if('IntersectionObserver' in window){new IntersectionObserver(function(es){if(es[0].isIntersecting){kin.classList.add('go');setTimeout(function(){kin.classList.add('rest')},1900);start()}else stop()},{threshold:.15}).observe(kin)}
+else{kin.classList.add('go','rest');start()}
+})();
 var evs=[].slice.call(document.querySelectorAll('.ev'));
 function onS(){var vh=innerHeight,r=$('tl').getBoundingClientRect();$('fill').style.height=Math.min(1,Math.max(0,(vh*.6-r.top)/r.height))*100+'%';evs.forEach(function(e){e.classList.toggle('lit',e.getBoundingClientRect().top<vh*.6)});var k=$('kin').getBoundingClientRect(),p=Math.min(1,Math.max(0,(vh*.9-k.top)/(k.height*.8)));ws.forEach(function(w,i){w.style.opacity=.12+.88*Math.min(1,Math.max(0,p*ws.length-i))})}
 addEventListener('scroll',function(){if(!tk){tk=1;requestAnimationFrame(function(){tk=0;onS()})}},{passive:true});onS();
@@ -625,11 +650,11 @@ btn.addEventListener('click',function(e){
  setTimeout(function(){var w=window.open(u,'_blank');if(w){try{w.opener=null}catch(x){}}else{location.href=u}},720);
  setTimeout(function(){busy=false;sec.classList.remove('go');tx.textContent='Đăng ký làm thành viên'},1900)});
 /* ----- Bộ đếm slot (lấy từ danh sách thành viên) ----- */
-var n=typeof MEM!=='undefined'?MEM.length:0,bar=document.getElementById('jnBar'),nm=document.getElementById('jnNum');
-function count(){bar.style.width=Math.min(100,n/250*100)+'%';var t0=null;function s(t){if(t0===null)t0=t;var p=Math.min((t-t0)/1400,1);nm.textContent=Math.round(n*p)+' / 250';if(p<1)requestAnimationFrame(s)}requestAnimationFrame(s)}
+var n=46,bar=document.getElementById('jnBar'),nm=document.getElementById('jnNum');
+function count(){var sl=document.querySelector('.jn-slot');if(sl){sl.classList.add('go');setTimeout(function(){sl.classList.add('on')},1850)}bar.style.width=Math.min(100,n/250*100)+'%';var t0=null;function s(t){if(t0===null)t0=t;var p=Math.min((t-t0)/1800,1);nm.textContent=Math.round(n*p)+' / 250';if(p<1)requestAnimationFrame(s)}requestAnimationFrame(s)}
 /* ----- Chỉ chạy khi nhìn thấy ----- */
 size();addEventListener('resize',size);if(window.ResizeObserver)new ResizeObserver(size).observe(sec);setTimeout(size,800);
 var done=false;
 if('IntersectionObserver' in window)new IntersectionObserver(function(es){vis=es[0].isIntersecting;if(vis&&!done){done=true;count()}},{threshold:.2}).observe(sec);else{vis=true;count()}
-if(!still)requestAnimationFrame(function(s){last=s;frame(s)});else{nm.textContent=n+' / 250';bar.style.width=Math.min(100,n/250*100)+'%'}
+if(!still)requestAnimationFrame(function(s){last=s;frame(s)});else{nm.textContent=n+' / 250';bar.style.width=Math.min(100,n/250*100)+'%';var s0=document.querySelector('.jn-slot');if(s0)s0.classList.add('go','on')}
 })();
