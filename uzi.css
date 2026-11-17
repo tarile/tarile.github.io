@@ -595,7 +595,7 @@ body.uz::after{content:"";position:fixed;inset:-50%;z-index:60;pointer-events:no
 @keyframes lbGold{to{background-position:200% center}}
 @keyframes lbPulse{0%,100%{opacity:.65}50%{opacity:1}}
 @keyframes lbSpin{to{transform:rotate(360deg)}}
-@media(prefers-reduced-motion:reduce){.pd,.pd::before,.pd::after,.pd .md::before,.pd .pd-bd,.pd.elite .pd-n,.pd.elite .pd-h i,.rw.elite::before,.rw.elite::after,.rw.elite .nt,.rw.elite .hn{animation:none!important}}
+@media(prefers-reduced-motion:reduce){.pd,.pd::before,.pd::after,.pd .md::before,.pd .pd-bd,.pd.elite .pd-n,.pd.elite .pd-h i,.rw.elite::before,.rw.elite::after,.rw.elite .nt,.rw.elite .hn,.rw.vip::before,.rw.vip::after,.rw.vip .nt,.rw.vip .hn{animation:none!important}}
 @media(max-width:700px){.pod{grid-template-columns:1fr}.pd.p1{order:-1}.pd{min-height:0!important}}
 /* Fix: hàng elite bị ép thấp lại (overflow:hidden làm flex-item co về 0) */
 .lbd .rw{flex-shrink:0;min-height:52px}
@@ -616,6 +616,11 @@ body.uz::after{content:"";position:fixed;inset:-50%;z-index:60;pointer-events:no
 .tg.bs::after{animation-delay:1s}
 .pd.boss{box-shadow:0 -12px 40px -14px var(--mc),0 0 40px -10px rgba(255,30,66,.55)}
 .pd.pm .pd-n{filter:drop-shadow(0 0 8px rgba(192,132,252,.7))}
+/* hàng VIP (cam): nền cam + vệt sáng; có cả VIP và ELITE thì ưu tiên màu VIP. PREMIUM (tím) vẫn đứng trên cùng */
+.rw.vip:not(.pm){position:relative;overflow:hidden;border-left-color:#F97316;background:linear-gradient(90deg,rgba(249,115,22,.2),#0e1016 55%)}
+.rw.vip:not(.pm)::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:#F97316;box-shadow:0 0 14px 2px rgba(249,115,22,.75);animation:lbPulse 2s ease-in-out infinite}
+.rw.vip:not(.pm)::after{content:"";position:absolute;top:0;bottom:0;left:-30%;width:22%;background:linear-gradient(100deg,transparent,rgba(253,186,116,.2),transparent);transform:skewX(-20deg);animation:lbSheen 5s ease-in-out infinite;pointer-events:none}
+.rw.vip.elite:not(.pm) .nt,.rw.vip.elite:not(.pm) .hn{background:linear-gradient(90deg,#F97316 0%,#FDE68A 40%,#EA580C 70%,#F97316 100%);background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 6px rgba(249,115,22,.45));animation:lbGold 3s linear infinite}
 /* hàng PREMIUM (tím) ghi đè hàng ELITE (vàng) */
 .rw.pm{border-left-color:#C084FC;background:linear-gradient(90deg,rgba(168,85,247,.2),#0e1016 55%)}
 .rw.pm::before{background:#C084FC;box-shadow:0 0 14px 2px rgba(192,132,252,.8)}
