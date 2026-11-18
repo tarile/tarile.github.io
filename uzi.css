@@ -710,3 +710,34 @@ body.uz::after{content:"";position:fixed;inset:-50%;z-index:60;pointer-events:no
 @keyframes jnFlash{0%{opacity:.95}100%{opacity:0}}
 @media(max-width:700px){.jn-ring.r3{width:340px;height:340px;margin:-170px 0 0 -170px}.jn-btn{padding:18px 30px;font-size:1rem}.jn-slot{flex-wrap:wrap;justify-content:center}}
 @media(prefers-reduced-motion:reduce){.jn-rays,.jn-btn::after,.jn.go .jn-btn,.jn.go .jn-shock,.jn.go .jn-flash{animation:none!important}}
+
+/* ===== Huy hiệu hạng 1-2-3 (CSS thuần, mỗi hạng một kiểu hình + chuyển động riêng) ===== */
+.pd .md.mdl{position:relative;display:block;width:78px;height:78px;margin:6px auto 14px;border-radius:0;background:none;box-shadow:none;perspective:500px}
+.pd .md.mdl::before{display:none}
+.mdl .mc{position:absolute;inset:11px;display:grid;place-items:center;overflow:hidden;background:var(--cg);clip-path:var(--cp);filter:drop-shadow(0 0 12px var(--cl))}
+.mdl .mn{position:relative;z-index:1;font:900 1.55rem var(--f);font-style:normal;color:#05070D;text-shadow:0 1px 0 rgba(255,255,255,.55)}
+.mdl .mc::after{content:"";position:absolute;top:-20%;bottom:-20%;left:-70%;width:45%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.85),transparent);transform:skewX(-20deg);animation:mdSweep var(--sw,3.4s) ease-in-out infinite}
+.mdl .mr{position:absolute;pointer-events:none;border-radius:50%}
+/* Hạng 1: Hoàng Kim - bát giác + vương miện + con quay 3D lệch trục */
+.m1{--cg:radial-gradient(circle at 30% 28%,#FFF6A8,#FFD400 45%,#FF8A00 100%);--cp:polygon(30% 0,70% 0,100% 30%,100% 70%,70% 100%,30% 100%,0 70%,0 30%);--cl:rgba(255,190,0,.85)}
+.m1::before{display:block!important;content:"♛";position:absolute;left:0;right:0;top:-22px;text-align:center;font-size:1.3rem;line-height:1;color:#FFD400;text-shadow:0 0 10px #FFB300,0 0 22px #FF8A00;z-index:3;animation:mdCrown 2.2s ease-in-out infinite alternate}
+.m1 .mr.a{inset:-2px;border:2px solid transparent;border-top-color:#FFE066;border-bottom-color:#FF6A00;box-shadow:0 0 14px rgba(255,190,0,.55);animation:mdGyA 3.4s linear infinite}
+.m1 .mr.b{inset:4px;border:1.5px dashed #FFF3A0;animation:mdGyB 5.2s linear infinite}
+/* Hạng 2: Bạch Kim - lục giác kim cương + vòng vạch chia độ quay ngược + tia lăng kính */
+.m2{--cg:linear-gradient(135deg,#FFFFFF,#CBD5E1 48%,#38BDF8);--cp:polygon(50% 0,96% 26%,96% 74%,50% 100%,4% 74%,4% 26%);--cl:rgba(56,189,248,.8);--sw:2.6s}
+.m2 .mr.a{inset:-3px;background:repeating-conic-gradient(#7DD3FC 0 2deg,transparent 2deg 12deg);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 5px),#000 calc(100% - 4px));mask:radial-gradient(farthest-side,transparent calc(100% - 5px),#000 calc(100% - 4px));animation:mdCCW 9s linear infinite}
+.m2 .mr.b{inset:3px;border:1px solid rgba(186,230,253,.55);animation:mdFade 2.6s ease-in-out infinite alternate}
+/* Hạng 3: Hổ Phách Huyết Đồng - lục giác dung nham + sóng nhiệt toả ra */
+.m3{--cg:linear-gradient(135deg,#FDE68A,#F59E0B 45%,#9A3412);--cp:polygon(25% 4%,75% 4%,100% 50%,75% 96%,25% 96%,0 50%);--cl:rgba(249,115,22,.8);--sw:4.2s}
+.m3 .mc{animation:mdEmber 2.4s ease-in-out infinite alternate}
+.m3 .mr.a,.m3 .mr.b{inset:10px;border:2px solid rgba(251,146,60,.7);animation:mdHeat 2.6s ease-out infinite}
+.m3 .mr.b{animation-delay:1.3s}
+@keyframes mdSweep{0%,55%{left:-70%}100%{left:130%}}
+@keyframes mdCrown{to{transform:translateY(-5px) scale(1.12)}}
+@keyframes mdGyA{from{transform:rotateX(58deg) rotateY(14deg) rotateZ(0)}to{transform:rotateX(58deg) rotateY(14deg) rotateZ(360deg)}}
+@keyframes mdGyB{from{transform:rotateX(-58deg) rotateY(-18deg) rotateZ(360deg)}to{transform:rotateX(-58deg) rotateY(-18deg) rotateZ(0)}}
+@keyframes mdCCW{to{transform:rotate(-360deg)}}
+@keyframes mdFade{from{opacity:.25}to{opacity:1}}
+@keyframes mdEmber{from{filter:drop-shadow(0 0 6px rgba(245,158,11,.45))}to{filter:drop-shadow(0 0 20px rgba(249,115,22,1))}}
+@keyframes mdHeat{0%{transform:scale(.85);opacity:.9}100%{transform:scale(1.45);opacity:0}}
+@media(prefers-reduced-motion:reduce){.mdl .mc::after,.mdl .mr,.m1::before,.m3 .mc{animation:none!important}}
