@@ -741,3 +741,37 @@ body.uz::after{content:"";position:fixed;inset:-50%;z-index:60;pointer-events:no
 @keyframes mdEmber{from{filter:drop-shadow(0 0 6px rgba(245,158,11,.45))}to{filter:drop-shadow(0 0 20px rgba(249,115,22,1))}}
 @keyframes mdHeat{0%{transform:scale(.85);opacity:.9}100%{transform:scale(1.45);opacity:0}}
 @media(prefers-reduced-motion:reduce){.mdl .mc::after,.mdl .mr,.m1::before,.m3 .mc{animation:none!important}}
+
+/* ===== Huy hiệu 1-2-3 v2: thêm hào quang, tia sáng, tàn lửa (CSS thuần) ===== */
+.pd .md.mdl{width:92px;height:92px;margin:10px auto 16px}
+.mdl .mc{inset:14px}
+.mdl .mn{font-size:1.8rem}
+.mdl .mr.c{inset:-10px;opacity:.9}
+.mdl .sp{position:absolute;width:5px;height:5px;border-radius:50%;background:var(--sk,#fff);box-shadow:0 0 8px 2px var(--sk,#fff);opacity:0;pointer-events:none}
+/* Hạng 1: hào quang tia sáng xoay + đốm sáng bay lên */
+.m1{--sk:#FFE680}
+.m1 .mr.c{background:repeating-conic-gradient(from 0deg,rgba(255,214,0,.55) 0 4deg,transparent 4deg 22deg);-webkit-mask:radial-gradient(circle,transparent 46%,#000 50%,transparent 74%);mask:radial-gradient(circle,transparent 46%,#000 50%,transparent 74%);animation:mdCW 14s linear infinite,mdBreath 2.4s ease-in-out infinite alternate}
+.m1 .mc{animation:mdGold 2s ease-in-out infinite alternate}
+.m1 .sp.s1{left:12%;bottom:14%;animation:mdRise 2.6s ease-out infinite}
+.m1 .sp.s2{right:10%;bottom:20%;animation:mdRise 2.6s ease-out .9s infinite}
+.m1 .sp.s3{left:46%;bottom:6%;animation:mdRise 2.6s ease-out 1.7s infinite}
+/* Hạng 2: vòng laser lăng kính + tia quét ngang */
+.m2{--sk:#BAE6FD}
+.m2 .mr.c{inset:-6px;background:conic-gradient(from 0deg,transparent 0 70%,rgba(56,189,248,.9) 92%,#fff 100%);-webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2px));mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2px));animation:mdCW 3.2s linear infinite}
+.m2 .mc{animation:mdIce 3s ease-in-out infinite alternate}
+.m2 .sp.s1{left:50%;top:-2px;animation:mdTwinkle 2.2s ease-in-out infinite}
+.m2 .sp.s2{right:2%;top:44%;animation:mdTwinkle 2.2s ease-in-out .7s infinite}
+.m2 .sp.s3{left:6%;bottom:18%;animation:mdTwinkle 2.2s ease-in-out 1.4s infinite}
+/* Hạng 3: lửa dung nham, tàn lửa bay lên */
+.m3{--sk:#FDBA74}
+.m3 .mr.c{inset:-4px;background:radial-gradient(circle,transparent 52%,rgba(249,115,22,.55) 66%,transparent 76%);animation:mdBreath 1.6s ease-in-out infinite alternate}
+.m3 .sp.s1{left:20%;bottom:10%;animation:mdRise 2.2s ease-out infinite}
+.m3 .sp.s2{right:18%;bottom:12%;animation:mdRise 2.2s ease-out .7s infinite}
+.m3 .sp.s3{left:48%;bottom:4%;animation:mdRise 2.2s ease-out 1.4s infinite}
+@keyframes mdCW{to{transform:rotate(360deg)}}
+@keyframes mdBreath{from{transform:scale(.94);opacity:.55}to{transform:scale(1.08);opacity:1}}
+@keyframes mdGold{from{filter:drop-shadow(0 0 8px rgba(255,200,0,.6))}to{filter:drop-shadow(0 0 24px rgba(255,214,0,1))}}
+@keyframes mdIce{from{filter:drop-shadow(0 0 8px rgba(56,189,248,.5))}to{filter:drop-shadow(0 0 20px rgba(125,211,252,1))}}
+@keyframes mdRise{0%{transform:translateY(0) scale(.6);opacity:0}20%{opacity:1}100%{transform:translateY(-44px) scale(1.1);opacity:0}}
+@keyframes mdTwinkle{0%,100%{opacity:0;transform:scale(.4)}50%{opacity:1;transform:scale(1.6)}}
+@media(prefers-reduced-motion:reduce){.mdl .mr.c,.mdl .sp,.m1 .mc,.m2 .mc{animation:none!important}}
