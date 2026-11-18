@@ -176,7 +176,7 @@ var T={'Luật Quân Đoàn':['t1','luat-quan-doan.txt',
 '[2] KO CỨU, KO NHẢY VÀO KEO TRÒN, CẤM ĐỤC KEO [trừ trường hợp kẹt keo để đi lại], CẤM LEO NÓC',
 '[3] CẤM SPAM KEO LÀM KẸT GÓC KHÔNG ĐI ĐƯỢC, KỂ CẢ CHẶN BO CUỐI',
 '[4] CẤM XÀI KỸ NĂNG CHỦ ĐỘNG [TRỪ ALOK]',
-'[5] CẤM GÂY WAR, CẤM XÀI HÀNH ĐỘNG KHI TEAM ĐỊCH [được xài với đồng đội và người xem]',
+'[5] CẤM GÂY WAR, CẤM XÀI HÀNH ĐỘNG KHỊA TEAM ĐỊCH [được xài với đồng đội và người xem]',
 '[6] SAI LUẬT THÌ CẤM PHÒNG 1 NGÀY, QUA 24H MỚI ĐƯỢC CHƠI TIẾP',
 '[7] BẤT KỲ AI XÀI HACK, CHEAT, TOOLS => BỊ KICK VĨNH VIỄN'],
 'Quyền Lợi Thành Viên':['t3','quyen-loi.txt',
@@ -526,7 +526,7 @@ function select(k){SEL=k;show();syncHome();if(!raf)render()}
 var tops=ST.map(function(s,k){return[k,s]}).filter(function(a){return a[1].m}).sort(function(a,b){return b[1].m-a[1].m}).slice(0,5),mx=tops.length?tops[0][1].m:1;
 $('dgTop').innerHTML=tops.map(function(a){return'<button type="button" data-k="'+a[0]+'"><span>'+a[1].n+'</span><i style="--w:'+Math.round(a[1].m/mx*100)+'%"></i><b>'+a[1].m+'</b></button>'}).join('');
 $('dgTop').addEventListener('click',function(e){var b=e.target.closest('button');if(b)select(+b.dataset.k)});
-$('dgTot').textContent='Tổng '+TOT+' anh em · '+NP+'/63 tỉnh, thành trước năm 2025 (số mẫu)';
+$('dgTot').textContent=TOT+' thành viên · '+NP+'/63 chòm sao đã có dữ liệu kết nối';
 
 function syncHome(){$('dgHome').textContent=(SEL>=0&&SEL<63&&ST[SEL].n===HOME)?'Bỏ đánh dấu quê tôi':'Đánh dấu quê tôi'}
 $('dgHome').onclick=function(){if(SEL<0||SEL>=63){$('dgNum').textContent='Hãy chọn một vì sao tỉnh thành trước';return}HOME=ST[SEL].n===HOME?'':ST[SEL].n;try{localStorage.setItem(K,HOME)}catch(e){}syncHome();if(!raf)render()};
