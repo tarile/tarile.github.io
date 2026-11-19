@@ -17,6 +17,9 @@
 <div class="stars s2" id="st2" aria-hidden="true"></div>
 <canvas id="amViz" aria-hidden="true"></canvas>
 <div class="am-noise" aria-hidden="true"></div>
+<div class="am-cur" id="amCur" aria-hidden="true"></div>
+<div class="am-bpm" aria-hidden="true"><b id="amBpmT">BPM 060</b><i id="amBpmF"></i></div>
+<button class="am-aud" id="amAud" type="button" aria-label="Bật hoặc tắt âm thanh tổng hợp"><span class="am-eq"><i></i><i></i><i></i></span><span id="amAudL">SYNTH AUDIO: OFF</span></button>
 
 <main class="am-main">
 <header class="am-hero">
@@ -35,11 +38,12 @@
 
 <section class="am-sec" id="du-an">
   <div class="am-hd"><span class="am-num">02.</span><h2>Dự án đang thực hiện</h2></div>
-  <div class="am-proj">
+  <div class="am-proj" id="amProj">
     <div class="am-top">
       <div><span class="am-rec"><i class="am-dot"></i>MUSIC PROJECT 001 // DỰ ÁN ÂM NHẠC ĐẦU TIÊN</span><h3 class="am-big sc" data-value="TRL">TRL</h3></div>
       <span class="am-badge">50 TRACKS</span>
     </div>
+    <canvas id="amOsc" aria-hidden="true"></canvas>
     <p>TRL là dự án âm nhạc đầu tiên tôi đang thực hiện, bao gồm 50 bài hát được hình thành từ quá trình viết lời, thu âm giọng hát và thử nghiệm các công nghệ hỗ trợ sản xuất âm nhạc.</p>
     <p>Đây không chỉ là một dự án cá nhân mà còn là cơ hội để tôi học hỏi, thử nghiệm và khám phá khả năng sáng tạo của mình trong một lĩnh vực hoàn toàn khác với chuyên ngành đang theo học.</p>
     <div class="am-meta">
@@ -54,11 +58,11 @@
 <section class="am-sec" id="quy-trinh">
   <div class="am-hd"><span class="am-num">03.</span><h2>Quy trình sáng tạo</h2></div>
   <p>Tôi thực hiện dự án bằng cách kết hợp khả năng sáng tạo cá nhân với các công cụ công nghệ hỗ trợ.</p>
-  <div class="am-grid">
-    <article class="am-card"><span class="am-st">01 // STEP</span><h3>Viết lời bài hát (Songwriting)</h3><p>Toàn bộ lời bài hát trong dự án TRL được tôi tự viết, dựa trên những ý tưởng, suy nghĩ và cảm xúc cá nhân.</p></article>
-    <article class="am-card"><span class="am-st">02 // STEP</span><h3>Thu âm giọng hát (Vocal Recording)</h3><p>Sử dụng chính giọng hát của mình để thể hiện những nội dung đã sáng tác và thử nghiệm cách truyền tải phù hợp.</p></article>
-    <article class="am-card"><span class="am-st">03 // STEP</span><h3>Ứng dụng trí tuệ nhân tạo (AI-Assisted Production)</h3><p>Sử dụng Suno AI để hỗ trợ tạo nhạc nền và xử lý giọng hát, kết hợp với quá trình thử nghiệm để hoàn thiện sản phẩm.</p></article>
-    <article class="am-card"><span class="am-st">04 // STEP</span><h3>Định hướng sáng tạo (Creative Direction)</h3><p>Tự định hướng ý tưởng, cảm giác âm nhạc và cách xây dựng tổng thể cho dự án.</p></article>
+  <div class="am-grid am-chain">
+    <article class="am-card"><i class="am-port"></i><span class="am-st">01 // STEP</span><h3>Viết lời bài hát (Songwriting)</h3><p>Toàn bộ lời bài hát trong dự án TRL được tôi tự viết, dựa trên những ý tưởng, suy nghĩ và cảm xúc cá nhân.</p></article>
+    <article class="am-card"><i class="am-port"></i><span class="am-st">02 // STEP</span><h3>Thu âm giọng hát (Vocal Recording)</h3><p>Sử dụng chính giọng hát của mình để thể hiện những nội dung đã sáng tác và thử nghiệm cách truyền tải phù hợp.</p></article>
+    <article class="am-card"><i class="am-port"></i><span class="am-st">03 // STEP</span><h3>Ứng dụng trí tuệ nhân tạo (AI-Assisted Production)</h3><p>Sử dụng Suno AI để hỗ trợ tạo nhạc nền và xử lý giọng hát, kết hợp với quá trình thử nghiệm để hoàn thiện sản phẩm.</p></article>
+    <article class="am-card"><i class="am-port"></i><span class="am-st">04 // STEP</span><h3>Định hướng sáng tạo (Creative Direction)</h3><p>Tự định hướng ý tưởng, cảm giác âm nhạc và cách xây dựng tổng thể cho dự án.</p></article>
   </div>
 </section>
 
@@ -92,7 +96,9 @@
   <div class="am-hd"><span class="am-num">07.</span><h2>Tác phẩm đã phát hành</h2></div>
   <div class="am-vault">
     <span class="am-vtag">[ENCRYPTED_VAULT // 50_TRACKS]</span>
-    <div class="am-cells" id="amCells" aria-hidden="true"></div>
+    <div class="am-tip" id="amTip">[HOVER A CELL TO SCAN TRACK · CLICK TO ARM NOTE]</div>
+    <div class="am-mx" id="amMx"></div>
+    <p class="am-seq">// STEP SEQUENCER: bấm vài ô để nạp nốt, bật SYNTH AUDIO rồi nghe playhead quét qua từng cột.</p>
     <span class="am-st2">COMING SOON</span>
     <h3>Chưa có tác phẩm được công bố</h3>
     <p>Những sản phẩm âm nhạc sẽ được cập nhật tại đây sau khi phát hành chính thức.</p>

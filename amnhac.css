@@ -67,3 +67,45 @@ html{scroll-behavior:smooth;background:#070709}
 .am-foot a:hover{color:var(--ac)}
 @media(max-width:640px){.am-cells{grid-template-columns:repeat(10,1fr)}}
 @media(prefers-reduced-motion:reduce){.am-dot,.am-cells i{animation:none}.am-js .am-sec{opacity:1;transform:none;transition:none}}
+
+/* ===== CYBER-STUDIO UPGRADE: Deep Void + Cyan + Magenta + Acid Violet ===== */
+body.am{--bg:#050508;--ac:#ff2a5f;--cy:#00f0ff;--vi:#8a2be2;--pn:rgba(13,14,22,.72);
+ background-color:#050508;background-image:linear-gradient(rgba(0,240,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,240,255,.03) 1px,transparent 1px);background-size:40px 40px;background-attachment:fixed}
+.am-hero h1 .sc{background:linear-gradient(135deg,#fff 20%,var(--cy) 60%,var(--ac) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-stroke:0}
+.am-proj,.am-card,.am-tool,.am-list li,.am-vault{background:var(--pn);backdrop-filter:blur(14px)}
+.am-proj{transform-style:preserve-3d;transition:transform .15s ease-out,border-color .3s}.am-proj:hover{border-color:rgba(255,42,95,.6)}
+#amOsc{display:block;width:100%;height:96px;margin:1rem 0 1.4rem;border-top:1px solid rgba(255,255,255,.07);border-bottom:1px solid rgba(255,255,255,.07);background:repeating-linear-gradient(90deg,rgba(0,240,255,.05) 0 1px,transparent 1px 40px)}
+/* audio + BPM + con trỏ */
+.am-aud{position:fixed;right:24px;bottom:24px;z-index:999;display:flex;align-items:center;gap:10px;padding:10px 16px;border:1px solid var(--cy);border-radius:6px;background:rgba(10,12,20,.9);color:var(--cy);font:500 .75rem var(--fm);cursor:pointer;box-shadow:0 0 20px rgba(0,240,255,.15);transition:.3s}
+.am-aud:hover,.am-aud.on{background:var(--cy);color:#050508}
+.am-eq{display:flex;align-items:flex-end;gap:2px;height:12px}.am-eq i{width:2px;height:4px;background:currentColor}
+.am-aud.on .am-eq i{animation:amEq .6s infinite alternate}.am-aud.on .am-eq i:nth-child(2){animation-delay:.2s}.am-aud.on .am-eq i:nth-child(3){animation-delay:.4s}
+@keyframes amEq{to{height:12px}}
+.am-bpm{position:fixed;right:10px;top:50%;z-index:900;width:6px;height:200px;margin-top:-100px;border-radius:3px;background:rgba(255,255,255,.08);pointer-events:none}
+.am-bpm i{position:absolute;left:0;right:0;bottom:0;height:5%;border-radius:3px;background:var(--cy);box-shadow:0 0 10px currentColor}
+.am-bpm b{position:absolute;right:12px;top:-22px;font:700 .68rem var(--fm);color:var(--cy);white-space:nowrap}
+.am-cur{position:fixed;left:0;top:0;z-index:997;width:34px;height:34px;margin:-17px 0 0 -17px;border:1px solid var(--cy);border-radius:50%;pointer-events:none;opacity:0;transition:opacity .3s,width .2s,height .2s,margin .2s,border-color .2s;box-shadow:0 0 12px rgba(0,240,255,.4)}
+.am-cur.act{opacity:.9}.am-cur.big{width:54px;height:54px;margin:-27px 0 0 -27px;border-color:var(--ac)}
+@media(pointer:coarse){.am-cur,.am-bpm{display:none}}
+/* dây chuyền tín hiệu */
+.am-chain{position:relative}.am-chain .am-card{z-index:1;border-radius:12px;transition:.35s cubic-bezier(.175,.885,.32,1.275)}
+.am-chain .am-card:hover{transform:translateY(-8px) scale(1.02);border-color:var(--cy);box-shadow:0 12px 30px rgba(0,240,255,.14)}
+.am-chain::before{content:"";position:absolute;left:4%;right:4%;top:calc(1.8rem + 5px);height:2px;background:linear-gradient(90deg,var(--cy),var(--vi),var(--ac));opacity:.4}
+.am-chain::after{content:"";position:absolute;left:0;top:calc(1.8rem + 3px);width:90px;height:6px;border-radius:3px;background:linear-gradient(90deg,transparent,#fff,var(--cy));filter:blur(1px);box-shadow:0 0 14px var(--cy);animation:amFlow 3.6s linear infinite}
+@keyframes amFlow{from{transform:translateX(-90px)}to{transform:translateX(calc(100% * 11))}}
+.am-port{display:block;width:10px;height:10px;margin-bottom:1rem;border-radius:50%;background:var(--ac);box-shadow:0 0 10px var(--ac);animation:amPort 3.6s infinite;animation-delay:calc(var(--i)*.9s)}
+@keyframes amPort{0%,100%{background:var(--ac);transform:scale(1)}15%{background:#fff;transform:scale(1.7);box-shadow:0 0 22px var(--cy)}}
+@media(max-width:900px){.am-chain::before,.am-chain::after{display:none}}
+/* ma trận 50 track + step sequencer */
+.am-tip{min-height:1.5rem;margin-bottom:1rem;font:500 .78rem var(--fm);color:var(--cy)}
+.am-mx{display:grid;grid-template-columns:repeat(10,1fr);gap:8px;max-width:560px;margin:0 auto 1.8rem}
+.am-mx b{position:relative;aspect-ratio:1;display:grid;place-items:center;border:1px solid rgba(255,42,95,.25);border-radius:4px;background:rgba(255,42,95,.08);font:500 .62rem var(--fm);color:rgba(255,255,255,.35);cursor:crosshair;
+ transform:scale(calc(1 + var(--k,0)*.35));background-color:rgba(255,42,95,calc(.08 + var(--k,0)*.5));transition:transform .25s,background-color .25s,box-shadow .25s}
+.am-mx b:hover{z-index:3;color:#fff;box-shadow:0 0 18px var(--ac)}
+.am-mx b.arm{border-color:var(--cy);color:var(--cy);box-shadow:inset 0 0 8px rgba(0,240,255,.5)}
+.am-mx b.ph{background-color:rgba(0,240,255,.35);box-shadow:0 0 14px var(--cy);color:#fff}
+.am-seq{margin:-1rem 0 1.4rem;font:500 .7rem var(--fm);color:var(--mu)}
+@media(max-width:540px){.am-mx{grid-template-columns:repeat(5,1fr)}}
+.am-chain{grid-template-columns:repeat(4,1fr)}
+@media(max-width:900px){.am-chain{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:540px){.am-chain{grid-template-columns:1fr}}
