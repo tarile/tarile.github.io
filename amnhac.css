@@ -109,3 +109,40 @@ body.am{--bg:#050508;--ac:#ff2a5f;--cy:#00f0ff;--vi:#8a2be2;--pn:rgba(13,14,22,.
 .am-chain{grid-template-columns:repeat(4,1fr)}
 @media(max-width:900px){.am-chain{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:540px){.am-chain{grid-template-columns:1fr}}
+
+/* ===== SPATIAL AURORA GLASS: bỏ nền đen, xanh đêm + cực quang + kính đa sắc ===== */
+html{background:#0b1120}
+body.am{--bg:#0b1120;--cy:#38bdf8;--vi:#a855f7;--ac:#fb7185;--mu:#b9c3da;--pn:rgba(255,255,255,.06);--bd:rgba(255,255,255,.14);
+ background:linear-gradient(135deg,#0b1120 0%,#131c31 45%,#1e1b4b 100%) fixed}
+.am-aurora{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.am-aurora i{position:absolute;border-radius:50%;filter:blur(110px);opacity:.5;animation:amAur 18s ease-in-out infinite alternate}
+.am-aurora i:nth-child(1){width:560px;height:560px;background:#2563eb;top:-12%;left:-6%}
+.am-aurora i:nth-child(2){width:500px;height:500px;background:#9333ea;top:35%;right:-10%;animation-delay:-6s}
+.am-aurora i:nth-child(3){width:600px;height:600px;background:#0891b2;bottom:-18%;left:25%;animation-delay:-11s}
+.am-aurora i:nth-child(4){width:380px;height:380px;background:#e11d48;top:55%;left:-8%;opacity:.28;animation-delay:-3s}
+@keyframes amAur{0%{transform:translate(0,0) scale(1)}50%{transform:translate(70px,-45px) scale(1.14)}100%{transform:translate(-45px,55px) scale(.95)}}
+#amViz{opacity:1}.am-noise{opacity:.025}
+.am-hero h1 .sc,.am-hero h1{filter:drop-shadow(0 0 26px rgba(56,189,248,.28))}
+.am-hero h1 .sc{background:linear-gradient(90deg,#fff 10%,#7dd3fc 45%,#c084fc 75%,#fda4af 100%);-webkit-background-clip:text;background-clip:text}
+.am-proj,.am-card,.am-tool,.am-list li,.am-vault{background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.03));backdrop-filter:blur(24px) saturate(160%);-webkit-backdrop-filter:blur(24px) saturate(160%);border:1px solid var(--bd);box-shadow:0 20px 50px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.22)}
+.am-proj::before{background:linear-gradient(90deg,#38bdf8,#a855f7,#fb7185)}
+.am-badge{border-color:var(--ac);background:rgba(251,113,133,.1)}.am-vault{border:1px dashed rgba(125,211,252,.45)}
+/* vệt sáng cầu vồng (hologram glare) chạy theo chuột */
+.am-card::after,.am-proj::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .3s;
+ background:radial-gradient(360px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.16),transparent 60%),linear-gradient(115deg,transparent 25%,rgba(56,189,248,.24) 40%,rgba(168,85,247,.24) 50%,rgba(251,113,133,.24) 60%,transparent 75%);
+ background-size:100% 100%,260% 260%;background-position:0 0,var(--hx,50%) var(--hy,50%)}
+.am-proj:hover::after{opacity:1}
+.am-card::before{background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),#7dd3fc,#c084fc 40%,#fda4af 65%,transparent 80%)}
+/* hero: lõi sóng âm 3D */
+.am-hero{display:grid;grid-template-columns:1.15fr .85fr;gap:1rem;align-items:center}
+.am-core{perspective:800px;justify-self:center;width:100%;max-width:380px}
+.am-core>div{transform-style:preserve-3d;will-change:transform}
+#amCore{display:block;width:100%;aspect-ratio:1;cursor:pointer}
+@media(max-width:860px){.am-hero{grid-template-columns:1fr}.am-core{max-width:300px}}
+/* launchpad cầu vồng + sóng xung kích */
+.am-mx b{--h:calc(190 + var(--c,0) * 16);border-color:hsl(var(--h) 90% 65% / .35);background-color:hsl(var(--h) 90% 60% / calc(.1 + var(--k,0)*.5))}
+.am-mx b.arm{border-color:hsl(var(--h) 95% 70%);color:#fff;background-color:hsl(var(--h) 90% 60% / .4);box-shadow:inset 0 0 10px hsl(var(--h) 95% 70% / .6),0 0 10px hsl(var(--h) 95% 65% / .45)}
+.am-mx b.ph{background-color:hsl(var(--h) 95% 70% / .7);box-shadow:0 0 16px hsl(var(--h) 95% 70%)}
+.am-ring{position:absolute;left:0;top:0;width:100%;height:100%;box-sizing:border-box;border:2px solid hsl(var(--h) 95% 72%);border-radius:50%;pointer-events:none;animation:amRing .8s ease-out forwards}
+@keyframes amRing{to{transform:scale(4.2);opacity:0;border-width:.5px}}
+.am-tip{color:#7dd3fc}
