@@ -1,0 +1,69 @@
+/* TRANG ÂM NHẠC // TARI LE — Dark Editorial: nền #070709, đỏ Crimson #FF2A4B + Cyan #00F0FF */
+body.am{--bg:#070709;--sf:#0e0e13;--bd:rgba(255,255,255,.08);--tx:#f4f4f6;--mu:#9494a3;--ac:#ff2a4b;--cy:#00f0ff;
+ --fd:'Syne','Be Vietnam Pro',sans-serif;--fs:'Space Grotesk','Be Vietnam Pro',sans-serif;--fm:'JetBrains Mono',monospace;
+ background:var(--bg);color:var(--tx);font-family:var(--fs);line-height:1.65}
+html{scroll-behavior:smooth;background:#070709}
+.am-noise{position:fixed;inset:0;z-index:998;pointer-events:none;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+#amViz{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.5}
+.am-main{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:130px 5% 40px}
+.am-hero{padding:2rem 0 4rem;border-bottom:1px solid var(--bd)}
+.am-tag{display:inline-block;margin-bottom:1rem;font:500 .78rem var(--fm);letter-spacing:.16em;text-transform:uppercase;color:var(--ac)}
+.am-hero h1{margin:0 0 1.2rem;font:800 clamp(2.6rem,7vw,5.2rem)/1.05 var(--fd);letter-spacing:-.02em}
+.am-hero h1 span{color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.65)}
+.am-sub{display:flex;flex-wrap:wrap;gap:.4rem 1.2rem;font:500 .85rem var(--fm);color:var(--mu)}
+.am-sub b{color:var(--cy);font-weight:700}
+.am-sec{padding:4.5rem 0;border-bottom:1px solid var(--bd)}
+.am-js .am-sec{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.am-js .am-sec.vis{opacity:1;transform:none}
+.am-hd{display:flex;align-items:baseline;gap:1rem;margin-bottom:2rem}
+.am-num{font:700 .95rem var(--fm);color:var(--ac)}
+.am-hd h2{margin:0;font:700 clamp(1.6rem,3.5vw,2.3rem) var(--fd);letter-spacing:-.01em}
+.am-main p{color:var(--mu);margin:0 0 1.1rem;max-width:780px}
+.am-lead{margin:0 0 1.5rem!important;padding-left:1.2rem;border-left:3px solid var(--ac);font-size:1.3rem;font-weight:600;color:var(--tx)!important}
+/* 02 dự án */
+.am-proj{position:relative;overflow:hidden;padding:clamp(1.6rem,4vw,2.5rem);background:linear-gradient(145deg,#101017,#09090d);border:1px solid var(--bd);border-radius:12px}
+.am-proj::before{content:"";position:absolute;left:0;top:0;width:100%;height:2px;background:linear-gradient(90deg,var(--ac),transparent)}
+.am-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:1.4rem}
+.am-rec{display:inline-flex;align-items:center;gap:10px;font:500 .76rem var(--fm);letter-spacing:.12em;color:var(--cy)}
+.am-dot{width:9px;height:9px;border-radius:50%;background:var(--ac);box-shadow:0 0 12px var(--ac);animation:amRec 1.4s infinite}
+@keyframes amRec{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.25;transform:scale(.8)}}
+.am-big{margin:.3rem 0 0;font:800 clamp(2.8rem,6vw,4.4rem)/1 var(--fd)}
+.am-badge{padding:.5rem 1rem;border:1px solid var(--ac);border-radius:4px;background:rgba(255,42,75,.08);color:var(--ac);font:500 .85rem var(--fm)}
+.am-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-top:1.6rem;padding-top:1.4rem;border-top:1px solid var(--bd)}
+.am-meta span{display:block;margin-bottom:.25rem;font:500 .72rem var(--fm);color:var(--mu);text-transform:uppercase}
+.am-meta strong{font-size:1.05rem}.am-meta .on{color:var(--ac)}
+.am-lock{margin:1.5rem 0 0!important;padding:.85rem 1rem;border-left:2px solid var(--mu);border-radius:6px;background:rgba(255,255,255,.03);font:500 .78rem/1.6 var(--fm);max-width:none!important}
+/* 03 quy trình: thẻ có ánh sáng theo con trỏ */
+.am-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.25rem;margin-top:1.6rem}
+.am-card{position:relative;overflow:hidden;padding:1.8rem;background:var(--sf);border:1px solid var(--bd);border-radius:10px;transition:transform .3s}
+.am-card:hover{transform:translateY(-4px)}
+.am-card::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .3s;background:radial-gradient(350px circle at var(--mx,50%) var(--my,50%),rgba(255,42,75,.16),transparent 60%)}
+.am-card:hover::after{opacity:1}
+.am-card::before{content:"";position:absolute;inset:0;pointer-events:none;border-radius:10px;padding:1px;opacity:0;transition:opacity .3s;background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%),var(--ac),transparent 70%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.am-card:hover::before{opacity:1}
+.am-st{display:block;margin-bottom:.8rem;font:500 .85rem var(--fm);color:var(--ac)}
+.am-card h3{margin:0 0 .7rem;font-size:1.12rem}.am-card p{margin:0;font-size:.92rem}
+/* 04 công nghệ */
+.am-list{list-style:none;margin:1.5rem 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem}
+.am-list li{display:flex;align-items:center;gap:.75rem;padding:1rem 1.25rem;background:var(--sf);border:1px solid var(--bd);border-radius:8px}
+.am-list li::before{content:"▹";color:var(--ac);font:700 1rem var(--fm)}
+.am-fine{font-size:.9rem;font-style:italic}
+/* 05 công cụ */
+.am-tool{padding:2rem;background:var(--sf);border:1px solid var(--bd);border-radius:10px}
+.am-tbd{display:inline-block;margin-bottom:.8rem;padding:.25rem .65rem;border:1px solid rgba(0,240,255,.3);border-radius:4px;color:var(--cy);font:500 .75rem var(--fm)}
+.am-tool h3{margin:0 0 .4rem;font-size:1.4rem}
+.am-note{margin-top:1rem;font:500 .76rem var(--fm);color:var(--mu)}
+/* 06 góc nhìn */
+.am-quote{margin:0 0 1.5rem;max-width:780px;font:700 clamp(1.4rem,3vw,2rem) var(--fd)}
+/* 07 vault */
+.am-vault{position:relative;overflow:hidden;padding:3rem 2rem;text-align:center;border:1px dashed rgba(255,42,75,.45);border-radius:12px;background:rgba(255,42,75,.03)}
+.am-vtag{display:block;margin-bottom:1.2rem;font:500 .72rem var(--fm);letter-spacing:.14em;color:var(--mu)}
+.am-cells{display:grid;grid-template-columns:repeat(10,1fr);gap:6px;max-width:420px;margin:0 auto 1.8rem}
+.am-cells i{aspect-ratio:1;border:1px solid rgba(255,42,75,.35);background:rgba(255,42,75,.06);animation:amCell 3s ease-in-out infinite;animation-delay:var(--d)}
+@keyframes amCell{0%,100%{opacity:.25}50%{opacity:1;background:rgba(255,42,75,.3)}}
+.am-st2{display:inline-block;margin-bottom:.8rem;padding:.35rem .9rem;border:1px solid var(--ac);border-radius:99px;color:var(--ac);font:500 .85rem var(--fm);letter-spacing:.2em}
+.am-vault h3{margin:.4rem 0 .6rem;font-size:1.4rem}.am-vault p{margin:0 auto}
+.am-foot{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:2rem 5% 3rem;display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;font:500 .78rem var(--fm);color:var(--mu)}
+.am-foot a:hover{color:var(--ac)}
+@media(max-width:640px){.am-cells{grid-template-columns:repeat(10,1fr)}}
+@media(prefers-reduced-motion:reduce){.am-dot,.am-cells i{animation:none}.am-js .am-sec{opacity:1;transform:none;transition:none}}
