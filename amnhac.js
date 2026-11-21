@@ -94,10 +94,7 @@ for(var i=0;i<50;i++){(function(i){var b=document.createElement('b'),n=('0'+(i+1
 mt.addEventListener('mouseleave',function(){tip.textContent='[HOVER A CELL TO SCAN TRACK · CLICK TO ARM NOTE]';cells.forEach(function(q){q.style.setProperty('--k',0)})});
 if(!still)setInterval(function(){cells.forEach(function(q,j){var h=j%10===col;q.classList.toggle('ph',h);if(h&&q.classList.contains('arm')){note(q.fr(),.25,.08,'triangle');ring(q)}});col=(col+1)%10},260);
 
-/* ===== Con trỏ Frequency Scanner + thanh BPM đo tốc độ cuộn ===== */
-var cur=$('amCur'),cx=0,cy=0,tx=0,ty=0;
-addEventListener('mousemove',function(e){tx=e.clientX;ty=e.clientY;cur.classList.add('act');cur.classList.toggle('big',!!e.target.closest('.am-card,.am-mx b,.am-aud,.am-proj'))});
-(function mv(){cx+=(tx-cx)*.18;cy+=(ty-cy)*.18;cur.style.transform='translate('+cx+'px,'+cy+'px)';requestAnimationFrame(mv)})();
+/* ===== Thanh BPM đo tốc độ cuộn ===== */
 var bf=$('amBpmF'),bt=$('amBpmT'),ly=scrollY,sp=0;
 function bpm(){var y=scrollY;sp=sp*.9+Math.min(Math.abs(y-ly),80)*.1;ly=y;var k=Math.min(1,sp/18),v=60+Math.round(k*120);
  bf.style.height=(5+k*95)+'%';bf.style.background='rgb('+Math.round(k*255)+','+Math.round(240-k*198)+','+Math.round(255-k*160)+')';bf.style.color=bf.style.background;bt.textContent='BPM '+('0'+v).slice(-3);requestAnimationFrame(bpm)}

@@ -84,9 +84,7 @@ body.am{--bg:#050508;--ac:#ff2a5f;--cy:#00f0ff;--vi:#8a2be2;--pn:rgba(13,14,22,.
 .am-bpm{position:fixed;right:10px;top:50%;z-index:900;width:6px;height:200px;margin-top:-100px;border-radius:3px;background:rgba(255,255,255,.08);pointer-events:none}
 .am-bpm i{position:absolute;left:0;right:0;bottom:0;height:5%;border-radius:3px;background:var(--cy);box-shadow:0 0 10px currentColor}
 .am-bpm b{position:absolute;right:12px;top:-22px;font:700 .68rem var(--fm);color:var(--cy);white-space:nowrap}
-.am-cur{position:fixed;left:0;top:0;z-index:997;width:34px;height:34px;margin:-17px 0 0 -17px;border:1px solid var(--cy);border-radius:50%;pointer-events:none;opacity:0;transition:opacity .3s,width .2s,height .2s,margin .2s,border-color .2s;box-shadow:0 0 12px rgba(0,240,255,.4)}
-.am-cur.act{opacity:.9}.am-cur.big{width:54px;height:54px;margin:-27px 0 0 -27px;border-color:var(--ac)}
-@media(pointer:coarse){.am-cur,.am-bpm{display:none}}
+@media(pointer:coarse){.am-bpm{display:none}}
 /* dây chuyền tín hiệu */
 .am-chain{position:relative}.am-chain .am-card{z-index:1;border-radius:12px;transition:.35s cubic-bezier(.175,.885,.32,1.275)}
 .am-chain .am-card:hover{transform:translateY(-8px) scale(1.02);border-color:var(--cy);box-shadow:0 12px 30px rgba(0,240,255,.14)}
