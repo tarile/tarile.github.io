@@ -9,7 +9,7 @@ html{scroll-behavior:smooth;background:#070709}
 .am-hero{padding:2rem 0 4rem;border-bottom:1px solid var(--bd)}
 .am-tag{display:inline-block;margin-bottom:1rem;font:500 .78rem var(--fm);letter-spacing:.16em;text-transform:uppercase;color:var(--ac)}
 .am-hero h1{margin:0 0 1.2rem;font:800 clamp(2.6rem,7vw,5.2rem)/1.05 var(--fd);letter-spacing:-.02em}
-.am-hero h1 span{color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.65)}
+
 .am-sub{display:flex;flex-wrap:wrap;gap:.4rem 1.2rem;font:500 .85rem var(--fm);color:var(--mu)}
 .am-sub b{color:var(--cy);font-weight:700}
 .am-sec{padding:4.5rem 0;border-bottom:1px solid var(--bd)}
@@ -146,3 +146,31 @@ body.am{--bg:#0b1120;--cy:#38bdf8;--vi:#a855f7;--ac:#fb7185;--mu:#b9c3da;--pn:rg
 .am-ring{position:absolute;left:0;top:0;width:100%;height:100%;box-sizing:border-box;border:2px solid hsl(var(--h) 95% 72%);border-radius:50%;pointer-events:none;animation:amRing .8s ease-out forwards}
 @keyframes amRing{to{transform:scale(4.2);opacity:0;border-width:.5px}}
 .am-tip{color:#7dd3fc}
+
+/* ===== TIÊU ĐỀ MỚI: Unbounded, từng chữ rơi vào rồi nhấp nhô như thanh equalizer + glitch tách màu ===== */
+.am-hero h1.am-ttl{position:relative;margin:0 0 1.4rem;font:800 clamp(1.8rem,4.2vw,3.3rem)/1.25 'Unbounded','Syne',sans-serif;letter-spacing:.02em;filter:drop-shadow(0 0 14px rgba(125,211,252,.5)) drop-shadow(0 0 30px rgba(168,85,247,.35))}
+.am-ttl .amw{display:inline-block;white-space:nowrap}
+.am-ttl .amt{display:inline-block;color:hsl(calc(190 + var(--i)*11) 95% 74%);-webkit-text-stroke:0;
+ animation:amIn .8s cubic-bezier(.2,.8,.2,1) backwards,amWave 2.6s ease-in-out infinite;animation-delay:calc(var(--i)*.06s),calc(.9s + var(--i)*.11s);transition:transform .2s;transform:scale(calc(1 + var(--k,0)*.3))}
+.am-ttl .amt.ams{color:var(--ac)}
+@keyframes amIn{from{opacity:0;transform:translateY(46px) rotateX(-80deg);filter:blur(8px)}}
+@keyframes amWave{0%,100%{translate:0 0}50%{translate:0 -.11em}}
+.am-ttl::before,.am-ttl::after{content:attr(data-text);position:absolute;left:0;top:0;width:100%;pointer-events:none;mix-blend-mode:screen;opacity:0}
+.am-ttl::before{color:#38bdf8;animation:amGl1 5s steps(1) infinite}
+.am-ttl::after{color:#fb7185;animation:amGl2 5s steps(1) infinite}
+@keyframes amGl1{0%,91%,100%{opacity:0}92%{opacity:.9;clip-path:inset(10% 0 62% 0);transform:translateX(-6px)}95%{opacity:.9;clip-path:inset(58% 0 18% 0);transform:translateX(5px)}97%{opacity:0}}
+@keyframes amGl2{0%,92%,100%{opacity:0}93%{opacity:.9;clip-path:inset(40% 0 35% 0);transform:translateX(6px)}96%{opacity:.9;clip-path:inset(72% 0 6% 0);transform:translateX(-5px)}98%{opacity:0}}
+.am-id{margin-top:.2rem;font:700 .95rem 'JetBrains Mono',monospace;letter-spacing:.22em;color:var(--mu)}
+.am-id b{color:#7dd3fc}.am-id b:last-child{color:var(--ac)}
+@media(prefers-reduced-motion:reduce){.am-ttl .amt{animation:none}.am-ttl::before,.am-ttl::after{display:none}}
+/* ===== NHÃN PREMIER: viền cầu vồng xoay + chữ lá kim chạy sáng + kim cương nhấp nhô ===== */
+.am-tool .am-tbd{position:relative;display:inline-flex;align-items:center;gap:12px;margin-bottom:1.1rem;padding:11px 24px 11px 16px;border:0;border-radius:999px;background:none;isolation:isolate;overflow:hidden;color:#fff}
+.am-tbd::before{content:"";position:absolute;left:50%;top:50%;width:260%;aspect-ratio:1;z-index:-2;margin:-130% 0 0 -130%;background:conic-gradient(#38bdf8,#a855f7,#fb7185,#fde68a,#38bdf8);animation:amSpin 3.4s linear infinite}
+.am-tbd::after{content:"";position:absolute;inset:2px;z-index:-1;border-radius:inherit;background:linear-gradient(135deg,#101936,#1b1446)}
+@keyframes amSpin{to{transform:rotate(360deg)}}
+.am-tbd i{font-style:normal;font-size:1rem;color:#fde68a;text-shadow:0 0 12px #fde68a;animation:amDia 1.8s ease-in-out infinite}
+@keyframes amDia{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.35) rotate(180deg)}}
+.am-tbd small{font:500 .7rem 'JetBrains Mono',monospace;letter-spacing:.18em;color:#b9c3da}
+.am-tbd b{font:800 1.25rem 'Unbounded','Syne',sans-serif;letter-spacing:.16em;background:linear-gradient(100deg,#7dd3fc,#fff 25%,#c084fc 50%,#fda4af 75%,#fde68a);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:amFoil 3s linear infinite}
+@keyframes amFoil{to{background-position:-300% 0}}
+@media(prefers-reduced-motion:reduce){.am-tbd::before,.am-tbd i,.am-tbd b{animation:none}}

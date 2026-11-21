@@ -52,6 +52,14 @@ function core(){
  if(!still)requestAnimationFrame(core)}
 core();
 
+/* ===== Tiêu đề: tách từng chữ, nhấp nhô lần lượt và phình lên khi chuột lại gần ===== */
+var tt=$('amTtl');
+if(tt){var TX='TARI LE // WSB',ix=0;
+ tt.innerHTML=TX.split(' ').map(function(w){var s='<span class="amw" aria-hidden="true">'+w.split('').map(function(ch){return '<span class="amt'+(ch==='/'?' ams':'')+'" style="--i:'+(ix++)+'">'+ch+'</span>'}).join('')+'</span>';ix++;return s}).join(' ');
+ var tls=[].slice.call(tt.querySelectorAll('.amt'));
+ tt.addEventListener('mousemove',function(e){tls.forEach(function(s){var r=s.getBoundingClientRect(),d=Math.abs(e.clientX-(r.left+r.width/2))+Math.abs(e.clientY-(r.top+r.height/2))*.6;s.style.setProperty('--k',Math.max(0,1-d/130).toFixed(2))})});
+ tt.addEventListener('mouseleave',function(){tls.forEach(function(s){s.style.setProperty('--k',0)})})}
+
 /* ===== Giải mã ký tự ===== */
 var CH='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/#*';
 [].forEach.call(document.querySelectorAll('.sc'),function(el){var o=el.getAttribute('data-value'),busy=false;
