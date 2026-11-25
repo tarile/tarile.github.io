@@ -146,3 +146,40 @@ if(phil){
     io.observe(wrap);
   }
 })();
+
+/* ===== HERO: quả cầu lưới 3D (Fibonacci) + quỹ đạo vệ tinh + đếm ngược Album TRL ===== */
+(function(){
+var cv=document.getElementById('hvCv'),st=document.getElementById('heroStage');if(!cv||!st)return;
+var cx=cv.getContext('2d'),still=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches,S=400,R=132,N=96,P=[],E=[],i,j,
+ gr=(1+Math.sqrt(5))/2,ax=.35,ay=0,vx=.0,vy=.5,tx=0,ty=.5,t=0,last=0,vis=true,dpr=1;
+for(i=0;i<N;i++){var th=2*Math.PI*i/gr,ph=Math.acos(1-2*(i+.5)/N);P.push([R*Math.cos(th)*Math.sin(ph),R*Math.sin(th)*Math.sin(ph),R*Math.cos(ph)])}
+for(i=0;i<N;i++)for(j=i+1;j<N;j++){var dx=P[i][0]-P[j][0],dy=P[i][1]-P[j][1],dz=P[i][2]-P[j][2],d=Math.sqrt(dx*dx+dy*dy+dz*dz);if(d<62)E.push([i,j,d])}
+function size(){dpr=Math.min(devicePixelRatio||1,2);var w=cv.clientWidth||S;cv.width=w*dpr;cv.height=w*dpr;cx.setTransform(dpr*w/S,0,0,dpr*w/S,0,0)}
+function rot(p){var c=Math.cos(ay),s=Math.sin(ay),x=p[0]*c-p[2]*s,z=p[2]*c+p[0]*s,c2=Math.cos(ax),s2=Math.sin(ax),y=p[1]*c2-z*s2;return[x,y,z*c2+p[1]*s2]}
+function proj(q){var k=330/(330+q[2]);return[S/2+q[0]*k,S/2+q[1]*k,k]}
+/* quỹ đạo nghiêng: 2 elip, mỗi elip một vệ tinh bay quanh */
+function orbit(rx,ry,tilt,col,spd,ph){cx.save();cx.translate(S/2,S/2);cx.rotate(tilt);cx.strokeStyle=col;cx.lineWidth=1;cx.setLineDash([3,6]);cx.beginPath();cx.ellipse(0,0,rx,ry,0,0,6.283);cx.stroke();cx.setLineDash([]);
+ var a=t*spd+ph,x=Math.cos(a)*rx,y=Math.sin(a)*ry;cx.fillStyle='#fff';cx.shadowColor=col;cx.shadowBlur=12;cx.beginPath();cx.arc(x,y,3.2,0,6.283);cx.fill();cx.shadowBlur=0;cx.restore()}
+function draw(dt){t+=dt;vx+=(tx-vx)*Math.min(1,dt*4);vy+=(ty-vy)*Math.min(1,dt*4);ay+=vy*dt;ax+=vx*dt*.4;
+ cx.clearRect(0,0,S,S);var Q=P.map(rot),Pr=Q.map(proj),k,e,a,b,al;
+ orbit(178,62,-.5,'rgba(0,240,255,.45)',.9,0);orbit(170,52,.62,'rgba(236,72,153,.5)',-.7,2);
+ cx.lineWidth=.8;
+ for(k=0;k<E.length;k++){e=E[k];a=Q[e[0]];b=Q[e[1]];al=(1-e[2]/62)*((a[2]+b[2])<0?.6:.16);cx.strokeStyle='rgba(255,255,255,'+al.toFixed(3)+')';cx.beginPath();cx.moveTo(Pr[e[0]][0],Pr[e[0]][1]);cx.lineTo(Pr[e[1]][0],Pr[e[1]][1]);cx.stroke()}
+ for(k=0;k<N;k++){var f=Q[k][2]<0;cx.beginPath();cx.arc(Pr[k][0],Pr[k][1],f?2.3:1.2,0,6.283);cx.fillStyle=(k%3?'rgba(0,240,255,':'rgba(236,72,153,')+(f?.95:.25)+')';cx.fill()}}
+function loop(n){requestAnimationFrame(loop);var dt=Math.min((n-last)/1000,.05);last=n;if(vis&&!document.hidden)draw(dt)}
+size();addEventListener('resize',size);
+if(still){ty=0;draw(.5)}else{requestAnimationFrame(function(n){last=n;loop(n)})}
+if('IntersectionObserver' in window)new IntersectionObserver(function(es){vis=es[0].isIntersecting}).observe(st);
+/* chuột: nghiêng + đổi tốc độ xoay theo hướng chuột (lắng nghe trên toàn hero vì khối trang trí không nhận chuột) */
+var hero=st.parentNode;
+hero.addEventListener('mousemove',function(e){var r=hero.getBoundingClientRect(),mx=(e.clientX-r.left)/r.width-.5,my=(e.clientY-r.top)/r.height-.5;ty=.5+mx*3.2;tx=-my*1.4});
+hero.addEventListener('mouseleave',function(){tx=0;ty=.5});
+})();
+/* Đếm ngược tới Album TRL 01.2027 + thanh tiến độ cả năm 2026 */
+(function(){
+var el=document.getElementById('hvCd'),bar=document.getElementById('hvBar');if(!el)return;
+var T0=new Date(2026,0,1).getTime(),T1=new Date(2027,0,1).getTime();
+function upd(){var n=Date.now(),d=T1-n;if(d<=0){el.textContent='RELEASED';bar.style.width='100%';return}
+ var D=Math.floor(d/864e5),H=Math.floor(d%864e5/36e5),M=Math.floor(d%36e5/6e4);el.textContent=D+'D '+('0'+H).slice(-2)+'H '+('0'+M).slice(-2)+'M';bar.style.width=Math.max(0,Math.min(100,(n-T0)/(T1-T0)*100)).toFixed(1)+'%'}
+upd();setInterval(upd,30000);
+})();
