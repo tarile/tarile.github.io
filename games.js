@@ -1,4 +1,4 @@
-/* TRANG GAMES: Deep Ocean — giải mã ký tự, sóng đại dương tự chạy, vòng xoay 3D, băng điều khiển, trồi lên mờ dần (vanilla JS) */
+/* TRANG GAMES: Obsidian Neon + 4D — giải mã ký tự, sóng đại dương tự chạy, vòng xoay 3D, băng điều khiển, trồi lên mờ dần (vanilla JS) */
 (function(){
 var still=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches,fine=window.matchMedia&&matchMedia('(hover:hover)').matches,CH='#X9@%&*ABCDEF0123456789/';
 function $(i){return document.getElementById(i)}
@@ -9,7 +9,7 @@ var els=[].slice.call(document.querySelectorAll('[data-sc]'));
 if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){sc(x.target);io.unobserve(x.target)}})},{threshold:.4});els.forEach(function(e){io.observe(e)})}
 
 /* Equalizer phát sóng: thanh đối xứng + đường sóng; tần số đổi và phát sáng vàng khi rê chuột */
-var C={co:[37,99,235],sk:[14,165,233],gd:[125,211,252],gy:[224,242,254]};
+var C={co:[112,0,255],sk:[0,240,255],gd:[255,46,136],gy:[230,254,255]};
 function mix(a,b,k){return[a[0]+(b[0]-a[0])*k,a[1]+(b[1]-a[1])*k,a[2]+(b[2]-a[2])*k]}
 function rgb(c,a){return'rgba('+(c[0]|0)+','+(c[1]|0)+','+(c[2]|0)+','+a+')'}
 function Eq(cv,f0){var cx=cv.getContext('2d'),W=0,H=0,dpr=1,t=0,last=0,vis=false,raf=0,s={f:f0,tf:f0,h:0,th:0};
@@ -75,4 +75,35 @@ if('IntersectionObserver' in window&&!still){
  var rio=new IntersectionObserver(function(es){var n=0;es.forEach(function(x){if(!x.isIntersecting)return;var el=x.target,d=Math.min(n++,7)*90;rio.unobserve(el);
   el.style.transitionDelay=d+'ms';el.classList.add('in');setTimeout(function(){el.classList.remove('rv','in');el.style.transitionDelay=''},d+1100)})},{threshold:.12,rootMargin:'0px 0px -6% 0px'});
  RV.forEach(function(el){el.classList.add('rv');rio.observe(el)})}
+
+/* ===== 4D: thẻ số liệu nghiêng theo chuột + đèn pha theo con trỏ + số đếm nhảy (glitch) + hạt năng lượng ===== */
+var sts=[].slice.call(document.querySelectorAll('.gm-st'));
+sts.forEach(function(st){var inn=st.querySelector('.st-in');if(!inn)return;
+ st.addEventListener('pointermove',function(e){if(e.pointerType==='touch')return;
+  var r=st.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
+  st.classList.add('live');
+  st.style.setProperty('--mx',((x-.5)*2).toFixed(3));st.style.setProperty('--my',((y-.5)*2).toFixed(3));
+  st.style.setProperty('--sx',(x*100).toFixed(1)+'%');st.style.setProperty('--sy',(y*100).toFixed(1)+'%');
+  inn.style.setProperty('--ry',((x-.5)*24).toFixed(2)+'deg');inn.style.setProperty('--rx',((.5-y)*20).toFixed(2)+'deg')});
+ st.addEventListener('pointerleave',function(){st.classList.remove('live');
+  ['--mx','--my','--sx','--sy'].forEach(function(p){st.style.removeProperty(p)});
+  inn.style.removeProperty('--rx');inn.style.removeProperty('--ry')})});
+function pad(v,L){v=String(v);while(v.length<L)v='0'+v;return v}
+function cu(st){var n=st.querySelector('.st-n'),bg=st.querySelector('.st-bg');if(!n)return;
+ var o=n.textContent.trim(),T,L,t0=null,D;if(!/^\d+$/.test(o))return;T=+o;L=o.length;D=1200+Math.min(T,200)*4;
+ function set(s){n.textContent=s;if(bg)bg.textContent=s}
+ set(pad(0,L));
+ function run(){n.classList.add('gl');
+  function f(t){if(t0===null)t0=t;var p=Math.min((t-t0)/D,1),s=pad(Math.round(T*(1-Math.pow(1-p,3))),L);
+   if(p<1&&Math.random()<.2)s=s.replace(/\d/g,function(d){return Math.random()<.4?String(Math.random()*10|0):d});
+   set(s);if(p<1)requestAnimationFrame(f);else{set(o);n.classList.remove('gl')}}
+  requestAnimationFrame(f)}
+ if('IntersectionObserver' in window){var io2=new IntersectionObserver(function(es){if(es[0].isIntersecting){io2.disconnect();run()}},{threshold:.35});io2.observe(st)}else set(o)}
+if(!still)sts.forEach(cu);
+var hero=document.querySelector('.gm-hero');
+if(hero&&!still){var pw=document.createElement('div'),cl=['#00F0FF','#7000FF','#FF2E88','#E6FEFF'],k,p;pw.className='gm-pts';pw.setAttribute('aria-hidden','true');
+ for(k=0;k<34;k++){p=document.createElement('i');
+  p.style.cssText='--l:'+(Math.random()*100).toFixed(1)+'%;--s:'+(2+Math.random()*3.5).toFixed(1)+'px;--d:'+(9+Math.random()*10).toFixed(1)+'s;--dl:-'+(Math.random()*18).toFixed(1)+'s;--dx:'+((Math.random()-.5)*160|0)+'px;--pc:'+cl[k%4];
+  pw.appendChild(p)}
+ hero.insertBefore(pw,hero.firstChild)}
 })();
