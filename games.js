@@ -69,7 +69,7 @@ if(hub&&wires&&core&&sats.length){
   });
  }
  var odisp=$('opsDisplay');
- function setOps(i,inter){
+ function setOps(i){
   ocur=i;
   sats.forEach(function(b,k){b.classList.toggle('on',k===i);b.setAttribute('aria-selected',k===i)});
   opns.forEach(function(p,k){p.classList.toggle('on',k===i)});
@@ -79,24 +79,15 @@ if(hub&&wires&&core&&sats.length){
    if(pt)pt.setAttribute('r',on?'4':'2.6');
    if(am)am.setAttribute('dur',on?'1.15s':(2.4+k*.25)+'s');
   });
-  if(odisp&&inter&&!still){
-   odisp.classList.add('active');
-   odisp.classList.remove('scan');void odisp.offsetWidth;odisp.classList.add('scan');
-   if(obar){obar.classList.remove('run');void obar.offsetWidth;obar.classList.add('run')}
-  }
  }
  sats.forEach(function(b,k){
-  b.addEventListener('click',function(){setOps(k,true)});
-  b.addEventListener('mouseenter',function(){if(fine)setOps(k,true)});
-  b.addEventListener('focus',function(){setOps(k,true)});
- });
- hub.addEventListener('mouseleave',function(){
-  if(odisp)odisp.classList.remove('active','scan');
-  if(obar)obar.classList.remove('run');
+  b.addEventListener('click',function(){setOps(k)});
+  b.addEventListener('mouseenter',function(){if(fine)setOps(k)});
+  b.addEventListener('focus',function(){setOps(k)});
  });
  addEventListener('resize',drawWires);
  if(window.ResizeObserver)new ResizeObserver(drawWires).observe(hub);
- drawWires();setOps(0,false);
+ drawWires();setOps(0);
 }
 /* Vòng xoay sân đấu 3D: bấm nút, phím mũi tên hoặc kéo chuột để xoay */
 var st=$('carStage'),ring=$('carRing');
