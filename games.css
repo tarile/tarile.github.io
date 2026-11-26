@@ -126,14 +126,16 @@ html{background:#05070A;scroll-behavior:smooth}.gm .stars{display:none}
 .sat-btn.on b,.sat-btn:hover b{color:#FFFFFF}
 .sat-btn.on .sat-dot,.sat-btn:hover .sat-dot{background:#FF2E88;box-shadow:0 0 12px #FF2E88}
 .ops-display{position:relative;z-index:2;min-height:214px;padding:24px 24px 22px;background:linear-gradient(160deg,rgba(16,10,40,.88),rgba(5,7,10,.92));border:1px solid rgba(255,46,136,.35);border-left:3px solid #FF2E88;overflow:hidden;box-shadow:inset 0 0 30px rgba(112,0,255,.18)}
-.ops-pg{position:absolute;top:0;left:0;right:0;height:2px;background:rgba(255,255,255,.08)}
+.ops-display::after{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,transparent,#00F0FF 35%,#FF2E88 65%,transparent);box-shadow:0 0 12px rgba(0,240,255,.7);opacity:0;pointer-events:none}
+.ops-display.scan::after{animation:opsLaser .65s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes opsLaser{0%{top:0;opacity:1}100%{top:100%;opacity:0}}
+.ops-pg{position:absolute;top:0;left:0;right:0;height:2px;background:rgba(255,255,255,.06);opacity:0;transition:opacity .25s ease;pointer-events:none}
+.ops-display.active .ops-pg{opacity:1}
 .ops-pg i{display:block;height:100%;width:0;background:linear-gradient(90deg,#00F0FF,#FF2E88);box-shadow:0 0 10px #FF2E88}
-.ops-pg i.run{animation:gmPg 4.5s linear forwards}
-.ops-hub:hover .ops-pg i{animation-play-state:paused}
+.ops-pg i.run{animation:gmPg .6s cubic-bezier(.2,.8,.2,1) forwards}
 @keyframes gmPg{to{width:100%}}
 .ops-pane{display:none}
-.ops-pane.on{display:block;animation:opsSlide .38s cubic-bezier(.2,.85,.25,1) both}
-.ops-pane.on::after{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,transparent,#FF2E88,#00F0FF,transparent);pointer-events:none;animation:tlScan .75s ease-out 1}
+.ops-pane.on{display:block;animation:opsSlide .35s cubic-bezier(.2,.85,.25,1) both}
 @keyframes opsSlide{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
 .ops-meta{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:10px;font:700 .66rem var(--fm);letter-spacing:.15em;color:#00F0FF}
 .ops-meta span:last-child{color:#FF2E88}
@@ -160,7 +162,7 @@ html{background:#05070A;scroll-behavior:smooth}.gm .stars{display:none}
 }
 @media(max-width:820px){.gm-mh{display:none}.gm-r{grid-template-columns:1fr 1fr}.gm-r span::before{content:attr(data-l);display:block;font:600 .6rem var(--fm);letter-spacing:.1em;color:var(--st)}.gm-ar{grid-template-columns:1fr 1fr;gap:44px 20px}.gm-ar a{padding:16px}}
 @media(hover:none){.gm-x{grid-template-rows:1fr}}
-@media(prefers-reduced-motion:reduce){.gm-hero::before,.gm-floor,.gm-h1 em,.gm-k i,.eq-live i,.core-ring,.core-glow,.ops-pane.on,.ops-pane.on::after{animation:none!important}.car-it.on:hover::before{animation:none}.gm-mx li,.gm-cd,.gm-ar a,.sat-btn{transition:none}}
+@media(prefers-reduced-motion:reduce){.gm-hero::before,.gm-floor,.gm-h1 em,.gm-k i,.eq-live i,.core-ring,.core-glow,.ops-pane.on,.car-it.on:hover::before{animation:none}.gm-mx li,.gm-cd,.gm-ar a,.sat-btn{transition:none}}
 
 /* ===== v3: Deep Ocean & Sapphire Glass — hoàn toàn tự chạy, không phụ thuộc chuột ===== */
 @property --a{syntax:'<angle>';inherits:false;initial-value:0deg}
