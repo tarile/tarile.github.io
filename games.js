@@ -16,7 +16,7 @@ if(fine&&!still)[].slice.call(document.querySelectorAll('.gm-st')).forEach(funct
  c.addEventListener('pointerleave',function(){c.style.setProperty('--mx',0);c.style.setProperty('--my',0);c.style.setProperty('--rx','0deg');c.style.setProperty('--ry','0deg')})});
 
 /* Equalizer phát sóng: thanh đối xứng + đường sóng; tần số đổi và phát sáng vàng khi rê chuột */
-var C={co:[150,190,0],sk:[204,255,0],gd:[255,59,0],gy:[255,110,40]};
+var C={co:[37,99,235],sk:[56,189,248],gd:[245,158,11],gy:[253,224,71]};
 function mix(a,b,k){return[a[0]+(b[0]-a[0])*k,a[1]+(b[1]-a[1])*k,a[2]+(b[2]-a[2])*k]}
 function rgb(c,a){return'rgba('+(c[0]|0)+','+(c[1]|0)+','+(c[2]|0)+','+a+')'}
 function Eq(cv,f0){var cx=cv.getContext('2d'),W=0,H=0,dpr=1,t=0,last=0,vis=false,raf=0,s={f:f0,tf:f0,h:0,th:0};
@@ -73,52 +73,4 @@ if(st&&ring){
  st.addEventListener('pointerup',up);st.addEventListener('pointercancel',up);
  addEventListener('resize',size);size();setTimeout(size,600);if(window.ResizeObserver)new ResizeObserver(size).observe(its[0]);
 }
-})();
-
-/* GAMES v2: lăng kính nhiệt theo con trỏ · bảng lật chữ · accordion màn chập · nút trọng lực (vanilla JS) */
-(function(){
-var still=matchMedia('(prefers-reduced-motion: reduce)').matches,fine=matchMedia('(hover:hover)').matches;
-function $(i){return document.getElementById(i)}
-/* 1. Thermal Spotlight dot-matrix */
-var cv=$('thm');
-if(cv){var c=cv.getContext('2d'),W=0,H=0,px=-1e4,py=0,tx=0,ty=0,act=-1e5,SP=24,R=190;
- function size(){var d=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.width=W*d;cv.height=H*d;c.setTransform(d,0,0,d,0,0)}
- addEventListener('resize',size);size();
- addEventListener('pointermove',function(e){tx=e.clientX;ty=e.clientY;act=performance.now()},{passive:true});
- function draw(n){var t=n/1000;if(n-act>2500){tx=W*(.5+.36*Math.sin(t*.33));ty=H*(.45+.3*Math.sin(t*.5+1))}
-  if(px<-9e3){px=tx;py=ty}px+=(tx-px)*.12;py+=(ty-py)*.12;
-  c.clearRect(0,0,W,H);var g=c.createRadialGradient(px,py,0,px,py,R*1.6);g.addColorStop(0,'rgba(204,255,0,.13)');g.addColorStop(1,'rgba(204,255,0,0)');c.fillStyle=g;c.fillRect(0,0,W,H);
-  c.fillStyle='#2E2E36';var pend=[],x,y,dx,dy,d,k;
-  for(y=SP/2;y<H;y+=SP)for(x=SP/2;x<W;x+=SP){dx=x-px;dy=y-py;d=dx*dx+dy*dy;
-   if(d<R*R){k=1-Math.sqrt(d)/R;pend.push(x,y,k*k)}else c.fillRect(x-.75,y-.75,1.5,1.5)}
-  for(var i=0;i<pend.length;i+=3){k=pend[i+2];var r=1.5+k*5;c.fillStyle='rgb('+(46+158*k|0)+','+(46+209*k|0)+','+(54-54*k|0)+')';c.fillRect(pend[i]-r/2,pend[i+1]-r/2,r,r)}}
- if(still)draw(0);else(function f(n){requestAnimationFrame(f);if(!document.hidden)draw(n)})(0)}
-/* 2. Split-flap */
-var DG='0123456789',LT='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-function mk(ch){var e=document.createElement('span');e.setAttribute('aria-hidden','true');
- if(ch===' '){e.className='fl sp';return{e:e,ch:ch}}
- e.className='fl';e.innerHTML='<span class="u"><b></b></span><span class="d"><b></b></span><span class="f"><span class="ff"><b></b></span><span class="fb"><b></b></span></span>';return{e:e,ch:ch,cur:' '}}
-function setc(t,q,v){var l=t.e.querySelectorAll(q);for(var i=0;i<l.length;i++)l[i].textContent=v}
-function flip(t,nx,done){var f=t.e.querySelector('.f');setc(t,'.u b',nx);setc(t,'.ff b',t.cur);setc(t,'.fb b',nx);
- f.classList.remove('go');void f.offsetWidth;f.classList.add('go');
- setTimeout(function(){setc(t,'.d b',nx);setc(t,'.ff b',nx);f.classList.remove('go');t.cur=nx;done&&done()},175)}
-[].slice.call(document.querySelectorAll('.st-n')).forEach(function(n,idx){
- var full=n.textContent.trim(),ts=[];n.setAttribute('aria-label',full);n.textContent='';
- full.split('').forEach(function(ch){var t=mk(ch);ts.push(t);n.appendChild(t.e);if(ch!==' '){setc(t,'b',ch);t.cur=ch}});
- if(still)return;
- ts.forEach(function(t){if(t.ch!==' '){setc(t,'b','0');t.cur='0'}});
- function run(){ts.forEach(function(t,i){if(t.ch===' ')return;var pool=DG.indexOf(t.ch)>=0?DG:LT+DG,steps=3+(i%2)+idx%2,s=0;
-  (function nxt(){var v=s<steps?pool.charAt(Math.random()*pool.length|0):t.ch;
-   setTimeout(function(){flip(t,v,function(){if(s++<steps)nxt()})},s?60:i*110+idx*60)})()})}
- if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){if(es[0].isIntersecting){io.disconnect();run()}},{threshold:.5});io.observe(n)}else run()});
-/* 4. Accordion màn chập */
-var ac=$('ac');
-if(ac){var its=[].slice.call(ac.children);
- function open(i){its.forEach(function(it,k){it.classList.toggle('on',k===i);it.setAttribute('aria-expanded',k===i)})}
- its.forEach(function(it,k){if(fine)it.addEventListener('mouseenter',function(){open(k)});it.addEventListener('click',function(){open(k)});it.addEventListener('focus',function(){open(k)})});
- open(0)}
-/* 5. Nút trọng lực */
-var bt=document.querySelector('.gm-btn');
-if(bt&&fine&&!still){addEventListener('pointermove',function(e){var r=bt.getBoundingClientRect(),dx=e.clientX-(r.left+r.width/2),dy=e.clientY-(r.top+r.height/2),d=Math.sqrt(dx*dx+dy*dy);
- bt.style.transform=d<150?'translate('+(dx*.32).toFixed(1)+'px,'+(dy*.45).toFixed(1)+'px)':''},{passive:true})}
 })();
