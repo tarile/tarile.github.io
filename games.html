@@ -77,14 +77,72 @@
 <section class="gm-sec" id="van-hanh">
   <div class="gm-hd"><b>05 //</b><h2>CÁCH VẬN HÀNH GIẢI ĐẤU</h2></div>
   <p>Cách thức vận hành 1 giải đấu 48 đội chỉ với duy nhất 1 nhân sự thông qua việc kết hợp tư duy quản trị và công nghệ hiện đại</p>
-  <div class="gm-tk">
-    <div class="gm-tabs" role="tablist"><button type="button" role="tab">VẬN HÀNH</button><button type="button" role="tab">KỸ THUẬT</button><button type="button" role="tab">THIẾT KẾ</button><button type="button" role="tab">TRUYỀN THÔNG</button></div>
-    <div class="gm-pg"><i id="gmBar"></i></div>
-    <div class="gm-eq mini" id="eqBw"><canvas id="eqBc" aria-hidden="true"></canvas></div>
-    <div class="gm-pn" role="tabpanel"><h3>Vận Hành &amp; Điều Phối Giải Đấu</h3><p>Tự xây dựng luật, tự chiêu mộ 48 đội/mùa, điều phối phòng thi đấu, giám sát chặt chẽ vận động viên tham gia và trao giải thưởng</p></div>
-    <div class="gm-pn" role="tabpanel"><h3>KỸ THUẬT &amp; PHÁT TRIỂN WEB</h3><p>Tự suy nghĩ ý tưởng, thiết kế kiến trúc và ứng dụng phương pháp Vibe Coding (Claude, Gemini) để phát triển nền tảng web riêng cho giải đấu SLC bằng ngôn ngữ HTML, CSS, JavaScript</p></div>
-    <div class="gm-pn" role="tabpanel"><h3>THIẾT KẾ // HÌNH ẢNH AI &amp; NHẬN DIỆN THƯƠNG HIỆU</h3><p>Lên ý tưởng và ứng dụng AI để sản xuất đồng bộ hệ thống nhận diện thị giác như: Logo giải, Poster công bố, Banner truyền thông, khung Bảng xếp hạng</p></div>
-    <div class="gm-pn" role="tabpanel"><h3>TRUYỀN THÔNG PHÁT SÓNG &amp; SẢN XUẤT NỘI DUNG</h3><p>Đảm nhiệm trọn gói luôn vai trò Bình Luận Viên trực tiếp, điều khiển góc máy Livestream và hậu kỳ Video Highlight sau trận đấu</p></div>
+
+  <div class="ops-hub" id="opsHub">
+    <svg class="ops-wires" id="opsWires" aria-hidden="true"></svg>
+
+    <!-- Lõi điều phối trung tâm -->
+    <div class="ops-core-wrap">
+      <div class="core-node" id="opsCore">
+        <div class="core-ring r1" aria-hidden="true"></div>
+        <div class="core-ring r2" aria-hidden="true"></div>
+        <div class="core-glow" aria-hidden="true"></div>
+        <div class="core-txt">
+          <small>CORE // SYS</small>
+          <strong>01 NHÂN SỰ</strong>
+          <span>AI &amp; QUẢN TRỊ</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4 Nút vệ tinh -->
+    <div class="satellites" role="tablist" aria-label="4 mảng vận hành giải đấu">
+      <button class="sat-btn on" type="button" role="tab" aria-selected="true" data-idx="0">
+        <span class="sat-code">01 // OPS</span>
+        <b>VẬN HÀNH</b>
+        <i class="sat-dot" aria-hidden="true"></i>
+      </button>
+      <button class="sat-btn" type="button" role="tab" aria-selected="false" data-idx="1">
+        <span class="sat-code">02 // DEV</span>
+        <b>KỸ THUẬT</b>
+        <i class="sat-dot" aria-hidden="true"></i>
+      </button>
+      <button class="sat-btn" type="button" role="tab" aria-selected="false" data-idx="2">
+        <span class="sat-code">03 // ART</span>
+        <b>THIẾT KẾ</b>
+        <i class="sat-dot" aria-hidden="true"></i>
+      </button>
+      <button class="sat-btn" type="button" role="tab" aria-selected="false" data-idx="3">
+        <span class="sat-code">04 // MEDIA</span>
+        <b>TRUYỀN THÔNG</b>
+        <i class="sat-dot" aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <!-- Khung hiển thị nội dung chi tiết -->
+    <div class="ops-display" id="opsDisplay">
+      <div class="ops-pg"><i id="opsBar"></i></div>
+      <div class="ops-pane on" role="tabpanel">
+        <div class="ops-meta"><span>NODE-01 // VẬN HÀNH</span><span>STATUS: ACTIVE</span></div>
+        <h3>Vận Hành &amp; Điều Phối Giải Đấu</h3>
+        <p>Tự xây dựng luật, tự chiêu mộ 48 đội/mùa, điều phối phòng thi đấu, giám sát chặt chẽ vận động viên tham gia và trao giải thưởng</p>
+      </div>
+      <div class="ops-pane" role="tabpanel">
+        <div class="ops-meta"><span>NODE-02 // KỸ THUẬT</span><span>STATUS: ACTIVE</span></div>
+        <h3>KỸ THUẬT &amp; PHÁT TRIỂN WEB</h3>
+        <p>Tự suy nghĩ ý tưởng, thiết kế kiến trúc và ứng dụng phương pháp Vibe Coding (Claude, Gemini) để phát triển nền tảng web riêng cho giải đấu SLC bằng ngôn ngữ HTML, CSS, JavaScript</p>
+      </div>
+      <div class="ops-pane" role="tabpanel">
+        <div class="ops-meta"><span>NODE-03 // THIẾT KẾ</span><span>STATUS: ACTIVE</span></div>
+        <h3>THIẾT KẾ // HÌNH ẢNH AI &amp; NHẬN DIỆN THƯƠNG HIỆU</h3>
+        <p>Lên ý tưởng và ứng dụng AI để sản xuất đồng bộ hệ thống nhận diện thị giác như: Logo giải, Poster công bố, Banner truyền thông, khung Bảng xếp hạng</p>
+      </div>
+      <div class="ops-pane" role="tabpanel">
+        <div class="ops-meta"><span>NODE-04 // TRUYỀN THÔNG</span><span>STATUS: ACTIVE</span></div>
+        <h3>TRUYỀN THÔNG PHÁT SÓNG &amp; SẢN XUẤT NỘI DUNG</h3>
+        <p>Đảm nhiệm trọn gói luôn vai trò Bình Luận Viên trực tiếp, điều khiển góc máy Livestream và hậu kỳ Video Highlight sau trận đấu</p>
+      </div>
+    </div>
   </div>
 </section>
 
