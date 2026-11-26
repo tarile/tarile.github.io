@@ -106,4 +106,18 @@ if(hero&&!still){var pw=document.createElement('div'),cl=['#00F0FF','#7000FF','#
   p.style.cssText='--l:'+(Math.random()*100).toFixed(1)+'%;--s:'+(2+Math.random()*3.5).toFixed(1)+'px;--d:'+(9+Math.random()*10).toFixed(1)+'s;--dl:-'+(Math.random()*18).toFixed(1)+'s;--dx:'+((Math.random()-.5)*160|0)+'px;--pc:'+cl[k%4];
   pw.appendChild(p)}
  hero.insertBefore(pw,hero.firstChild)}
+
+/* Dòng thời gian năng lượng: tia laser chạy theo cuộn, đánh thức từng thẻ lịch sử theo thứ tự (vanilla JS, không thư viện) */
+var tl=$('gmTl');
+if(tl){
+ var cds=[].slice.call(tl.children),pipe=document.createElement('i'),fl=document.createElement('i'),tk=0;
+ pipe.className='tl-pipe';pipe.setAttribute('aria-hidden','true');fl.className='tl-fill';pipe.appendChild(fl);tl.insertBefore(pipe,tl.firstChild);
+ cds.forEach(function(c){var n=document.createElement('i');n.className='tl-node';n.setAttribute('aria-hidden','true');c.appendChild(n)});
+ function upd(){tk=0;var r=tl.getBoundingClientRect(),vh=innerHeight,vt=cds[cds.length-1].offsetTop>cds[0].offsetTop+8,
+  p=still?1:Math.min(1,Math.max(0,(vh*.88-r.top)/(vh*.46+(vt?r.height*.5:0))));
+  tl.classList.toggle('vt',vt);tl.style.setProperty('--p',p.toFixed(4));
+  var pos=p*(vt?r.height:r.width);
+  cds.forEach(function(c){c.classList.toggle('lit',pos>=(vt?c.offsetTop+27:c.offsetLeft+27))})}
+ function req(){if(!tk){tk=1;requestAnimationFrame(upd)}}
+ addEventListener('scroll',req,{passive:true});addEventListener('resize',req);upd();setTimeout(upd,600)}
 })();
